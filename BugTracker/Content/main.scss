@@ -1,11 +1,14 @@
 ﻿/*COLOR PALETTE: http://www.colourlovers.com/palette/359978/w_o_r_d_l_e_s_s_. */
-$primary-color: #1C140D;
+$primary-color: #e5e3e3;
 $secondary-color: #CBE86B;
 $third-color: #fff;
 
-$primary-color-hover: #1C140D;
+$primary-color-hover: #9C9E95; 
 $secondary-color-hover: #CBE86B;
-$third-color-hover: #fff;
+$third-color-hover: #CBE86B;
+
+$primary-color-border: #1F1B1B;
+$primary-color-border-hover: #515838;
 
 /* FONTS: http://www.mrmcguire.com/10-useful-google-font-combinations-for-your-next-site/ */
 $header-font:'Alegreya', serif;
@@ -18,35 +21,113 @@ $header-image: "Images/header-code.jpg";
 body {
     padding-top: $nav-height;
     box-sizing: border-box;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+}
+.navbar-static-top {
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+ }
+/* TOP NAVBAR */
+.navbar-default {
+    border: none;
 }
 
-/* TOP NAVBAR */
+.navbar-default .navbar-brand {
+    color: $third-color;
+}
+.navbar-default .navbar-brand:hover {
+    color: $third-color-hover;
+}
+
 nav {
     position: absolute;
     background: url($header-image);
+    background-color: #000;
     height: $nav-height;
     border: 0;
-    a, a.navbar-brand {
+    a.navbar-brand {
+        margin-top: 8px;
+    }
+    a, a.navbar-brand, a.navbar-brand:visited {
         color: $third-color;
         font-size: 2em;
         font-family: $header-font;
     }
+
+    a:hover, a.navbar-brand:hover {
+        color: $third-color-hover;
+    }
     .nav>li {
        display: inline-block;
+           a:hover {
+               background: none;
+           }
     }
 }
 
 /* SECONDARY NAVBAR */
 .subnav {
     background-color: $secondary-color;
+    height: 65px;
     h1 {
-        padding: 0;
+        display: block;
+        font-family: $subheader-font;
+        font-size: 1.9em;
+        padding: 15px 0 0 90px;
         margin: 0;
     }
-    ul {
-        text-align: right;
-        li {
-        display: inline-block;
+    .admin-btns {
+        margin-left: 85px;
+        button {
+            margin: 8px 5px;
+            padding: 8px 15px;
+            border: 2px solid $primary-color-border;
+            border-radius: 0;
+            background-color: $primary-color;
+            color: #000;
+            font-size: 1.1em;
+            letter-spacing: 1px;
+            a {
+                padding: 2px;
+            }
+        }
+        button:hover {
+            background-color: $primary-color-hover;
+            border: 2px solid $primary-color-border-hover;
+            color: #000;
         }
     }
+}
+
+/* TEXT */
+
+a, a.admin-btns {
+    font-family: $content-font;
+    font-size: inherit;
+}
+
+a:hover {
+
+}
+
+h2 {
+    font-family: $content-font;
+    font-size: 1.7em;
+}
+
+h3 {
+    font-family: $content-font;
+    font-size: 1.4em;
+}
+
+p {
+    font-family: $content-font;
+    font-size: 1.1em;
+}
+
+.content, .content-other {
+    margin-top: 20px;
 }

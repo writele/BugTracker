@@ -8,6 +8,6 @@
         public string Description { get; set; }
         public string MediaURL { get; set; }
 
-        public virtual Ticket Ticket { get; set; };
+        public virtual Ticket Ticket { get; set; }
     }
 }

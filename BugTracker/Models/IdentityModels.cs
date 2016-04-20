@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
+using BugTracker.Models;
 
 namespace BugTracker.Models
 {
@@ -39,5 +40,12 @@ namespace BugTracker.Models
         {
             return new ApplicationDbContext();
         }
+
+        public DbSet<Project> Projects { get; set; }
+        public DbSet<Ticket> Tickets { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Attachment> Attachments { get; set; }
+        public DbSet<History> History { get; set; }
     }
+    
 }
