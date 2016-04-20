@@ -1,23 +1,134 @@
-/* line 9, main.scss */
+/*COLOR PALETTE: http://www.colourlovers.com/palette/359978/w_o_r_d_l_e_s_s_. */
+/* FONTS: http://www.mrmcguire.com/10-useful-google-font-combinations-for-your-next-site/ */
+/* line 21, main.scss */
 body {
   padding-top: 80px;
   box-sizing: border-box;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
 }
 
-/* line 14, main.scss */
+/* line 27, main.scss */
+.navbar-static-top {
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 0;
+}
+
+/* TOP NAVBAR */
+/* line 34, main.scss */
+.navbar-default {
+  border: none;
+}
+
+/* line 38, main.scss */
+.navbar-default .navbar-brand {
+  color: #fff;
+}
+
+/* line 41, main.scss */
+.navbar-default .navbar-brand:hover {
+  color: #CBE86B;
+}
+
+/* line 45, main.scss */
 nav {
+  position: absolute;
+  background: url("Images/header-code.jpg");
+  background-color: #000;
   height: 80px;
+  border: 0;
+}
+/* line 51, main.scss */
+nav a.navbar-brand {
+  margin-top: 8px;
+}
+/* line 54, main.scss */
+nav a, nav a.navbar-brand, nav a.navbar-brand:visited {
+  color: #fff;
+  font-size: 2em;
+  font-family: "Alegreya", serif;
+}
+/* line 60, main.scss */
+nav a:hover, nav a.navbar-brand:hover {
+  color: #CBE86B;
+}
+/* line 63, main.scss */
+nav .nav > li {
+  display: inline-block;
+}
+/* line 65, main.scss */
+nav .nav > li a:hover {
+  background: none;
 }
 
-/* line 18, main.scss */
+/* SECONDARY NAVBAR */
+/* line 72, main.scss */
 .subnav {
-  border: black solid 3px;
+  background-color: #CBE86B;
+  height: 65px;
 }
-/* line 20, main.scss */
-.subnav ul {
-  text-align: right;
+/* line 75, main.scss */
+.subnav h1 {
+  display: block;
+  font-family: "Roboto Condensed", sans-serif;
+  font-size: 1.9em;
+  padding: 15px 0 0 90px;
+  margin: 0;
 }
-/* line 22, main.scss */
-.subnav ul li {
-  display: inline-block;
+/* line 82, main.scss */
+.subnav .admin-btns {
+  margin-left: 85px;
+}
+/* line 84, main.scss */
+.subnav .admin-btns button {
+  margin: 8px 5px;
+  padding: 8px 15px;
+  border: 2px solid #1F1B1B;
+  border-radius: 0;
+  background-color: #e5e3e3;
+  color: #000;
+  font-size: 1.1em;
+  letter-spacing: 1px;
+}
+/* line 93, main.scss */
+.subnav .admin-btns button a {
+  padding: 2px;
+}
+/* line 97, main.scss */
+.subnav .admin-btns button:hover {
+  background-color: #9C9E95;
+  border: 2px solid #515838;
+  color: #000;
+}
+
+/* TEXT */
+/* line 107, main.scss */
+a, a.admin-btns {
+  font-family: "Roboto", sans-serif;
+  font-size: inherit;
+}
+
+/* line 116, main.scss */
+h2 {
+  font-family: "Roboto", sans-serif;
+  font-size: 1.7em;
+}
+
+/* line 121, main.scss */
+h3 {
+  font-family: "Roboto", sans-serif;
+  font-size: 1.4em;
+}
+
+/* line 126, main.scss */
+p {
+  font-family: "Roboto", sans-serif;
+  font-size: 1.1em;
+}
+
+/* line 131, main.scss */
+.content, .content-other {
+  margin-top: 20px;
 }
