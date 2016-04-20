@@ -15,6 +15,9 @@
     <link href="Content/bootstrap.min.css" rel="stylesheet">
     <link href="Content/main.css" rel="stylesheet">
 
+    <link href="http://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed|Alegreya:700" rel="stylesheet" type="text/css" />
+
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -27,7 +30,7 @@
 <body>
 
     <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -37,19 +40,16 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Start Bootstrap</a>
+                <a class="navbar-brand" href="#">Bug Tracker</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-right">
                     <li>
-                        <a href="#">About</a>
+                        <a href="#">Log Out</a>
                     </li>
                     <li>
-                        <a href="#">Services</a>
-                    </li>
-                    <li>
-                        <a href="#">Contact</a>
+                        <a href="#">Account</a>
                     </li>
                 </ul>
             </div>
@@ -59,22 +59,108 @@
     </nav>
 
     <!-- Page Content -->
-    <!--<div class="subnav container">
-
-        <div class="row">-->
             <div class="col-lg-12 subnav">
-                <h1>Title - Author</h1>
+                <h1>H1 Title - Author</h1>
                 <ul>
                     <li>Modify</li>
                     <li>Create</li>
                 </ul>
 
             </div>
-        <!--</div>-->
-        <!-- /.row -->
 
-    <!--</div>-->
-    <!-- /.container -->
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 content1">
+                <h2>H2 SubHeader</h2>
+                <h3>H3 SubSubHeader</h3>
+                <p>This is a paragraph of text that I will style with CSS. Woo hoo.</p>
+
+                <p><a href="#">This is a link!</a></p>
+                <ul>
+                    <li>This is a list!</li>
+                </ul>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Table Header</th>
+                            <th>Table Header</th>
+                            <th>Table Header</th>
+                            <th>Table Header</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Table content</td>
+                            <td>Table content</td>
+                            <td>Table content</td>
+                            <td>Table content</td>
+                        </tr>
+                        <tr>
+                            <td>Table content</td>
+                            <td>Table content</td>
+                            <td>Table content</td>
+                            <td>Table content</td>
+                        </tr>
+                        <tr>
+                            <td>Table content</td>
+                            <td>Table content</td>
+                            <td>Table content</td>
+                            <td>Table content</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-lg-6 content2">
+                <form id="myForm" action="#" method="post">
+
+                    <div>
+                        <label for="name">Text Input:</label>
+                        <input type="text" name="name" id="name" value="" tabindex="1">
+                    </div>
+
+                    <div>
+                        <h4>Radio Button Choice</h4>
+
+                        <label for="radio-choice-1">Choice 1</label>
+                        <input type="radio" name="radio-choice-1" id="radio-choice-1" tabindex="2" value="choice-1">
+
+                        <label for="radio-choice-2">Choice 2</label>
+                        <input type="radio" name="radio-choice-2" id="radio-choice-2" tabindex="3" value="choice-2">
+                    </div>
+
+                    <div>
+                        <label for="select-choice">Select Dropdown Choice:</label>
+                        <select name="select-choice" id="select-choice">
+                            <option value="Choice 1">Choice 1</option>
+                            <option value="Choice 2">Choice 2</option>
+                            <option value="Choice 3">Choice 3</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="textarea">Textarea:</label>
+                        <textarea cols="40" rows="8" name="textarea" id="textarea"></textarea>
+                    </div>
+
+                    <div>
+                        <label for="checkbox">Checkbox:</label>
+                        <input type="checkbox" name="checkbox">
+                    </div>
+
+                    <div>
+                        <input type="submit" value="Submit" class="btn btn-default">
+                    </div>
+
+                </form>
+
+                <button class="btn btn-default">Button</button>
+            </div>
+
+        </div>
+
+    </div>
+
     <!-- jQuery Version 1.11.1 -->
     <script src="scripts/jquery.js"></script>
 

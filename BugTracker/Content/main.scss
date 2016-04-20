@@ -1,22 +1,48 @@
-﻿$primary-color: #fff;
-$secondary-color: #000;
+﻿/*COLOR PALETTE: http://www.colourlovers.com/palette/359978/w_o_r_d_l_e_s_s_. */
+$primary-color: #1C140D;
+$secondary-color: #CBE86B;
+$third-color: #fff;
 
-$header-font: sans-serif;
-$content-font: serif;
+$primary-color-hover: #1C140D;
+$secondary-color-hover: #CBE86B;
+$third-color-hover: #fff;
+
+/* FONTS: http://www.mrmcguire.com/10-useful-google-font-combinations-for-your-next-site/ */
+$header-font:'Alegreya', serif;
+$subheader-font: 'Roboto Condensed', sans-serif;
+$content-font: 'Roboto', sans-serif;
 
 $nav-height: 80px;
+$header-image: "Images/header-code.jpg";
 
 body {
     padding-top: $nav-height;
     box-sizing: border-box;
 }
 
+/* TOP NAVBAR */
 nav {
+    position: absolute;
+    background: url($header-image);
     height: $nav-height;
+    border: 0;
+    a, a.navbar-brand {
+        color: $third-color;
+        font-size: 2em;
+        font-family: $header-font;
+    }
+    .nav>li {
+       display: inline-block;
+    }
 }
 
+/* SECONDARY NAVBAR */
 .subnav {
-    border: black solid 3px;
+    background-color: $secondary-color;
+    h1 {
+        padding: 0;
+        margin: 0;
+    }
     ul {
         text-align: right;
         li {
