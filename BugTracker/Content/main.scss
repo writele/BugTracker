@@ -1,8 +1,26 @@
 ﻿$primary-color: #fff;
 $secondary-color: #000;
 
-$header-font:;
-$content-font;
+$header-font: sans-serif;
+$content-font: serif;
+
+$nav-height: 80px;
 
 body {
+    padding-top: $nav-height;
+    box-sizing: border-box;
+}
+
+nav {
+    height: $nav-height;
+}
+
+.subnav {
+    border: black solid 3px;
+    ul {
+        text-align: right;
+        li {
+        display: inline-block;
+        }
+    }
 }

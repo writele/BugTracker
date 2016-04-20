@@ -1,1 +1,23 @@
-﻿@import "main.scss";
+/* line 9, main.scss */
+body {
+  padding-top: 80px;
+  box-sizing: border-box;
+}
+
+/* line 14, main.scss */
+nav {
+  height: 80px;
+}
+
+/* line 18, main.scss */
+.subnav {
+  border: black solid 3px;
+}
+/* line 20, main.scss */
+.subnav ul {
+  text-align: right;
+}
+/* line 22, main.scss */
+.subnav ul li {
+  display: inline-block;
+}
