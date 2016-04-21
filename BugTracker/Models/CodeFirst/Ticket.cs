@@ -21,44 +21,28 @@ namespace BugTracker.Models
         public int Id { get; set; }
 
         public int ProjectId { get; set; }
-        public Priority Priority { get; set; }
-        public int TypeId { get; set; }
-        public Status Status { get; set; }
-
+        //public int PriorityId { get; set; }
+        //public int TypeId { get; set; }
+        //public int StatusId { get; set; }
         public string OwnerId { get; set; }
         public string AssigneeId { get; set; }
 
         public DateTimeOffset Created { get; set; }
         public DateTimeOffset? Modified { get; set; }
-
         public string Title { get; set; }
         [Required]
         public string Body { get; set; }
 
         public virtual ApplicationUser Owner { get; set; }
         public virtual ApplicationUser Assignee { get; set; }
-
-        public virtual string Type { get; set; }
-
         public virtual Project Project { get; set; }
+        public Priority Priority { get; set; }
+        public Status Status { get; set; }
+        public Type Type { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<Attachment> Attachments { get; set; }
         public virtual ICollection<History> History { get; set; }
 
     }
 
-    public enum Priority
-    {
-        Low,
-        Medium,
-        High
-    }
-
-    public enum Status
-    {
-        Open,
-        Pending,
-        Resolved,
-        Closed
-    }
 }

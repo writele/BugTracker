@@ -23,9 +23,7 @@ namespace BugTracker.Models
         public string Description { get; set; }
         public DateTimeOffset Created { get; set; }
         public DateTimeOffset Deadline { get; set; }
-        public string ManagerId { get; set; }
 
-        public virtual ApplicationUser Manager { get; set; }
         public virtual ICollection<Ticket> Tickets { get; set; }
         public virtual ICollection<ApplicationUser> Users { get; set; }
     }

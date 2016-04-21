@@ -202,12 +202,15 @@
     <Compile Include="Models\CodeFirst\Attachment.cs" />
     <Compile Include="Models\CodeFirst\Comment.cs" />
     <Compile Include="Models\CodeFirst\History.cs" />
+    <Compile Include="Models\CodeFirst\Priority.cs" />
+    <Compile Include="Models\CodeFirst\Status.cs" />
     <Compile Include="Models\CodeFirst\Ticket.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CodeFirst\Project.cs" />
+    <Compile Include="Models\CodeFirst\Type.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
