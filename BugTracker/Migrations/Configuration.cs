@@ -23,6 +23,18 @@ namespace BugTracker.Migrations
             {
                 roleManager.Create(new IdentityRole { Name = "Admin" });
             }
+            if (!context.Roles.Any(r => r.Name == "Project Manager"))
+            {
+                roleManager.Create(new IdentityRole { Name = "Project Manager" });
+            }
+            if (!context.Roles.Any(r => r.Name == "Developer"))
+            {
+                roleManager.Create(new IdentityRole { Name = "Developer" });
+            }
+            if (!context.Roles.Any(r => r.Name == "Submitter"))
+            {
+                roleManager.Create(new IdentityRole { Name = "Submitter" });
+            }
             var userManager = new UserManager<ApplicationUser>(
             new UserStore<ApplicationUser>(context));
             if (!context.Users.Any(u => u.Email == "ecpalmer21@gmail.com"))

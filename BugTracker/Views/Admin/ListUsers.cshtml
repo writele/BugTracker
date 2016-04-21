@@ -1,0 +1,44 @@
+﻿@model BugTracker.Models.UsersModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Role
+        </th>
+        <th>
+            Projects
+        </th>
+        <th></th>
+    </tr>
+
+    @{ var users = @Model.Users; }
+    @foreach (var item in users)
+    {
+        var DisplayName = @item.FirstName + " " + @item.LastName;
+        <tr>
+            <td>
+                @DisplayName
+            </td>
+            <td>
+                @item.Roles
+            <td>
+                @item.Projects
+            </td>
+        </tr>
+        <p>
+            @Html.ActionLink("Edit User", "EditUser", new { id = @item.Id })
+        </p>
+    }
+
+</table>
+
+
