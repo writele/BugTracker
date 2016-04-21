@@ -1,5 +1,4 @@
-﻿@model BugTracker.Models.UsersModel
-
+﻿@model BugTracker.Models.UsersListViewModel
 @{
     ViewBag.Title = "Index";
 }
@@ -17,26 +16,36 @@
         <th>
             Projects
         </th>
-        <th></th>
+        <th>
+            Action
+        </th>
     </tr>
 
     @{ var users = @Model.Users; }
     @foreach (var item in users)
     {
-        var DisplayName = @item.FirstName + " " + @item.LastName;
         <tr>
             <td>
-                @DisplayName
+                @item.Name
             </td>
             <td>
-                @item.Roles
+            @{ var roles = item.Roles; }
+            @foreach (var role in roles)
+            {
+                <p>@role</p>
+            }
+            </td>
             <td>
-                @item.Projects
+                @{ var projects = item.Projects; }
+                @foreach (var project in projects)
+                {
+                    <p>@project</p>
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Edit User", "EditUser", new { id = @item.Id })
             </td>
         </tr>
-        <p>
-            @Html.ActionLink("Edit User", "EditUser", new { id = @item.Id })
-        </p>
     }
 
 </table>

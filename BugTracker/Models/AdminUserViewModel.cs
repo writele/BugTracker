@@ -17,9 +17,25 @@ namespace BugTracker.Models
 
     }
 
-    public class UsersModel
+    public class UsersListViewModel
     {
-        public List<ApplicationUser> Users { get; set; }
+        public List<UsersViewModel> Users { get; set; }
 
+    }
+
+    public class UsersViewModel
+    {
+        public UsersViewModel (string id, string name, IList<string> roles, List<string> projects)
+        {
+            this.Id = id;
+            this.Name = name;
+            this.Roles = roles;
+            this.Projects = projects;
+        }
+
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public IList<string> Roles { get; set; }
+        public List<string> Projects { get; set; }
     }
 }
