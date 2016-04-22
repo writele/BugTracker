@@ -51,3 +51,4 @@ packages
 BugTracker/web.config
 .dll
 BugTracker/Migrations/Configuration.cs
+BugTracker/private.config

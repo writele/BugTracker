@@ -80,3 +80,8 @@
 \\Mac\Home\Web Development\Coder Foundry\BugTracker\BugTracker\obj\Debug\BugTracker.csprojResolveAssemblyReference.cache
 \\Mac\Home\Web Development\Coder Foundry\BugTracker\BugTracker\obj\Debug\BugTracker.dll
 \\Mac\Home\Web Development\Coder Foundry\BugTracker\BugTracker\obj\Debug\BugTracker.pdb
+\\Mac\Home\Web Development\Coder Foundry\BugTracker\BugTracker\bin\SendGrid.dll
+\\Mac\Home\Web Development\Coder Foundry\BugTracker\BugTracker\bin\SendGrid.SmtpApi.dll
+\\Mac\Home\Web Development\Coder Foundry\BugTracker\BugTracker\bin\SendGridMail.dll
+\\Mac\Home\Web Development\Coder Foundry\BugTracker\BugTracker\bin\System.Net.Http.Formatting.dll
+\\Mac\Home\Web Development\Coder Foundry\BugTracker\BugTracker\bin\System.Net.Http.Formatting.xml

@@ -31,6 +31,9 @@ namespace BugTracker
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/datepicker").Include(
+          "~/Scripts/jquery.datetimepicker.full.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/main.css"));

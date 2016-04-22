@@ -8,6 +8,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using BugTracker.Models;
 using System.Data.Entity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace BugTracker.Controllers
 { 
@@ -232,19 +233,17 @@ namespace BugTracker.Controllers
         // POST: /Manage/ChangeName
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ChangeName(ChangeNameViewModel model)
+        public ActionResult ChangeName(string NewFirstName, string NewLastName)
         {
             if (ModelState.IsValid)
             {
                 var userId = User.Identity.GetUserId();
                 var user = db.Users.Find(userId);
-                user.FirstName = model.NewFirstName;
-                user.LastName = model.NewLastName;
-
+                user.FirstName = NewFirstName;
+                user.LastName = NewLastName;
                 db.Entry(user).State = EntityState.Modified;
                 db.Users.Attach(user);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                db.SaveChanges();  
             }
             return RedirectToAction("ChangeName");
         }

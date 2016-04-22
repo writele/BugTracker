@@ -4,6 +4,7 @@
     ViewBag.Title = "Edit";
 }
 
+<link href="~/Content/jquery.datetimepicker.css" rel="stylesheet" />
 <h2>Edit</h2>
 
 @using (Html.BeginForm())
@@ -36,7 +37,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Deadline, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input type="datetime" name="Deadline" class="form-control" value="@Model.Deadline" />
+                <input name="Deadline" class="datepicker" value="@Model.Deadline" />
                 @Html.ValidationMessageFor(model => model.Deadline, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -54,20 +55,12 @@
 </div>
 
 @section Scripts {
-
-    @Scripts.Render("~/bundles/jqueryui")
-    @Styles.Render("~/Content/cssjqryUi")
-
     <script type="text/javascript">
 
-                     $(document).ready(function () {
-                         $('input[type=datetime]').datepicker({
-                             format: 'd.m.Y H:i',
-                             inline: true,
-                             lang: 'ru'
-                         });
+            jQuery('.datepicker').datetimepicker({
+                format: 'm/d/Y H:i'
+            });
 
-                     });
     </script>
-
 }
+

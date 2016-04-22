@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Create";
 }
+<link href="~/Content/jquery.datetimepicker.css" rel="stylesheet" />
 
 <div class="col-md-12 subnav">
     <h1>Create New Project</h1>
@@ -38,7 +39,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Deadline, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            <input type="datetime" name="Deadline" class="form-control" />
+                            <input name="Deadline" class="datepicker" />
                             @Html.ValidationMessageFor(model => model.Deadline, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -58,21 +59,13 @@
             </div>
         </div>
     </div>
-            @section Scripts {
 
-                    @Scripts.Render("~/bundles/jqueryui")
-                    @Styles.Render("~/Content/cssjqryUi")
+@section Scripts {        
+        <script type="text/javascript">
 
-                    <script type="text/javascript">
+            jQuery('.datepicker').datetimepicker({
+                format: 'm/d/Y H:i'
+            });
 
-                     $(document).ready(function () {
-                         $('input[type=datetime]').datepicker({
-                             format: 'd.m.Y H:i',
-                             inline: true,
-                             lang: 'ru'
-                         });
-
-                     });
-                    </script>
-
-                }
+        </script>
+    }

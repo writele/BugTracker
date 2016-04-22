@@ -1,4 +1,5 @@
 ﻿using BugTracker.Models;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -14,7 +15,11 @@ namespace BugTracker.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            DashboardViewModel model = new DashboardViewModel();
+            model.Id = User.Identity.GetUserId();
+            var user = db.Users.Find(model.Id);
+            model.Name = user.FirstName + " " + user.LastName;
+            return View(model);
         }
 
         public ActionResult About()

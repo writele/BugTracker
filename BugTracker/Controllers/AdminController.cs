@@ -26,13 +26,13 @@ namespace BugTracker.Controllers
             UsersListViewModel UserModel = new UsersListViewModel();
             UserRolesHelper helper = new UserRolesHelper(db);
             var users = db.Users.ToList();
+            UserModel.Users = new List<UsersViewModel>();
             foreach (var user in users)
             {
                 var id = user.Id;
                 var name = user.FirstName + " " + user.LastName;
                 var roles = helper.ListUserRoles(id);
                 var projects = new List<string>();
-                UserModel.Users = new List<UsersViewModel>();
                 foreach (var project in user.Projects)
                 {
                     projects.Add(project.Title);
