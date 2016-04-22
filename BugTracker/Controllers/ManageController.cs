@@ -7,12 +7,16 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using BugTracker.Models;
+using System.Data.Entity;
 
 namespace BugTracker.Controllers
-{
+{ 
+
     [Authorize]
     public class ManageController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
+
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -209,6 +213,40 @@ namespace BugTracker.Controllers
                 await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
             }
             return RedirectToAction("Index", new { Message = ManageMessageId.RemovePhoneSuccess });
+        }
+
+        //
+        // GET: /Manage/ChangeName
+        public ActionResult ChangeName()
+        {
+            var userId = User.Identity.GetUserId();
+            var user = db.Users.Find(userId);
+            ChangeNameViewModel model = new ChangeNameViewModel();
+            model.OldFirstName = user.FirstName;
+            model.OldLastName = user.LastName;
+
+            return View(model);
+        }
+
+        //
+        // POST: /Manage/ChangeName
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangeName(ChangeNameViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var userId = User.Identity.GetUserId();
+                var user = db.Users.Find(userId);
+                user.FirstName = model.NewFirstName;
+                user.LastName = model.NewLastName;
+
+                db.Entry(user).State = EntityState.Modified;
+                db.Users.Attach(user);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("ChangeName");
         }
 
         //

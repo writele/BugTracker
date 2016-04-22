@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BugTracker.Models;
+using Microsoft.AspNet.Identity;
 
 namespace BugTracker
 {
@@ -37,6 +38,7 @@ namespace BugTracker
             return View(project);
         }
 
+        [Authorize(Roles = "Admin, Project Manager")]
         // GET: Projects/Create
         public ActionResult Create()
         {
@@ -46,6 +48,7 @@ namespace BugTracker
         // POST: Projects/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin, Project Manager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Title,Description,Created,Deadline")] Project project)
@@ -53,6 +56,7 @@ namespace BugTracker
             if (ModelState.IsValid)
             {
                 project.Created = System.DateTimeOffset.Now;
+                //var user = User.Identity.GetUserId();
                 db.Projects.Add(project);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -62,6 +66,7 @@ namespace BugTracker
         }
 
         // GET: Projects/Edit/5
+        [Authorize(Roles = "Admin, Project Manager")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -79,6 +84,7 @@ namespace BugTracker
         // POST: Projects/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin, Project Manager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Title,Description,Created,Deadline")] Project project)
@@ -93,6 +99,7 @@ namespace BugTracker
         }
 
         // GET: Projects/Delete/5
+        [Authorize(Roles = "Admin, Project Manager")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -108,6 +115,7 @@ namespace BugTracker
         }
 
         // POST: Projects/Delete/5
+        [Authorize(Roles = "Admin, Project Manager")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

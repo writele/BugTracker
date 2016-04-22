@@ -58,6 +58,27 @@ namespace BugTracker.Models
         public string ConfirmPassword { get; set; }
     }
 
+    public class ChangeNameViewModel
+    {
+        [Required]
+        [Display(Name = "Current first name")]
+        public string OldFirstName { get; set; }
+
+        [Required]
+        [Display(Name = "New first name")]
+        public string NewFirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Current last name")]
+        public string OldLastName { get; set; }
+
+        [Required]
+        [Display(Name = "New last name")]
+        public string NewLastName { get; set; }
+
+    }
+
+
     public class AddPhoneNumberViewModel
     {
         [Required]
