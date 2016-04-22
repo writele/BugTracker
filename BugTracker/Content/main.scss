@@ -81,26 +81,30 @@ nav {
     }
     .admin-btns {
         margin-left: 85px;
-        button {
-            margin: 8px 5px;
-            padding: 8px 15px;
+        a.action-btn {
+            text-decoration: none;
+            margin: 8px 5px;   
+            padding: 8px 15px;        
             border: 2px solid $primary-color-border;
             border-radius: 0;
             background-color: $primary-color;
             color: #000;
+            height: 50px;
             font-size: 1.1em;
             letter-spacing: 1px;
-            a {
-                padding: 2px;
-            }
+            display: inline-block;     
+            position: relative;    
+            z-index: 1;
         }
-        button:hover {
+        a.action-btn:hover {
+            text-decoration: none;
             background-color: $primary-color-hover;
             border: 2px solid $primary-color-border-hover;
             color: #000;
         }
     }
 }
+
 
 /* TEXT */
 

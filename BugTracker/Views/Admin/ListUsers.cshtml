@@ -3,51 +3,59 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<div class="col-md-12 subnav">
+    <h1>User List</h1>
+</div>
 
-<table class="table">
-    <tr>
-        <th>
-            Name
-        </th>
-        <th>
-            Role
-        </th>
-        <th>
-            Projects
-        </th>
-        <th>
-            Action
-        </th>
-    </tr>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 content">
 
-    @{ var users = @Model.Users; }
-    @foreach (var item in users)
-    {
-        <tr>
-            <td>
-                @item.Name
-            </td>
-            <td>
-            @{ var roles = item.Roles; }
-            @foreach (var role in roles)
-            {
-                <p>@role</p>
-            }
-            </td>
-            <td>
-                @{ var projects = item.Projects; }
-                @foreach (var project in projects)
+            <table class="table">
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Role
+                    </th>
+                    <th>
+                        Projects
+                    </th>
+                    <th>
+                        Action
+                    </th>
+                </tr>
+
+                @{ var users = @Model.Users; }
+                @foreach (var item in users)
                 {
-                    <p>@project</p>
-                }
-            </td>
-            <td>
-                @Html.ActionLink("Edit User", "EditUser", new { id = @item.Id })
-            </td>
-        </tr>
-    }
+                    <tr>
+                        <td>
+                            @item.Name
+                        </td>
+                        <td>
+                            @{ var roles = item.Roles; }
+                            @foreach (var role in roles)
+                            {
+                                <p>@role</p>
+                            }
+                        </td>
+                        <td>
+                            @{ var projects = item.Projects; }
+                            @foreach (var project in projects)
+                {
+                                <p>@project</p>
+                            }
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit User", "EditUser", new { id = @item.Id })
+                        </td>
+                    </tr>
+                                }
 
-</table>
-
+            </table>
+            </div>
+        </div>
+    </div>
 

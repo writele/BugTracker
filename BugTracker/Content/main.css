@@ -82,53 +82,55 @@ nav .nav > li a:hover {
   margin-left: 85px;
 }
 /* line 84, main.scss */
-.subnav .admin-btns button {
+.subnav .admin-btns a.action-btn {
+  text-decoration: none;
   margin: 8px 5px;
   padding: 8px 15px;
   border: 2px solid #1F1B1B;
   border-radius: 0;
   background-color: #e5e3e3;
   color: #000;
+  height: 50px;
   font-size: 1.1em;
   letter-spacing: 1px;
+  display: inline-block;
+  position: relative;
+  z-index: 1;
 }
-/* line 93, main.scss */
-.subnav .admin-btns button a {
-  padding: 2px;
-}
-/* line 97, main.scss */
-.subnav .admin-btns button:hover {
+/* line 99, main.scss */
+.subnav .admin-btns a.action-btn:hover {
+  text-decoration: none;
   background-color: #9C9E95;
   border: 2px solid #515838;
   color: #000;
 }
 
 /* TEXT */
-/* line 107, main.scss */
+/* line 111, main.scss */
 a, a.admin-btns {
   font-family: "Roboto", sans-serif;
   font-size: inherit;
 }
 
-/* line 116, main.scss */
+/* line 120, main.scss */
 h2 {
   font-family: "Roboto", sans-serif;
   font-size: 1.7em;
 }
 
-/* line 121, main.scss */
+/* line 125, main.scss */
 h3 {
   font-family: "Roboto", sans-serif;
   font-size: 1.4em;
 }
 
-/* line 126, main.scss */
+/* line 130, main.scss */
 p {
   font-family: "Roboto", sans-serif;
   font-size: 1.1em;
 }
 
-/* line 131, main.scss */
+/* line 135, main.scss */
 .content, .content-other {
   margin-top: 20px;
 }

@@ -15,8 +15,10 @@ namespace BugTracker
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Projects
-        public ActionResult Index()
+        public ActionResult Index(string UserId)
         {
+            //get current user Id
+            //get projects by user Id
             return View(db.Projects.ToList());
         }
 
@@ -50,6 +52,7 @@ namespace BugTracker
         {
             if (ModelState.IsValid)
             {
+                project.Created = System.DateTimeOffset.Now;
                 db.Projects.Add(project);
                 db.SaveChanges();
                 return RedirectToAction("Index");
