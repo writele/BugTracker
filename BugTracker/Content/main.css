@@ -3,7 +3,7 @@
 /* green */
 /* white */
 /* FONTS: http://www.mrmcguire.com/10-useful-google-font-combinations-for-your-next-site/ */
-/* line 21, main.scss */
+/* line 33, main.scss */
 body {
   padding-top: 80px;
   box-sizing: border-box;
@@ -11,7 +11,7 @@ body {
   font-family: Arial, sans-serif;
 }
 
-/* line 27, main.scss */
+/* line 39, main.scss */
 .navbar-static-top {
   position: absolute;
   right: 0;
@@ -20,22 +20,22 @@ body {
 }
 
 /* TOP NAVBAR */
-/* line 34, main.scss */
+/* line 46, main.scss */
 .navbar-default {
   border: none;
 }
 
-/* line 38, main.scss */
+/* line 50, main.scss */
 .navbar-default .navbar-brand {
   color: #fff;
 }
 
-/* line 41, main.scss */
+/* line 53, main.scss */
 .navbar-default .navbar-brand:hover {
   color: #CBE86B;
 }
 
-/* line 45, main.scss */
+/* line 57, main.scss */
 nav {
   position: absolute;
   background: url("Images/header-code.jpg");
@@ -43,56 +43,56 @@ nav {
   height: 80px;
   border: 0;
 }
-/* line 51, main.scss */
+/* line 63, main.scss */
 nav a.navbar-brand {
   margin-top: 8px;
 }
-/* line 54, main.scss */
+/* line 66, main.scss */
 nav a, nav form a {
   color: #fff;
   font-size: 2em;
   font-family: "Alegreya", serif;
 }
-/* line 60, main.scss */
+/* line 72, main.scss */
 nav a:hover, nav a:focus {
   color: #CBE86B;
   background: none;
 }
-/* line 64, main.scss */
+/* line 76, main.scss */
 nav .nav > li {
   display: inline-block;
 }
-/* line 66, main.scss */
+/* line 78, main.scss */
 nav .nav > li a:hover, nav .nav > li a:focus {
   background: none;
 }
 
-/* line 72, main.scss */
+/* line 84, main.scss */
 .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
   background: none;
 }
 
-/* line 76, main.scss */
+/* line 88, main.scss */
 .nav .dropdown-menu {
   padding: 0;
   margin: 0;
 }
-/* line 79, main.scss */
+/* line 91, main.scss */
 .nav .dropdown-menu > li, .nav .dropdown-menu form > li {
   padding: 0;
   margin: 0;
 }
-/* line 83, main.scss */
+/* line 95, main.scss */
 .nav .dropdown-menu > li a:hover, .nav .dropdown-menu form > li:hover {
   background-color: #CBE86B;
 }
 
-/* line 88, main.scss */
+/* line 100, main.scss */
 .nav-account {
   float: right;
-  margin-top: 10px;
+  margin-top: 8px;
 }
-/* line 91, main.scss */
+/* line 103, main.scss */
 .nav-account li form a {
   text-decoration: none;
   display: block;
@@ -103,12 +103,12 @@ nav .nav > li a:hover, nav .nav > li a:focus {
   color: #333;
   white-space: nowrap;
 }
-/* line 101, main.scss */
+/* line 113, main.scss */
 .nav-account a, .nav-account form a {
-  font-size: 1.7em;
+  font-size: 1.8em;
 }
 
-/* line 106, main.scss */
+/* line 118, main.scss */
 .caret {
   border-top: 5px solid;
   border-right: 5px solid transparent;
@@ -117,12 +117,12 @@ nav .nav > li a:hover, nav .nav > li a:focus {
 }
 
 /* SECONDARY NAVBAR */
-/* line 114, main.scss */
+/* line 126, main.scss */
 .subnav {
   background-color: #CBE86B;
   height: 65px;
 }
-/* line 117, main.scss */
+/* line 129, main.scss */
 .subnav h1 {
   display: block;
   font-family: "Roboto Condensed", sans-serif;
@@ -130,19 +130,19 @@ nav .nav > li a:hover, nav .nav > li a:focus {
   padding: 15px 0 0 90px;
   margin: 0;
 }
-/* line 124, main.scss */
+/* line 136, main.scss */
 .subnav .admin-btns {
   margin-left: 85px;
 }
-/* line 126, main.scss */
+/* line 138, main.scss */
 .subnav .admin-btns a.action-btn {
+  background: #e5e3e3;
+  color: #000;
+  box-shadow: 0 6px #1F1B1B;
+  border-radius: 5px;
   text-decoration: none;
   margin: 8px 5px;
   padding: 9px;
-  border: 2px solid #1F1B1B;
-  border-radius: 5px;
-  background-color: #e5e3e3;
-  color: #000;
   height: 46px;
   font-size: 1.1em;
   letter-spacing: 1px;
@@ -150,40 +150,63 @@ nav .nav > li a:hover, nav .nav > li a:focus {
   position: relative;
   z-index: 1;
 }
-/* line 141, main.scss */
+/* line 150, main.scss */
 .subnav .admin-btns a.action-btn:hover {
+  box-shadow: 0 4px #1F1B1B;
+  top: 2px;
   text-decoration: none;
-  background-color: #9C9E95;
-  border: 2px solid #515838;
-  color: #000;
 }
 
 /* TEXT */
-/* line 153, main.scss */
+/* line 160, main.scss */
 a, a.admin-btns, form a {
   font-family: "Roboto", sans-serif;
   font-size: inherit;
 }
 
-/* line 162, main.scss */
+/* line 169, main.scss */
 h2 {
   font-family: "Roboto", sans-serif;
   font-size: 1.7em;
 }
 
-/* line 167, main.scss */
+/* line 174, main.scss */
 h3 {
   font-family: "Roboto", sans-serif;
   font-size: 1.4em;
 }
 
-/* line 172, main.scss */
+/* line 179, main.scss */
 p {
   font-family: "Roboto", sans-serif;
   font-size: 1.1em;
 }
 
-/* line 177, main.scss */
+/* line 184, main.scss */
 .content, .content-other {
   margin-top: 20px;
+}
+
+/* line 188, main.scss */
+.btn-default {
+  background: #CBE86B;
+  color: #000;
+  box-shadow: 0 6px #000;
+  border-radius: 5px;
+  border: none;
+  position: relative;
+  font-family: "Roboto", sans-serif;
+  font-size: 1.1em;
+  letter-spacing: 1px;
+}
+
+/* line 197, main.scss */
+.btn-default:hover {
+  background: #CBE86B;
+  color: #000;
+  box-shadow: 0 6px #000;
+  border-radius: 5px;
+  box-shadow: 0 4px #000;
+  top: 2px;
+  border: none;
 }

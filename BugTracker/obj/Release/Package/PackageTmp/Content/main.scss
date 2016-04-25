@@ -1,10 +1,10 @@
 ﻿/*COLOR PALETTE: http://www.colourlovers.com/palette/359978/w_o_r_d_l_e_s_s_. */
-$primary-color: #e5e3e3;
-$secondary-color: #CBE86B;
-$third-color: #fff;
+$primary-color: #e5e3e3; /*gray */
+$secondary-color: #CBE86B; /* green */
+$third-color: #fff; /* white */
 
 $primary-color-hover: #9C9E95; 
-$secondary-color-hover: #CBE86B;
+$secondary-color-hover: #6f822a;
 $third-color-hover: #CBE86B;
 
 $primary-color-border: #1F1B1B;
@@ -51,23 +51,65 @@ nav {
     a.navbar-brand {
         margin-top: 8px;
     }
-    a, a.navbar-brand, a.navbar-brand:visited {
+    a, form a {
         color: $third-color;
         font-size: 2em;
         font-family: $header-font;
     }
 
-    a:hover, a.navbar-brand:hover {
+    a:hover, a:focus {
         color: $third-color-hover;
+        background: none;
     }
     .nav>li {
        display: inline-block;
-           a:hover {
+           a:hover, a:focus {
                background: none;
            }
     }
 }
 
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
+    background: none;
+}
+
+.nav .dropdown-menu {
+    padding: 0;
+    margin: 0;
+    > li, form > li {
+        padding: 0;
+        margin: 0;
+    }
+     > li a:hover, form > li:hover {
+        background-color: $secondary-color;
+     }
+ }
+
+.nav-account {
+    float: right;
+    margin-top: 8px;
+    li form  a {
+        text-decoration: none;
+        display: block;
+        padding: 3px 20px;
+        clear: both;
+        font-weight: normal;
+        line-height: 1.42857143;
+        color: #333;
+        white-space: nowrap;
+    }
+    a, form a {
+        font-size: 1.8em;
+    }
+}
+
+.caret {
+    border-top: 5px solid;
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
+    margin-left: 4px;
+
+}
 /* SECONDARY NAVBAR */
 .subnav {
     background-color: $secondary-color;
@@ -89,7 +131,7 @@ nav {
             border-radius: 5px;
             background-color: $primary-color;
             color: #000;
-            height: 50px;
+            height: 46px;
             font-size: 1.1em;
             letter-spacing: 1px;
             display: inline-block;     
@@ -108,7 +150,7 @@ nav {
 
 /* TEXT */
 
-a, a.admin-btns {
+a, a.admin-btns, form a {
     font-family: $content-font;
     font-size: inherit;
 }

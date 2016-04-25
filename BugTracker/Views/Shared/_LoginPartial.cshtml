@@ -5,15 +5,14 @@
     <li class="dropdown nav-account">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account<span class="caret"></span></a>
         <ul class="dropdown-menu">
-            <li>
-                @using (Html.BeginForm("LogOff", "Account"))
+                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm"}))
                 {
                     @Html.AntiForgeryToken()
-
-                    @Html.ActionLink("Manage", "Index", "Manage")
                 }
-            </li>
             <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+            <li>
+                @Html.ActionLink("Manage", "Index", "Manage")
+            </li>
         </ul>
         </li>
 }

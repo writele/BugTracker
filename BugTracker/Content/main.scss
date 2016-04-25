@@ -18,6 +18,18 @@ $content-font: 'Roboto', sans-serif;
 $nav-height: 80px;
 $header-image: "Images/header-code.jpg";
 
+@mixin button($bg-color, $font-color, $shadow-color) {
+    background: $bg-color;
+    color: $font-color;
+    box-shadow: 0 6px $shadow-color;
+    border-radius: 5px;
+}
+
+@mixin button-hover($shadow-color) {
+    box-shadow: 0 4px $shadow-color;
+    top: 2px;
+}
+
 body {
     padding-top: $nav-height;
     box-sizing: border-box;
@@ -87,7 +99,7 @@ nav {
 
 .nav-account {
     float: right;
-    margin-top: 10px;
+    margin-top: 8px;
     li form  a {
         text-decoration: none;
         display: block;
@@ -99,7 +111,7 @@ nav {
         white-space: nowrap;
     }
     a, form a {
-        font-size: 1.7em;
+        font-size: 1.8em;
     }
 }
 
@@ -124,13 +136,10 @@ nav {
     .admin-btns {
         margin-left: 85px;
         a.action-btn {
+            @include button($primary-color, #000, $primary-color-border);
             text-decoration: none;
             margin: 8px 5px;   
             padding: 9px;        
-            border: 2px solid $primary-color-border;
-            border-radius: 5px;
-            background-color: $primary-color;
-            color: #000;
             height: 46px;
             font-size: 1.1em;
             letter-spacing: 1px;
@@ -139,10 +148,8 @@ nav {
             z-index: 1;
         }
         a.action-btn:hover {
+            @include button-hover($primary-color-border);
             text-decoration: none;
-            background-color: $primary-color-hover;
-            border: 2px solid $primary-color-border-hover;
-            color: #000;
         }
     }
 }
@@ -176,4 +183,19 @@ p {
 
 .content, .content-other {
     margin-top: 20px;
+}
+
+.btn-default {
+    @include button($secondary-color,#000, #000);
+    border: none;
+    position: relative;
+    font-family: $content-font;
+    font-size: 1.1em;
+    letter-spacing: 1px;
+}
+
+.btn-default:hover {
+    @include button($secondary-color,#000, #000);
+    @include button-hover(#000);
+    border: none;
 }
