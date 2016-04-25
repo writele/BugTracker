@@ -51,7 +51,7 @@ nav {
     a.navbar-brand {
         margin-top: 8px;
     }
-    a {
+    a, form a {
         color: $third-color;
         font-size: 2em;
         font-family: $header-font;
@@ -73,15 +73,33 @@ nav {
     background: none;
 }
 
-.dropdown-menu > li > a:hover {
-    color: $secondary-color-hover;
+.nav .dropdown-menu {
+    padding: 0;
+    margin: 0;
+    > li, form > li {
+        padding: 0;
+        margin: 0;
+    }
+     > li a:hover, form > li:hover {
+        background-color: $secondary-color;
+     }
  }
 
 .nav-account {
     float: right;
-    a {
+    margin-top: 10px;
+    form li a {
+        text-decoration: none;
+        display: block;
+        padding: 3px 20px;
+        clear: both;
+        font-weight: normal;
+        line-height: 1.42857143;
+        color: #333;
+        white-space: nowrap;
+    }
+    a, form a {
         font-size: 1.7em;
-        margin-top: 10px;
     }
 }
 /* SECONDARY NAVBAR */
@@ -124,7 +142,7 @@ nav {
 
 /* TEXT */
 
-a, a.admin-btns {
+a, a.admin-btns, form a {
     font-family: $content-font;
     font-size: inherit;
 }

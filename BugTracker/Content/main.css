@@ -48,7 +48,7 @@ nav a.navbar-brand {
   margin-top: 8px;
 }
 /* line 54, main.scss */
-nav a {
+nav a, nav form a {
   color: #fff;
   font-size: 2em;
   font-family: "Alegreya", serif;
@@ -73,27 +73,48 @@ nav .nav > li a:hover, nav .nav > li a:focus {
 }
 
 /* line 76, main.scss */
-.dropdown-menu > li > a:hover {
-  color: #6f822a;
+.nav .dropdown-menu {
+  padding: 0;
+  margin: 0;
+}
+/* line 79, main.scss */
+.nav .dropdown-menu > li, .nav .dropdown-menu form > li {
+  padding: 0;
+  margin: 0;
+}
+/* line 83, main.scss */
+.nav .dropdown-menu > li a:hover, .nav .dropdown-menu form > li:hover {
+  background-color: #CBE86B;
 }
 
-/* line 80, main.scss */
+/* line 88, main.scss */
 .nav-account {
   float: right;
-}
-/* line 82, main.scss */
-.nav-account a {
-  font-size: 1.7em;
   margin-top: 10px;
+}
+/* line 91, main.scss */
+.nav-account form li a {
+  text-decoration: none;
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: normal;
+  line-height: 1.42857143;
+  color: #333;
+  white-space: nowrap;
+}
+/* line 101, main.scss */
+.nav-account a, .nav-account form a {
+  font-size: 1.7em;
 }
 
 /* SECONDARY NAVBAR */
-/* line 88, main.scss */
+/* line 106, main.scss */
 .subnav {
   background-color: #CBE86B;
   height: 65px;
 }
-/* line 91, main.scss */
+/* line 109, main.scss */
 .subnav h1 {
   display: block;
   font-family: "Roboto Condensed", sans-serif;
@@ -101,11 +122,11 @@ nav .nav > li a:hover, nav .nav > li a:focus {
   padding: 15px 0 0 90px;
   margin: 0;
 }
-/* line 98, main.scss */
+/* line 116, main.scss */
 .subnav .admin-btns {
   margin-left: 85px;
 }
-/* line 100, main.scss */
+/* line 118, main.scss */
 .subnav .admin-btns a.action-btn {
   text-decoration: none;
   margin: 8px 5px;
@@ -121,7 +142,7 @@ nav .nav > li a:hover, nav .nav > li a:focus {
   position: relative;
   z-index: 1;
 }
-/* line 115, main.scss */
+/* line 133, main.scss */
 .subnav .admin-btns a.action-btn:hover {
   text-decoration: none;
   background-color: #9C9E95;
@@ -130,31 +151,31 @@ nav .nav > li a:hover, nav .nav > li a:focus {
 }
 
 /* TEXT */
-/* line 127, main.scss */
-a, a.admin-btns {
+/* line 145, main.scss */
+a, a.admin-btns, form a {
   font-family: "Roboto", sans-serif;
   font-size: inherit;
 }
 
-/* line 136, main.scss */
+/* line 154, main.scss */
 h2 {
   font-family: "Roboto", sans-serif;
   font-size: 1.7em;
 }
 
-/* line 141, main.scss */
+/* line 159, main.scss */
 h3 {
   font-family: "Roboto", sans-serif;
   font-size: 1.4em;
 }
 
-/* line 146, main.scss */
+/* line 164, main.scss */
 p {
   font-family: "Roboto", sans-serif;
   font-size: 1.1em;
 }
 
-/* line 151, main.scss */
+/* line 169, main.scss */
 .content, .content-other {
   margin-top: 20px;
 }
