@@ -93,7 +93,7 @@ nav .nav > li a:hover, nav .nav > li a:focus {
   margin-top: 10px;
 }
 /* line 91, main.scss */
-.nav-account form li a {
+.nav-account li form a {
   text-decoration: none;
   display: block;
   padding: 3px 20px;
@@ -108,13 +108,21 @@ nav .nav > li a:hover, nav .nav > li a:focus {
   font-size: 1.7em;
 }
 
-/* SECONDARY NAVBAR */
 /* line 106, main.scss */
+.caret {
+  border-top: 5px solid;
+  border-right: 5px solid transparent;
+  border-left: 5px solid transparent;
+  margin-left: 4px;
+}
+
+/* SECONDARY NAVBAR */
+/* line 114, main.scss */
 .subnav {
   background-color: #CBE86B;
   height: 65px;
 }
-/* line 109, main.scss */
+/* line 117, main.scss */
 .subnav h1 {
   display: block;
   font-family: "Roboto Condensed", sans-serif;
@@ -122,11 +130,11 @@ nav .nav > li a:hover, nav .nav > li a:focus {
   padding: 15px 0 0 90px;
   margin: 0;
 }
-/* line 116, main.scss */
+/* line 124, main.scss */
 .subnav .admin-btns {
   margin-left: 85px;
 }
-/* line 118, main.scss */
+/* line 126, main.scss */
 .subnav .admin-btns a.action-btn {
   text-decoration: none;
   margin: 8px 5px;
@@ -142,7 +150,7 @@ nav .nav > li a:hover, nav .nav > li a:focus {
   position: relative;
   z-index: 1;
 }
-/* line 133, main.scss */
+/* line 141, main.scss */
 .subnav .admin-btns a.action-btn:hover {
   text-decoration: none;
   background-color: #9C9E95;
@@ -151,31 +159,31 @@ nav .nav > li a:hover, nav .nav > li a:focus {
 }
 
 /* TEXT */
-/* line 145, main.scss */
+/* line 153, main.scss */
 a, a.admin-btns, form a {
   font-family: "Roboto", sans-serif;
   font-size: inherit;
 }
 
-/* line 154, main.scss */
+/* line 162, main.scss */
 h2 {
   font-family: "Roboto", sans-serif;
   font-size: 1.7em;
 }
 
-/* line 159, main.scss */
+/* line 167, main.scss */
 h3 {
   font-family: "Roboto", sans-serif;
   font-size: 1.4em;
 }
 
-/* line 164, main.scss */
+/* line 172, main.scss */
 p {
   font-family: "Roboto", sans-serif;
   font-size: 1.1em;
 }
 
-/* line 169, main.scss */
+/* line 177, main.scss */
 .content, .content-other {
   margin-top: 20px;
 }

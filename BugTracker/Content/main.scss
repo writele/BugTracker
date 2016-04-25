@@ -88,7 +88,7 @@ nav {
 .nav-account {
     float: right;
     margin-top: 10px;
-    form li a {
+    li form  a {
         text-decoration: none;
         display: block;
         padding: 3px 20px;
@@ -101,6 +101,14 @@ nav {
     a, form a {
         font-size: 1.7em;
     }
+}
+
+.caret {
+    border-top: 5px solid;
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
+    margin-left: 4px;
+
 }
 /* SECONDARY NAVBAR */
 .subnav {
