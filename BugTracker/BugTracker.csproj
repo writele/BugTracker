@@ -247,7 +247,9 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\code.jpg" />
+    <Content Include="Content\Images\header-code.jpg" />
     <Content Include="Content\jquery.datetimepicker.css" />
+    <Content Include="Content\main.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -302,6 +304,10 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="private.config" />
+    <Content Include="Content\main.css.map" />
+    <None Include="Properties\PublishProfiles\epalmer-bugtracker %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\epalmer-bugtracker %283%29.pubxml" />
+    <None Include="Properties\PublishProfiles\epalmer-bugtracker.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -373,7 +379,9 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="template.html" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

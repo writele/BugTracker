@@ -233,17 +233,24 @@ namespace BugTracker.Controllers
         // POST: /Manage/ChangeName
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ChangeName(string NewFirstName, string NewLastName)
+        public async Task<ActionResult> ChangeName(string NewFirstName, string NewLastName)
         {
             if (ModelState.IsValid)
             {
                 var userId = User.Identity.GetUserId();
-                var user = db.Users.Find(userId);
+                var user = await UserManager.FindByIdAsync(userId);
                 user.FirstName = NewFirstName;
                 user.LastName = NewLastName;
-                db.Entry(user).State = EntityState.Modified;
-                db.Users.Attach(user);
-                db.SaveChanges();  
+                var result = await UserManager.UpdateAsync(user);
+
+                if (!result.Succeeded)
+                {
+                    AddErrors(result);
+                }
+
+                db.SaveChanges();
+
+                return RedirectToAction("Index");
             }
             return RedirectToAction("ChangeName");
         }

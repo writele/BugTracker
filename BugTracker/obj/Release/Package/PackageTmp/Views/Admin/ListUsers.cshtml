@@ -1,0 +1,61 @@
+﻿@model BugTracker.Models.UsersListViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="col-md-12 subnav">
+    <h1>User List</h1>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 content">
+
+            <table class="table">
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Role
+                    </th>
+                    <th>
+                        Projects
+                    </th>
+                    <th>
+                        Action
+                    </th>
+                </tr>
+
+                @{ var users = @Model.Users; }
+                @foreach (var item in users)
+                {
+                    <tr>
+                        <td>
+                            @item.Name
+                        </td>
+                        <td>
+                            @{ var roles = item.Roles; }
+                            @foreach (var role in roles)
+                            {
+                                <p>@role</p>
+                            }
+                        </td>
+                        <td>
+                            @{ var projects = item.Projects; }
+                            @foreach (var project in projects)
+                {
+                                <p>@project</p>
+                            }
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit User", "EditUser", new { id = @item.Id })
+                        </td>
+                    </tr>
+                                }
+
+            </table>
+            </div>
+        </div>
+    </div>
+
