@@ -11,8 +11,8 @@ using System.Data.Entity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace BugTracker.Controllers
-{ 
-
+{
+    [RequireHttps]
     [Authorize]
     public class ManageController : Controller
     {
