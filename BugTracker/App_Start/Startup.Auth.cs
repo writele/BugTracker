@@ -5,6 +5,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
+using Owin.Security.Providers.GitHub;
 using BugTracker.Models;
 
 namespace BugTracker
@@ -63,6 +64,8 @@ namespace BugTracker
                 ClientId = "394565388979-3fud458s1b18k2aj14lc72ekd7jpp115.apps.googleusercontent.com",
                 ClientSecret = "rTnOsOiQ2aLQxtQC8vfNaNf_"
             });
+
+            app.UseGitHubAuthentication("6214cfe4411525d0e7a8", "6c13e8912b191bcf0c61869c53d93015a9f9a7be");
         }
     }
 }

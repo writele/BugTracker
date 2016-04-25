@@ -1,4 +1,7 @@
 /*COLOR PALETTE: http://www.colourlovers.com/palette/359978/w_o_r_d_l_e_s_s_. */
+/*gray */
+/* green */
+/* white */
 /* FONTS: http://www.mrmcguire.com/10-useful-google-font-combinations-for-your-next-site/ */
 /* line 21, main.scss */
 body {
@@ -45,31 +48,52 @@ nav a.navbar-brand {
   margin-top: 8px;
 }
 /* line 54, main.scss */
-nav a, nav a.navbar-brand, nav a.navbar-brand:visited {
+nav a {
   color: #fff;
   font-size: 2em;
   font-family: "Alegreya", serif;
 }
 /* line 60, main.scss */
-nav a:hover, nav a.navbar-brand:hover {
+nav a:hover, nav a:focus {
   color: #CBE86B;
+  background: none;
 }
-/* line 63, main.scss */
+/* line 64, main.scss */
 nav .nav > li {
   display: inline-block;
 }
-/* line 65, main.scss */
-nav .nav > li a:hover {
+/* line 66, main.scss */
+nav .nav > li a:hover, nav .nav > li a:focus {
   background: none;
 }
 
-/* SECONDARY NAVBAR */
 /* line 72, main.scss */
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
+  background: none;
+}
+
+/* line 76, main.scss */
+.dropdown-menu > li > a:hover {
+  color: #6f822a;
+}
+
+/* line 80, main.scss */
+.nav-account {
+  float: right;
+}
+/* line 82, main.scss */
+.nav-account a {
+  font-size: 1.7em;
+  margin-top: 10px;
+}
+
+/* SECONDARY NAVBAR */
+/* line 88, main.scss */
 .subnav {
   background-color: #CBE86B;
   height: 65px;
 }
-/* line 75, main.scss */
+/* line 91, main.scss */
 .subnav h1 {
   display: block;
   font-family: "Roboto Condensed", sans-serif;
@@ -77,11 +101,11 @@ nav .nav > li a:hover {
   padding: 15px 0 0 90px;
   margin: 0;
 }
-/* line 82, main.scss */
+/* line 98, main.scss */
 .subnav .admin-btns {
   margin-left: 85px;
 }
-/* line 84, main.scss */
+/* line 100, main.scss */
 .subnav .admin-btns a.action-btn {
   text-decoration: none;
   margin: 8px 5px;
@@ -97,7 +121,7 @@ nav .nav > li a:hover {
   position: relative;
   z-index: 1;
 }
-/* line 99, main.scss */
+/* line 115, main.scss */
 .subnav .admin-btns a.action-btn:hover {
   text-decoration: none;
   background-color: #9C9E95;
@@ -106,31 +130,31 @@ nav .nav > li a:hover {
 }
 
 /* TEXT */
-/* line 111, main.scss */
+/* line 127, main.scss */
 a, a.admin-btns {
   font-family: "Roboto", sans-serif;
   font-size: inherit;
 }
 
-/* line 120, main.scss */
+/* line 136, main.scss */
 h2 {
   font-family: "Roboto", sans-serif;
   font-size: 1.7em;
 }
 
-/* line 125, main.scss */
+/* line 141, main.scss */
 h3 {
   font-family: "Roboto", sans-serif;
   font-size: 1.4em;
 }
 
-/* line 130, main.scss */
+/* line 146, main.scss */
 p {
   font-family: "Roboto", sans-serif;
   font-size: 1.1em;
 }
 
-/* line 135, main.scss */
+/* line 151, main.scss */
 .content, .content-other {
   margin-top: 20px;
 }

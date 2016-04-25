@@ -1,10 +1,10 @@
 ﻿/*COLOR PALETTE: http://www.colourlovers.com/palette/359978/w_o_r_d_l_e_s_s_. */
-$primary-color: #e5e3e3;
-$secondary-color: #CBE86B;
-$third-color: #fff;
+$primary-color: #e5e3e3; /*gray */
+$secondary-color: #CBE86B; /* green */
+$third-color: #fff; /* white */
 
 $primary-color-hover: #9C9E95; 
-$secondary-color-hover: #CBE86B;
+$secondary-color-hover: #6f822a;
 $third-color-hover: #CBE86B;
 
 $primary-color-border: #1F1B1B;
@@ -51,23 +51,39 @@ nav {
     a.navbar-brand {
         margin-top: 8px;
     }
-    a, a.navbar-brand, a.navbar-brand:visited {
+    a {
         color: $third-color;
         font-size: 2em;
         font-family: $header-font;
     }
 
-    a:hover, a.navbar-brand:hover {
+    a:hover, a:focus {
         color: $third-color-hover;
+        background: none;
     }
     .nav>li {
        display: inline-block;
-           a:hover {
+           a:hover, a:focus {
                background: none;
            }
     }
 }
 
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
+    background: none;
+}
+
+.dropdown-menu > li > a:hover {
+    color: $secondary-color-hover;
+ }
+
+.nav-account {
+    float: right;
+    a {
+        font-size: 1.7em;
+        margin-top: 10px;
+    }
+}
 /* SECONDARY NAVBAR */
 .subnav {
     background-color: $secondary-color;

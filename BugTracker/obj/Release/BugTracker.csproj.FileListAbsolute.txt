@@ -85,3 +85,4 @@
 \\Mac\Home\Web Development\Coder Foundry\BugTracker\BugTracker\obj\Release\BugTracker.csprojResolveAssemblyReference.cache
 \\Mac\Home\Web Development\Coder Foundry\BugTracker\BugTracker\obj\Release\BugTracker.dll
 \\Mac\Home\Web Development\Coder Foundry\BugTracker\BugTracker\obj\Release\BugTracker.pdb
+\\Mac\Home\Web Development\Coder Foundry\BugTracker\BugTracker\bin\Owin.Security.Providers.dll
