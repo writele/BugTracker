@@ -20,9 +20,12 @@ namespace BugTracker
         // GET: Projects
         public ActionResult Index(string UserId)
         {
-            //get current user Id
-            //get projects by user Id
-            return View(db.Projects.ToList());
+            var userId = User.Identity.GetUserId();
+            var projects = new List<Project>();
+            ProjectUsersHelper helper = new ProjectUsersHelper(db);
+            projects = helper.ListProjects(userId);
+
+            return View(projects);
         }
 
         // GET: Projects/Details/5
@@ -57,9 +60,11 @@ namespace BugTracker
         {
             if (ModelState.IsValid)
             {
+                ProjectUsersHelper helper = new ProjectUsersHelper(db);
                 project.Created = System.DateTimeOffset.Now;
-                //var user = User.Identity.GetUserId();
+                var userId = User.Identity.GetUserId();
                 db.Projects.Add(project);
+                helper.AssignUser(userId, project.Id);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

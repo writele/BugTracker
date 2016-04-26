@@ -6,13 +6,13 @@
 <link href="~/Content/chosen.css" rel="stylesheet" />
 
 <div class="col-md-12 subnav">
-    <h1>Assign Users - @Model.ProjectTitle</h1>
+    <h1>Assign Users to @Model.ProjectTitle</h1>
 </div>
 
 <div class="container">
-    <div class="row content">
+    <div class="row">
         <div class="col-md-6">
-            <h3>Users</h3>
+            <h3>Project Users</h3>
             <ul>
                 @{ var users = Model.UsersList; }
                 @foreach (var user in users)
@@ -22,14 +22,13 @@
             </ul>
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-6 content">
 
             @using (Html.BeginForm("AddUser", "Projects"))
             {
                 @Html.AntiForgeryToken()
 
                 <div class="form-horizontal">
-                    <hr />
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <input type="hidden" name="ProjectId" value="@Model.ProjectId" />
 
@@ -46,13 +45,12 @@
                     </div>
                 </div>
             }
-
+            <br />
             @using (Html.BeginForm("RemoveUser", "Projects"))
             {
                 @Html.AntiForgeryToken()
 
                 <div class="form-horizontal">
-                    <hr />
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <input type="hidden" name="ProjectId" value="@Model.ProjectId" />
 
@@ -71,7 +69,7 @@
             }
 
         </div>
-
+        <p>@Html.ActionLink("Back to Project", "Details", new { id = @Model.ProjectId })</p>
     </div>
 </div>
 

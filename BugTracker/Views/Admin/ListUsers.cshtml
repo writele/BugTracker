@@ -4,7 +4,7 @@
 }
 
 <div class="col-md-12 subnav">
-    <h1>User List</h1>
+    <h1>Users</h1>
 </div>
 
 <div class="container">
@@ -49,7 +49,9 @@
                             }
                         </td>
                         <td>
-                            @Html.ActionLink("Edit User", "EditUser", new { id = @item.Id })
+                        @if (ViewContext.HttpContext.User.IsInRole("Admin")) { 
+                        @Html.ActionLink("Modify User Roles", "EditUser", new { id = @item.Id }) }
+                            
                         </td>
                     </tr>
                                 }

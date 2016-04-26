@@ -4,59 +4,33 @@
     ViewBag.Title = "Details";
 }
 
-<div class="col-md-12 subnav">
+<div class="col-md-6 subnav">
     <h1>Project - @Model.Title</h1>
+</div>
+<div class="col-md-6 subnav">
+    <div class="admin-btns">
+        @Html.ActionLink("Assign Users", "AssignUsers", new { id = Model.Id }, new { @class = "action-btn" })
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "action-btn" })
+    </div>
 </div>
 
 <div class="container">
     <div class="row">
-        <div class="col-md-12 content">
+        <div class="col-md-12">
+            <h3>Deadline: @Model.Deadline.ToString("MMMM dd, yyyy h:mm t")M</h3>
+            <p>@Model.Description</p>
+        </div>
 
-            <div>
-
-                <dl class="dl-horizontal">
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Title)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.Title)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Description)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.Description)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Created)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.Created)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Deadline)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.Deadline)
-                    </dd>
-
-                </dl>
-            </div>
-            <p>
-                @Html.ActionLink("Assign Users", "AssignUsers", new { id = Model.Id })
-            </p>
-            <p>
-                @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-                @Html.ActionLink("Back to List", "Index")
-            </p>
-
-</div>
-</div>
+    </div>
+    <div class="row content">
+        <div class="col-md-3">
+            <h3>Tickets</h3>
+        </div>
+        <div class="col-md-3">
+            @if (ViewContext.HttpContext.User.IsInRole("Submitter"))
+            {
+                @Html.ActionLink("New Ticket", "Create", "Tickets", "/Tickets/Create", new { @class = "btn btn-default" })
+            }
+        </div>
+    </div>
 </div>
