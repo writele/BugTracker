@@ -221,9 +221,11 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProjectUsersHelper.cs" />
     <Compile Include="Controllers\UserRolesHelper.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AdminUserViewModel.cs" />
+    <Compile Include="Models\AssignProjectUsersViewModel.cs" />
     <Compile Include="Models\CodeFirst\Attachment.cs" />
     <Compile Include="Models\CodeFirst\Comment.cs" />
     <Compile Include="Models\CodeFirst\History.cs" />
@@ -250,6 +252,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\chosen.css" />
+    <Content Include="Scripts\chosen.jquery.js" />
     <Content Include="Content\Images\code.jpg" />
     <Content Include="Content\Images\header-code.jpg" />
     <Content Include="Content\jquery.datetimepicker.css" />
@@ -429,6 +433,7 @@
     <Content Include="Views\Account\ResendEmailConfirmation.cshtml" />
     <Content Include="Views\Account\ConfirmationSent.cshtml" />
     <Content Include="Views\Manage\ChangeName.cshtml" />
+    <Content Include="Views\Projects\AssignUsers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

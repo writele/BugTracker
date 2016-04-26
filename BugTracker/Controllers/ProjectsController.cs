@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using BugTracker.Models;
 using Microsoft.AspNet.Identity;
+using BugTracker.Controllers;
 
 namespace BugTracker
 {
@@ -97,6 +98,58 @@ namespace BugTracker
                 return RedirectToAction("Index");
             }
             return View(project);
+        }
+
+        //GET: Project/AssignUsers
+        [Authorize(Roles = "Admin, Project Manager")]
+        public ActionResult AssignUsers(int? id)
+        {
+            {
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Project project = db.Projects.Find(id);
+                if (project == null)
+                {
+                    return HttpNotFound();
+                }
+
+                AssignProjectUsersViewModel model = new AssignProjectUsersViewModel();
+                ProjectUsersHelper helper = new ProjectUsersHelper(db);
+                model.ProjectId = project.Id;
+                model.ProjectTitle = project.Title;
+                var currentUsers = helper.ListUsers(model.ProjectId);
+                model.UsersList = currentUsers;
+                model.CurrentUsers = new SelectList(currentUsers, "Id", "FullName");
+                var absentUsers = helper.ListAbsentUsers(model.ProjectId);
+                model.AbsentUsers = new SelectList(absentUsers, "Id", "FullName");
+                return View(model);
+            }
+        }
+
+        ////POST: Project/AddUser
+        [Authorize(Roles = "Admin, Project Manager")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddUser(string AddUserId, int ProjectId)
+        {
+            ProjectUsersHelper helper = new ProjectUsersHelper(db);
+            helper.AssignUser(AddUserId, ProjectId);
+            db.SaveChanges();
+            return RedirectToAction("AssignUsers", new { id = ProjectId });
+        }
+
+        ////POST: Project/RemoveUser
+        [Authorize(Roles = "Admin, Project Manager")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult RemoveUser(string RemoveUserId, int ProjectId)
+        {
+            ProjectUsersHelper helper = new ProjectUsersHelper(db);
+            helper.RemoveUser(RemoveUserId, ProjectId);
+            db.SaveChanges();
+            return RedirectToAction("AssignUsers", new { id = ProjectId });
         }
 
         // GET: Projects/Delete/5

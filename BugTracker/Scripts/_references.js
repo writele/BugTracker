@@ -2,6 +2,7 @@
 /// <reference path="ai.0.15.0-build58334.min.js" />
 /// <reference path="bootstrap.min.js" />
 /// <reference path="bootstrap-datepicker.js" />
+/// <reference path="chosen.jquery.js" />
 /// <reference path="jquery.datetimepicker.full.js" />
 /// <reference path="jquery.datetimepicker.js" />
 /// <reference path="jquery.validate.js" />
