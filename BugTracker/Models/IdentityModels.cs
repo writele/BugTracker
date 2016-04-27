@@ -55,6 +55,8 @@ namespace BugTracker.Models
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Attachment> Attachments { get; set; }
         public DbSet<History> History { get; set; }
+
+        public System.Data.Entity.DbSet<BugTracker.Models.Type> Types { get; set; }
     }
     
 }

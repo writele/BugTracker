@@ -29,8 +29,65 @@
         <div class="col-md-3">
             @if (ViewContext.HttpContext.User.IsInRole("Submitter"))
             {
-                @Html.ActionLink("New Ticket", "Create", "Tickets", "/Tickets/Create", new { @class = "btn btn-default" })
+                @Html.ActionLink("New Ticket", "Create", "Tickets", new { id = Model.Id }, new { @class = "btn btn-default" })
             }
         </div>
+    <div class="row">
+        <div class="col-md-12 content">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            Title
+                        </th>
+                        <th>
+                            Created
+                        </th>
+                        <th>
+                           Type
+                        </th>
+                        <th>
+                            Priority
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                        <th>
+                            Owner
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>
+                            Ticket title
+                        </td>
+                        <td>
+                            4/25/16
+                        </td>
+                        <td>
+                            Bug
+                        </td>
+                        <td>
+                            High
+                        </td>
+                        <td>
+                            Pending
+                        </td>
+                        <td>
+                            Sally Susans
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+
+
+
+        </div>
+    </div>
     </div>
 </div>

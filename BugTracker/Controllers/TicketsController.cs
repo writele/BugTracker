@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BugTracker.Models;
+using Microsoft.AspNet.Identity;
 
 namespace BugTracker
 {
@@ -37,11 +38,19 @@ namespace BugTracker
         }
 
         // GET: Tickets/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
-            ViewBag.AssigneeId = new SelectList(db.ApplicationUsers, "Id", "FirstName");
-            ViewBag.OwnerId = new SelectList(db.ApplicationUsers, "Id", "FirstName");
-            ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Title");
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Project project = db.Projects.Find(id);
+            if (project == null)
+            {
+                return HttpNotFound();
+            }       
+            ViewBag.ProjectId = id;
+            ViewBag.ProjectTitle = project.Title;
             return View();
         }
 
@@ -50,18 +59,18 @@ namespace BugTracker
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ProjectId,OwnerId,AssigneeId,Created,Modified,Title,Body,Priority,Status")] Ticket ticket)
+        public ActionResult Create([Bind(Include = "Id,ProjectId,Title,Body,Priority,Type")] Ticket ticket)
         {
             if (ModelState.IsValid)
             {
+                ticket.Created = System.DateTimeOffset.Now;
+                ticket.OwnerId = User.Identity.GetUserId();
+                ticket.Status = 0;
                 db.Tickets.Add(ticket);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.AssigneeId = new SelectList(db.ApplicationUsers, "Id", "FirstName", ticket.AssigneeId);
-            ViewBag.OwnerId = new SelectList(db.ApplicationUsers, "Id", "FirstName", ticket.OwnerId);
-            ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Title", ticket.ProjectId);
             return View(ticket);
         }
 
@@ -77,9 +86,8 @@ namespace BugTracker
             {
                 return HttpNotFound();
             }
-            ViewBag.AssigneeId = new SelectList(db.ApplicationUsers, "Id", "FirstName", ticket.AssigneeId);
-            ViewBag.OwnerId = new SelectList(db.ApplicationUsers, "Id", "FirstName", ticket.OwnerId);
-            ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Title", ticket.ProjectId);
+            var ProjectTitle = db.Projects.Where(p => p.Id == ticket.ProjectId).Select(p => p.Title);
+            ViewBag.ProjectTitle = ProjectTitle;
             return View(ticket);
         }
 
@@ -92,13 +100,11 @@ namespace BugTracker
         {
             if (ModelState.IsValid)
             {
-                db.Entry(ticket).State = EntityState.Modified;
+                ticket.Modified = System.DateTimeOffset.Now;
+                db.Tickets.Add(ticket);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.AssigneeId = new SelectList(db.ApplicationUsers, "Id", "FirstName", ticket.AssigneeId);
-            ViewBag.OwnerId = new SelectList(db.ApplicationUsers, "Id", "FirstName", ticket.OwnerId);
-            ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Title", ticket.ProjectId);
             return View(ticket);
         }
 

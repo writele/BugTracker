@@ -22,7 +22,7 @@ namespace BugTracker.Models
 
         public int ProjectId { get; set; }
         //public int PriorityId { get; set; }
-        //public int TypeId { get; set; }
+        public int TypeId { get; set; }
         //public int StatusId { get; set; }
         public string OwnerId { get; set; }
         public string AssigneeId { get; set; }
