@@ -4,87 +4,55 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>Ticket</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Assignee.FirstName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Assignee.FirstName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Owner.FirstName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Owner.FirstName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Project.Title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Project.Title)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Created)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Created)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Modified)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Modified)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Body)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Body)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Priority)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Priority)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-
-    </dl>
+<div class="col-md-6 subnav">
+    <h1>Ticket: @Model.Title</h1>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<div class="col-md-6 subnav">
+    <div class="admin-btns">
+        @Html.ActionLink("Assign User", "AssignUser", new { id = Model.Id }, new { @class = "action-btn" })
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "action-btn" })
+        @Html.ActionLink("Close", "Close", new { id = Model.Id }, new { @class = "action-btn" })
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Project: @Html.ActionLink(Model.Project.Title, "Details", "Projects", new { id = Model.ProjectId })</h3>
+            <h3>Created by @Model.Owner.FullName on @Model.Created.ToString("MMMM dd, yyyy h:mm t")M</h3>
+            @if (Model.Modified.HasValue)
+            {
+                <h4 class="text-danger">Modified on @Model.Modified.Value.ToString("MMMM dd, yyyy h:mm t")M</h4>
+            }
+            @if (Model.Assignee != null)
+            {
+            <h3>Assigned to @Model.Assignee.FullName</h3>
+            }
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-10">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Priority</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>@Model.Type.Name</td>
+                            <td>@Model.Priority</td>
+                            <td>@Model.Status</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>@Model.Body</p>
+            </div>
+
+        </div>
+
+       </div>
+    </div>

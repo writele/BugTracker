@@ -13,25 +13,25 @@
             <table class="table table-striped">
                 <tr>
                     <th>
-                        Owner
+                        Title
                     </th>
                     <th>
                         Project
                     </th>
                     <th>
-                        Date
+                        Created
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Title)
+                        Priority
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Priority)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Status)
+                        Status
                     </th>
                     <th>
                         Type
+                    </th>
+                    <th>
+                        Owner
                     </th>
                     <th>Actions</th>
                 </tr>
@@ -40,16 +40,13 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Assignee.FullName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Project.Title)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Created)
-                        </td>
-                        <td>
                             @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.ActionLink(item.Project.Title, "Details", "Projects", new { id = item.ProjectId }, null)
+                        </td>
+                        <td>
+                            @item.Created.ToString("MMMM dd, yyyy")
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Priority)
@@ -59,6 +56,9 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Type.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Assignee.FullName)
                         </td>
                         <td>
                             @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
