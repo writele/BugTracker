@@ -38,7 +38,7 @@ namespace BugTracker.Models
         public virtual Project Project { get; set; }
         public Priority Priority { get; set; }
         public Status Status { get; set; }
-        public Type Type { get; set; }
+        public virtual Type Type { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<Attachment> Attachments { get; set; }
         public virtual ICollection<History> History { get; set; }
