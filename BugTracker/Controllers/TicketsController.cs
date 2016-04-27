@@ -86,7 +86,8 @@ namespace BugTracker
             {
                 return HttpNotFound();
             }
-            var ProjectTitle = db.Projects.Where(p => p.Id == ticket.ProjectId).Select(p => p.Title);
+            var project = db.Projects.FirstOrDefault(p => p.Id == ticket.ProjectId);
+            var ProjectTitle = project.Title;
             ViewBag.ProjectTitle = ProjectTitle;
             return View(ticket);
         }
@@ -96,12 +97,17 @@ namespace BugTracker
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ProjectId,OwnerId,AssigneeId,Created,Modified,Title,Body,Priority,Status")] Ticket ticket)
+        public ActionResult Edit([Bind(Include = "Id,Created,Title,Body,Priority,Type")] Ticket ticket)
         {
             if (ModelState.IsValid)
             {
                 ticket.Modified = System.DateTimeOffset.Now;
-                db.Tickets.Add(ticket);
+                db.Tickets.Attach(ticket);
+                //db.Entry(ticket).State = EntityState.Modified;
+                db.Entry(ticket).Property("Modified").IsModified = true;
+                db.Entry(ticket).Property("Title").IsModified = true;
+                db.Entry(ticket).Property("Body").IsModified = true;
+                db.Entry(ticket).Property("Priority").IsModified = true;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

@@ -442,15 +442,9 @@
     <Content Include="Views\Tickets\Details.cshtml" />
     <Content Include="Views\Tickets\Edit.cshtml" />
     <Content Include="Views\Tickets\Index.cshtml" />
-    <Content Include="Views\TicketsOther\Create.cshtml" />
-    <Content Include="Views\TicketsOther\Delete.cshtml" />
-    <Content Include="Views\TicketsOther\Details.cshtml" />
-    <Content Include="Views\TicketsOther\Edit.cshtml" />
-    <Content Include="Views\TicketsOther\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Ticket\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
