@@ -5,7 +5,7 @@
 }
 
 <div class="col-md-6 subnav">
-    <h1>Project - @Model.Title</h1>
+    <h1>Project: @Model.Title</h1>
 </div>
 <div class="col-md-6 subnav">
     <div class="admin-btns">
@@ -59,26 +59,29 @@
                 </thead>
 
                 <tbody>
+                    @{ var Tickets = Model.Tickets; }
+                    @foreach (var ticket in Tickets) {
                     <tr>
                         <td>
-                            Ticket title
+                            @Html.ActionLink(ticket.Title, "Details", "Tickets", new { id = ticket.Id }, null)
                         </td>
                         <td>
-                            4/25/16
+                            @ticket.Created.ToString("MMMM dd, yyyy")
                         </td>
                         <td>
-                            Bug
+                            @ticket.Type.Name
                         </td>
                         <td>
-                            High
+                            @ticket.Priority
                         </td>
                         <td>
-                            Pending
+                            @ticket.Status
                         </td>
                         <td>
-                            Sally Susans
+                            @if (ticket.Assignee != null) { @ticket.Assignee.FullName } else { <span class="text-danger">Unassigned</span> }
                         </td>
                     </tr>
+                    }
 
                 </tbody>
 

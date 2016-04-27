@@ -18,7 +18,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h3>Project: @Html.ActionLink(Model.Project.Title, "Details", "Projects", new { id = Model.ProjectId })</h3>
+            <h3>Project: @Html.ActionLink(Model.Project.Title, "Details", "Projects", new { id = Model.ProjectId }, null)</h3>
             <h3>Created by @Model.Owner.FullName on @Model.Created.ToString("MMMM dd, yyyy h:mm t")M</h3>
             @if (Model.Modified.HasValue)
             {
