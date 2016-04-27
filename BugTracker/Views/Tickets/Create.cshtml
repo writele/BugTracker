@@ -4,7 +4,7 @@
     ViewBag.Title = "Create";
     var ProjectId = ViewBag.ProjectId;
     var ProjectTitle = ViewBag.ProjectTitle;
-
+    string[] ProjectTypes = new[] {"Bug", "Feature Request", "Documentation"};
 }
 
 <div class="col-md-12 subnav">
@@ -51,7 +51,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.Type.Name, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.DropDownList("Type.Name", new SelectList(@ProjectTypes), htmlAttributes: new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.Type.Name, "", new { @class = "text-danger" })
                         </div>
                     </div>

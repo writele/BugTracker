@@ -88,7 +88,10 @@ namespace BugTracker
             }
             var project = db.Projects.FirstOrDefault(p => p.Id == ticket.ProjectId);
             var ProjectTitle = project.Title;
+            var type = db.Types.Find(ticket.TypeId);
+            var TicketType = type.Name;
             ViewBag.ProjectTitle = ProjectTitle;
+            ViewBag.TicketType = TicketType;
             return View(ticket);
         }
 
