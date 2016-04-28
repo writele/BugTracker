@@ -62,11 +62,10 @@
                 </thead>
 
                 <tbody>
-                    @{ var Tickets = Model.Tickets; }
-                    @foreach (var ticket in Tickets) {
+                    @foreach (var ticket in ViewBag.TicketList) {
                     <tr>
                         <td>
-                            @Html.ActionLink(ticket.Title, "Details", "Tickets", new { id = ticket.Id }, null)
+                            <a href="/Tickets/Details/@ticket.Id">@ticket.Title</a>
                         </td>
                         <td>
                             @ticket.Created.ToString("MMMM dd, yyyy")

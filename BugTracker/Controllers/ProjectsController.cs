@@ -39,7 +39,30 @@ namespace BugTracker
             if (project == null)
             {
                 return HttpNotFound();
+            }         
+            var userId = User.Identity.GetUserId();
+            UserRolesHelper userHelper = new UserRolesHelper(db);
+            ProjectUsersHelper projectHelper = new ProjectUsersHelper(db);
+            var userRoles = userHelper.ListUserRoles(userId);
+            var tickets = new List<Ticket>();
+            if (userRoles.Contains("Admin") || (userRoles.Contains("Project Manager")))
+            {
+                tickets = project.Tickets.ToList();
             }
+            else if (userRoles.Contains("Developer") && userRoles.Contains("Submitter"))
+            {
+                tickets = project.Tickets.Where(t => t.AssigneeId == userId || t.OwnerId == userId).ToList();
+            }
+            else if (userRoles.Contains("Developer"))
+            {
+                tickets = project.Tickets.Where(t => t.AssigneeId == userId).ToList();
+            }
+            else if (userRoles.Contains("Submitter"))
+            {
+                tickets = project.Tickets.Where(t => t.OwnerId == userId).ToList();
+            }
+
+            ViewBag.TicketList = tickets;
             return View(project);
         }
 
@@ -152,7 +175,14 @@ namespace BugTracker
         public ActionResult RemoveUser(string RemoveUserId, int ProjectId)
         {
             ProjectUsersHelper helper = new ProjectUsersHelper(db);
-            /** If user assigned to tickets in project, unassign from tickets **/
+            var tickets = db.Tickets.Where(t => t.AssigneeId == RemoveUserId && t.ProjectId == ProjectId).ToList();
+            foreach (var ticket in tickets)
+            {
+                ticket.AssigneeId = null;
+                db.Tickets.Attach(ticket);
+                db.Entry(ticket).Property("AssigneeId").IsModified = true;
+                db.SaveChanges();
+            }
             helper.RemoveUser(RemoveUserId, ProjectId);
             db.SaveChanges();
             return RedirectToAction("AssignUsers", new { id = ProjectId });
