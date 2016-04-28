@@ -9,8 +9,11 @@
 </div>
 <div class="col-md-6 subnav">
     <div class="admin-btns">
-        @Html.ActionLink("Assign Users", "AssignUsers", new { id = Model.Id }, new { @class = "action-btn" })
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "action-btn" })
+@if (ViewContext.HttpContext.User.IsInRole("Project Manager") || ViewContext.HttpContext.User.IsInRole("Admin"))
+{
+    @Html.ActionLink("Assign Users", "AssignUsers", new { id = Model.Id }, new { @class = "action-btn" })
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "action-btn" })
+}
     </div>
 </div>
 

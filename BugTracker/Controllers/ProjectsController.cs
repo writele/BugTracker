@@ -152,6 +152,7 @@ namespace BugTracker
         public ActionResult RemoveUser(string RemoveUserId, int ProjectId)
         {
             ProjectUsersHelper helper = new ProjectUsersHelper(db);
+            /** If user assigned to tickets in project, unassign from tickets **/
             helper.RemoveUser(RemoveUserId, ProjectId);
             db.SaveChanges();
             return RedirectToAction("AssignUsers", new { id = ProjectId });

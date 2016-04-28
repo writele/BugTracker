@@ -45,7 +45,7 @@ namespace BugTracker
             }
             else if (userRoles.Contains("Developer") && userRoles.Contains("Submitter"))
             {
-                tickets = db.Tickets.Where(t => t.AssigneeId == userId && t.OwnerId == userId).Include(t => t.Assignee).Include(t => t.Owner).Include(t => t.Project).ToList();
+                tickets = db.Tickets.Where(t => t.AssigneeId == userId || t.OwnerId == userId).Include(t => t.Assignee).Include(t => t.Owner).Include(t => t.Project).ToList();
 
             }
             else if (userRoles.Contains("Developer"))
@@ -74,9 +74,11 @@ namespace BugTracker
             {
                 return HttpNotFound();
             }
+            ViewBag.UserId = User.Identity.GetUserId(); 
             return View(ticket);
         }
 
+        [Authorize(Roles="Submitter")]
         // GET: Tickets/Create
         public ActionResult Create(int? id)
         {
@@ -93,10 +95,10 @@ namespace BugTracker
             ViewBag.ProjectTitle = project.Title;
             return View();
         }
-
         // POST: Tickets/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Submitter")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,ProjectId,Title,Body,Priority,Type")] Ticket ticket)
@@ -165,21 +167,6 @@ namespace BugTracker
             return View(ticket);
         }
 
-        // GET: Tickets/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Ticket ticket = db.Tickets.Find(id);
-            if (ticket == null)
-            {
-                return HttpNotFound();
-            }
-            return View(ticket);
-        }
-
         //GET Tickets/Assign Users
         [Authorize(Roles ="Admin,Project Manager")]
         public ActionResult AssignUser(int? id)
@@ -196,11 +183,21 @@ namespace BugTracker
             AssignTicketUserViewModel AssignModel = new AssignTicketUserViewModel();
             AssignModel.TicketId = ticket.Id;
             AssignModel.TicketTitle = ticket.Title;
-            var users = db.Users.ToList();
+            ProjectUsersHelper helper = new ProjectUsersHelper(db);
+            UserRolesHelper userHelper = new UserRolesHelper(db);
+            var projectUsers = helper.ListUsers(ticket.ProjectId);
+            var projectDevelopers = new List<ApplicationUser>();
+            foreach (var user in projectUsers)
+            {
+                if(userHelper.IsUserInRole(user.Id, "Developer"))
+                {
+                    projectDevelopers.Add(user);
+                }
+            }
             if(ticket.Assignee != null) {
                 AssignModel.TicketAssignedTo = ticket.Assignee.FullName;
             }  
-            AssignModel.UsersList = new SelectList(users, "Id", "FullName");
+            AssignModel.UsersList = new SelectList(projectDevelopers, "Id", "FullName");
             return View(AssignModel);
         }
 
@@ -220,6 +217,20 @@ namespace BugTracker
                 return RedirectToAction("Details", new { id = TicketId });
         }
 
+        // GET: Tickets/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Ticket ticket = db.Tickets.Find(id);
+            if (ticket == null)
+            {
+                return HttpNotFound();
+            }
+            return View(ticket);
+        }
 
         // POST: Tickets/Delete/5
         [HttpPost, ActionName("Delete")]
