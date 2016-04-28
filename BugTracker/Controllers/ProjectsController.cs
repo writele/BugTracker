@@ -28,6 +28,14 @@ namespace BugTracker
             return View(projects);
         }
 
+        //GET: Projects/ViewAll
+        [Authorize(Roles = "Admin, Project Manager")]
+        public ActionResult ViewAll()
+        {
+            var projects = db.Projects.ToList();
+            return View(projects);
+        }
+
         // GET: Projects/Details/5
         public ActionResult Details(int? id)
         {
@@ -179,8 +187,10 @@ namespace BugTracker
             foreach (var ticket in tickets)
             {
                 ticket.AssigneeId = null;
+                ticket.Status = Status.Open;
                 db.Tickets.Attach(ticket);
                 db.Entry(ticket).Property("AssigneeId").IsModified = true;
+                db.Entry(ticket).Property("Status").IsModified = true;
                 db.SaveChanges();
             }
             helper.RemoveUser(RemoveUserId, ProjectId);

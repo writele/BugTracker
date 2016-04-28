@@ -12,6 +12,7 @@
         @if (ViewContext.HttpContext.User.IsInRole("Admin") || ViewContext.HttpContext.User.IsInRole("Project Manager"))
         {
             @Html.ActionLink("Create New", "Create", "Projects", "/Projects/Create", new { @class = "action-btn" })
+            @Html.ActionLink("View All Projects", "ViewAll", "Projects", "/Projects/ViewAll", new { @class = "action-btn" })
         }
     </div>
 </div>
