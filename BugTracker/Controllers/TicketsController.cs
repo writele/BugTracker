@@ -20,8 +20,46 @@ namespace BugTracker
         // GET: Tickets
         public ActionResult Index()
         {
-            var tickets = db.Tickets.Include(t => t.Assignee).Include(t => t.Owner).Include(t => t.Project);
-            return View(tickets.ToList());
+            var userId = User.Identity.GetUserId();
+            var user = db.Users.Find(userId);
+            UserRolesHelper userHelper = new UserRolesHelper(db);
+            ProjectUsersHelper projectHelper = new ProjectUsersHelper(db);
+            var userRoles = userHelper.ListUserRoles(userId);
+            var tickets = new List<Ticket>();
+            if (userRoles.Contains("Admin"))
+            {   
+                tickets = db.Tickets.Include(t => t.Assignee).Include(t => t.Owner).Include(t => t.Project).ToList();
+            }
+            else if (userRoles.Contains("Project Manager"))
+            {
+                //tickets in projects where projects.users includes user
+                var projects = projectHelper.ListProjects(userId);
+                foreach(var project in projects)
+                {
+                    foreach(var ticket in project.Tickets)
+                    {
+                        tickets.Add(ticket);
+                    }
+                }
+
+            }
+            else if (userRoles.Contains("Developer") && userRoles.Contains("Submitter"))
+            {
+                tickets = db.Tickets.Where(t => t.AssigneeId == userId && t.OwnerId == userId).Include(t => t.Assignee).Include(t => t.Owner).Include(t => t.Project).ToList();
+
+            }
+            else if (userRoles.Contains("Developer"))
+            {
+                //tickets where AssigneedId == userId
+                tickets = db.Tickets.Where(t => t.AssigneeId == userId).Include(t => t.Assignee).Include(t => t.Owner).Include(t => t.Project).ToList();
+            }
+            else if (userRoles.Contains("Submitter"))
+            {
+                //tickets where OwnerId == userID
+                tickets = db.Tickets.Where(t => t.OwnerId == userId).Include(t => t.Assignee).Include(t => t.Owner).Include(t => t.Project).ToList();
+            }
+
+            return View(tickets);
         }
 
         // GET: Tickets/Details/5
@@ -158,10 +196,10 @@ namespace BugTracker
             AssignTicketUserViewModel AssignModel = new AssignTicketUserViewModel();
             AssignModel.TicketId = ticket.Id;
             AssignModel.TicketTitle = ticket.Title;
+            var users = db.Users.ToList();
             if(ticket.Assignee != null) {
                 AssignModel.TicketAssignedTo = ticket.Assignee.FullName;
-            }
-            var users = db.Users.ToList();
+            }  
             AssignModel.UsersList = new SelectList(users, "Id", "FullName");
             return View(AssignModel);
         }
@@ -177,6 +215,7 @@ namespace BugTracker
                 ticket.Status = Status.Pending;
                 db.Tickets.Attach(ticket);
                 db.Entry(ticket).Property("AssigneeId").IsModified = true;
+                db.Entry(ticket).Property("Status").IsModified = true;
                 db.SaveChanges();
                 return RedirectToAction("Details", new { id = TicketId });
         }
