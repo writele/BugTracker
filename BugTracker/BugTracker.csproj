@@ -222,9 +222,11 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProjectUsersHelper.cs" />
+    <Compile Include="Controllers\StringUtilities.cs" />
     <Compile Include="Controllers\UserRolesHelper.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AdminUserViewModel.cs" />
+    <Compile Include="Models\AssignTicketUserViewModel.cs" />
     <Compile Include="Models\AssignProjectUsersViewModel.cs" />
     <Compile Include="Models\CodeFirst\Attachment.cs" />
     <Compile Include="Models\CodeFirst\Comment.cs" />
@@ -442,6 +444,7 @@
     <Content Include="Views\Tickets\Details.cshtml" />
     <Content Include="Views\Tickets\Edit.cshtml" />
     <Content Include="Views\Tickets\Index.cshtml" />
+    <Content Include="Views\Tickets\AssignUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -85,3 +85,4 @@
 \\Mac\Home\Web Development\Coder Foundry\BugTracker\BugTracker\bin\SendGridMail.dll
 \\Mac\Home\Web Development\Coder Foundry\BugTracker\BugTracker\bin\System.Net.Http.Formatting.dll
 \\Mac\Home\Web Development\Coder Foundry\BugTracker\BugTracker\bin\System.Net.Http.Formatting.xml
+\\Mac\Home\Web Development\Coder Foundry\BugTracker\BugTracker\bin\Owin.Security.Providers.dll

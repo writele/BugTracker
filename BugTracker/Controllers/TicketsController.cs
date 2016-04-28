@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using BugTracker.Models;
 using Microsoft.AspNet.Identity;
+using BugTracker.Controllers;
 
 namespace BugTracker
 {
@@ -64,6 +65,10 @@ namespace BugTracker
         {
             if (ModelState.IsValid)
             {
+                if(ticket.Title == null)
+                {
+                    ticket.Title = StringUtilities.Shorten(ticket.Body, 50);
+                }
                 ticket.Created = System.DateTimeOffset.Now;
                 ticket.OwnerId = User.Identity.GetUserId();
                 ticket.Status = 0;
@@ -105,6 +110,10 @@ namespace BugTracker
         {
             if (ModelState.IsValid)
             {
+                if (ticket.Title == null)
+                {
+                    ticket.Title = StringUtilities.Shorten(ticket.Body, 50);
+                }
                 ticket.Modified = System.DateTimeOffset.Now;
                 db.Tickets.Attach(ticket);
                 //db.Entry(ticket).State = EntityState.Modified;
@@ -132,6 +141,46 @@ namespace BugTracker
             }
             return View(ticket);
         }
+
+        //GET Tickets/Assign Users
+        [Authorize(Roles ="Admin,Project Manager")]
+        public ActionResult AssignUser(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Ticket ticket = db.Tickets.Find(id);
+            if (ticket == null)
+            {
+                return HttpNotFound();
+            }
+            AssignTicketUserViewModel AssignModel = new AssignTicketUserViewModel();
+            AssignModel.TicketId = ticket.Id;
+            AssignModel.TicketTitle = ticket.Title;
+            if(ticket.Assignee != null) {
+                AssignModel.TicketAssignedTo = ticket.Assignee.FullName;
+            }
+            var users = db.Users.ToList();
+            AssignModel.UsersList = new SelectList(users, "Id", "FullName");
+            return View(AssignModel);
+        }
+
+        ////POST: Tickets/AssignUser
+        [Authorize(Roles = "Admin, Project Manager")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AssignUser(string UserId, int TicketId)
+        {
+                var ticket = db.Tickets.Find(TicketId);
+                ticket.AssigneeId = UserId;
+                ticket.Status = Status.Pending;
+                db.Tickets.Attach(ticket);
+                db.Entry(ticket).Property("AssigneeId").IsModified = true;
+                db.SaveChanges();
+                return RedirectToAction("Details", new { id = TicketId });
+        }
+
 
         // POST: Tickets/Delete/5
         [HttpPost, ActionName("Delete")]

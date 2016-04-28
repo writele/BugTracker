@@ -4,10 +4,10 @@
     ViewBag.Title = "Details";
 }
 
-<div class="col-md-6 subnav">
+<div class="col-md-8 subnav">
     <h1>Ticket: @Model.Title</h1>
 </div>
-<div class="col-md-6 subnav">
+<div class="col-md-4 subnav">
     <div class="admin-btns">
         @Html.ActionLink("Assign User", "AssignUser", new { id = Model.Id }, new { @class = "action-btn" })
         @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "action-btn" })
