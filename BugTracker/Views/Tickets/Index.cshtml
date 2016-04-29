@@ -9,6 +9,8 @@
     <h1>Tickets</h1>
 </div>
 
+<div class="container">
+    <div class="row">
         <div class="col-md-12 content">
 
             <table class="table table-striped">
@@ -51,7 +53,7 @@
                                 @Html.ActionLink(item.Project.Title, "Details", "Projects", new { id = item.ProjectId }, null)
                             </td>
                             <td>
-                                @item.Created.ToString("MMMM dd, yyyy")
+                                @item.Created.ToString("M/d/yy")
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Priority)
@@ -79,14 +81,41 @@
                     }
 
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <th>
+                            
+                        </th>
+                        <th>
+                            
+                        </th>
+                        <th>
+                            
+                        </th>
+                        <th>
+                            Priority
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                        <th>
+                            Type
+                        </th>
+                        <th>
+                            
+                        </th>
+                        <th class="hidden">
+
+                        </th>
+                    </tr>
+                </tfoot>
             </table>
 
         </div>
 
+        </div>
+</div>
+
 @section Scripts {
-    <script>
-    $(document).ready(function(){
-        $('table').DataTable();
-    });
-    </script>
+<script src="~/Scripts/TicketsFilter.js"></script>
 }

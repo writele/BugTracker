@@ -58,6 +58,9 @@
                         <th>
                             Owner
                         </th>
+                        <th class="hidden">
+
+                        </th>
                     </tr>
                 </thead>
 
@@ -68,7 +71,7 @@
                             <a href="/Tickets/Details/@ticket.Id">@ticket.Title</a>
                         </td>
                         <td>
-                            @ticket.Created.ToString("MMMM dd, yyyy")
+                            @ticket.Created.ToString("M/d/yy")
                         </td>
                         <td>
                             @ticket.Type.Name
@@ -82,25 +85,66 @@
                         <td>
                             @if (ticket.Assignee != null) { @ticket.Assignee.FullName } else { <span class="text-danger">Unassigned</span> }
                         </td>
+                        <td class="hidden">
+                            @ticket.Body
+                        </td>
                     </tr>
                     }
 
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <th>
+
+                        </th>
+                        <th>
+
+                        </th>
+                        <th>
+                            Type
+                        </th>
+                        <th>
+                            Priority
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                        <th>
+
+                        </th>
+                        <th class="hidden">
+
+                        </th>
+                    </tr>
+                </tfoot>
 
             </table>
 
 
-
+            <p>@Html.ActionLink("Back to Projects","Index")</p>
 
         </div>
     </div>
     </div>
 </div>
 
+
 @section Scripts {
     <script>
-    $(document).ready(function(){
-        $('table').DataTable();
-    });
+        $(document).ready(function () {
+            $('.table').dataTable()
+                      .columnFilter({
+                          aoColumns: [
+                              null,
+                              null,
+                              { type: "select", values: ['Bug', 'Feature Request', 'Documentation'] },
+                              { type: "select", values: ['High', 'Medium', 'Low'] },
+                              { type: "select", values: ['Open', 'Pending', 'Resolved', 'Closed'] },
+                              null
+                          ]
+
+                      });
+        });
+
     </script>
 }
