@@ -12,7 +12,7 @@
         @if (ViewContext.HttpContext.User.IsInRole("Admin") || ViewContext.HttpContext.User.IsInRole("Project Manager"))
         {
             @Html.ActionLink("Create New", "Create", "Projects", new { controller = "Projects", action = "Create" }, new { @class = "action-btn" })
-            @Html.ActionLink("View All Projects", "ViewAll", "Projects", new { controller = "Projects", action = "ViewAll" }, new { @class = "action-btn" })
+            @Html.ActionLink("All Projects", "ViewAll", "Projects", new { controller = "Projects", action = "ViewAll" }, new { @class = "action-btn" })
         }
     </div>
 </div>
@@ -32,7 +32,7 @@
         <div class="col-md-6">
             @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-default" }) 
             @Html.ActionLink("Assign Users", "AssignUsers", new { id = item.Id }, new { @class = "btn btn-default" }) 
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-default" })
+            @Html.ActionLink("Archive", "ArchiveProject", new { id = item.Id }, new { @class = "btn btn-default" })
         </div>
     }
     </div>

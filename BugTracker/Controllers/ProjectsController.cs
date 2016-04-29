@@ -209,9 +209,9 @@ namespace BugTracker
             return RedirectToAction("AssignUsers", new { id = ProjectId });
         }
 
-        // GET: Projects/Delete/5
+        // GET: Projects/ArchiveProject/5
         [Authorize(Roles = "Admin, Project Manager")]
-        public ActionResult Delete(int? id)
+        public ActionResult ArchiveProject(int? id)
         {
             if (id == null)
             {
@@ -225,14 +225,16 @@ namespace BugTracker
             return View(project);
         }
 
-        // POST: Projects/Delete/5
+        // POST: Projects/ArchiveProject
         [Authorize(Roles = "Admin, Project Manager")]
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult ArchiveProject(int id)
         {
             Project project = db.Projects.Find(id);
-            db.Projects.Remove(project);
+            project.Archived = true;
+            db.Projects.Attach(project);
+            db.Entry(project).Property("Archived").IsModified = true;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

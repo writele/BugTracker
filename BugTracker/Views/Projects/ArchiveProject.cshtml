@@ -1,0 +1,50 @@
+﻿@model BugTracker.Models.Project
+
+@{
+    ViewBag.Title = "Archive Project";
+}
+
+<div class="col-md-12 subnav">
+    <h1>Archive Project: @Model.Title</h1>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 content">
+
+            <h3>Are you sure you want to archive this project?</h3>
+            <div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.Title)</th>
+                            <th>@Html.DisplayNameFor(model => model.Description)</th>
+                            <th>@Html.DisplayNameFor(model => model.Created)</th>
+                            <th>@Html.DisplayNameFor(model => model.Deadline)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>@Model.Title</td>
+                            <td>@Model.Description</td>
+                            <td>@Model.Created.ToString("MMMM dd, yyyy h:mm t")M</td>
+                            <td>@Model.Deadline.ToString("MMMM dd, yyyy h:mm t")M</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.Id)
+                    <div class="form-actions no-color content">
+                        <input type="submit" value="Archive" class="btn btn-default" /> 
+                    </div>
+                    <p class="content">@Html.ActionLink("Back to Projects", "Index")</p>
+                }
+            </div>
+
+            </div>
+        </div>
+</div>
+
