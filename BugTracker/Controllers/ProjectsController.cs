@@ -25,14 +25,22 @@ namespace BugTracker
             ProjectUsersHelper helper = new ProjectUsersHelper(db);
             projects = helper.ListProjects(userId);
 
-            return View(projects.OrderBy(p => p.Deadline));
+            return View(projects.Where(p => p.Archived == false).OrderBy(p => p.Deadline));
         }
 
         //GET: Projects/ViewAll
         [Authorize(Roles = "Admin, Project Manager")]
         public ActionResult ViewAll()
         {
-            var projects = db.Projects.OrderBy(p => p.Deadline).ToList();
+            var projects = db.Projects.Where(p => p.Archived == false).OrderBy(p => p.Deadline).ToList();
+            return View(projects);
+        }
+
+        //GET: Projects/Archive
+        [Authorize(Roles = "Admin, Project Manager")]
+        public ActionResult Archive()
+        {
+            var projects = db.Projects.Where(p => p.Archived == true).OrderBy(p => p.Deadline).ToList();
             return View(projects);
         }
 
@@ -93,6 +101,7 @@ namespace BugTracker
             {
                 ProjectUsersHelper helper = new ProjectUsersHelper(db);
                 project.Created = System.DateTimeOffset.Now;
+                project.Archived = false;
                 var userId = User.Identity.GetUserId();
                 db.Projects.Add(project);
                 helper.AssignUser(userId, project.Id);

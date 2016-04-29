@@ -448,6 +448,7 @@
     <Content Include="Views\Tickets\Index.cshtml" />
     <Content Include="Views\Tickets\AssignUser.cshtml" />
     <Content Include="Views\Projects\ViewAll.cshtml" />
+    <Content Include="Views\Projects\Archive.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
