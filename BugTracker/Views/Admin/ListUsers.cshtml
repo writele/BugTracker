@@ -12,52 +12,84 @@
         <div class="col-md-12 content">
 
             <table class="table">
-                <tr>
-                    <th>
-                        Name
-                    </th>
-                    <th>
-                        Role
-                    </th>
-                    <th>
-                        Projects
-                    </th>
-                    <th>
-                        Action
-                    </th>
-                </tr>
-
-                @{ var users = @Model.Users; }
-                @foreach (var item in users)
-                {
+                <thead>
                     <tr>
-                        <td>
-                            @item.Name
-                        </td>
-                        <td>
-                            @{ var roles = item.Roles; }
-                            @foreach (var role in roles)
-                            {
-                                <p>@role</p>
-                            }
-                        </td>
-                        <td>
-                            @{ var projects = item.Projects; }
-                            @foreach (var project in projects)
-                {
-                                <p>@project</p>
-                            }
-                        </td>
-                        <td>
-                        @if (ViewContext.HttpContext.User.IsInRole("Admin")) { 
-                        @Html.ActionLink("Modify User Roles", "EditUser", new { id = @item.Id }) }
-                            
-                        </td>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Role
+                        </th>
+                        <th>
+                            Projects
+                        </th>
+                        <th>
+                            Action
+                        </th>
                     </tr>
-                                }
+                </thead>
+                <tbody>
 
+                    @{ var users = @Model.Users; }
+                    @foreach (var item in users)
+                    {
+                        <tr>
+                            <td>
+                                @item.Name
+                            </td>
+                            <td>
+                                @{ var roles = item.Roles; }
+                                @foreach (var role in roles)
+                                {
+                                    <p>@role</p>
+                                }
+                            </td>
+                            <td>
+                                @{ var projects = item.Projects; }
+                                @foreach (var project in projects)
+                {
+                                    <p>@project</p>
+                                }
+                            </td>
+                            <td>
+                                @if (ViewContext.HttpContext.User.IsInRole("Admin"))
+                                {
+                                    @Html.ActionLink("Modify User Roles", "EditUser", new { id = @item.Id }) }
+
+                            </td>
+                        </tr>
+                                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>
+                        </th>
+                        <th>
+                            Role
+                        </th>
+                        <th>
+                        </th>
+                        <th>
+                        </th>
+                    </tr>
+                </tfoot>
             </table>
             </div>
         </div>
     </div>
 
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.table').dataTable().columnFilter({
+                aoColumns: [
+                    { type: "text" },
+                    { type: "select", values: ['Admin', 'Project Manager', 'Developer', 'Submitter'] },
+                    { type: "text" },
+                ]
+
+            });
+        });
+
+    </script>
+}
