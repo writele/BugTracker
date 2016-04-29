@@ -25,14 +25,14 @@ namespace BugTracker
             ProjectUsersHelper helper = new ProjectUsersHelper(db);
             projects = helper.ListProjects(userId);
 
-            return View(projects);
+            return View(projects.OrderBy(p => p.Deadline));
         }
 
         //GET: Projects/ViewAll
         [Authorize(Roles = "Admin, Project Manager")]
         public ActionResult ViewAll()
         {
-            var projects = db.Projects.ToList();
+            var projects = db.Projects.OrderBy(p => p.Deadline).ToList();
             return View(projects);
         }
 
@@ -188,7 +188,9 @@ namespace BugTracker
             {
                 ticket.AssigneeId = null;
                 ticket.Status = Status.Open;
+                ticket.Modified = System.DateTimeOffset.Now;
                 db.Tickets.Attach(ticket);
+                db.Entry(ticket).Property("Modified").IsModified = true;
                 db.Entry(ticket).Property("AssigneeId").IsModified = true;
                 db.Entry(ticket).Property("Status").IsModified = true;
                 db.SaveChanges();

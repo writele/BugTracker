@@ -28,7 +28,7 @@
             <h3>Created by @Model.Owner.FullName on @Model.Created.ToString("MMMM dd, yyyy h:mm t")M</h3>
             @if (Model.Modified.HasValue)
             {
-                <h4 class="text-danger">Modified on @Model.Modified.Value.ToString("MMMM dd, yyyy h:mm t")M</h4>
+                <h4 class="text-danger">Updated on @Model.Modified.Value.ToString("MMMM dd, yyyy h:mm t")M</h4>
             }
             @if (Model.Assignee != null)
             {

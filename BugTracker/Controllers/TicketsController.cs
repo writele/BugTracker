@@ -210,9 +210,11 @@ namespace BugTracker
                 var ticket = db.Tickets.Find(TicketId);
                 ticket.AssigneeId = UserId;
                 ticket.Status = Status.Pending;
+                ticket.Modified = System.DateTimeOffset.Now;
                 db.Tickets.Attach(ticket);
                 db.Entry(ticket).Property("AssigneeId").IsModified = true;
                 db.Entry(ticket).Property("Status").IsModified = true;
+                db.Entry(ticket).Property("Modified").IsModified = true;
                 db.SaveChanges();
                 return RedirectToAction("Details", new { id = TicketId });
         }
