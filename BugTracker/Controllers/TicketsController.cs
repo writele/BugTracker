@@ -219,8 +219,8 @@ namespace BugTracker
                 return RedirectToAction("Details", new { id = TicketId });
         }
 
-        // GET: Tickets/Delete/5
-        public ActionResult Delete(int? id)
+        // GET: Tickets/Close/5
+        public ActionResult Close(int? id)
         {
             if (id == null)
             {
@@ -234,13 +234,16 @@ namespace BugTracker
             return View(ticket);
         }
 
-        // POST: Tickets/Delete/5
-        [HttpPost, ActionName("Delete")]
+        // POST: Tickets/Close
+        [Authorize(Roles = "Admin, Project Manager")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult Close(int id)
         {
             Ticket ticket = db.Tickets.Find(id);
-            db.Tickets.Remove(ticket);
+            ticket.Status = Status.Closed;
+            db.Tickets.Attach(ticket);
+            db.Entry(ticket).Property("Status").IsModified = true;
             db.SaveChanges();
             return RedirectToAction("Index");
         }
