@@ -9,10 +9,13 @@
 </div>
 <div class="col-md-6 subnav">
     <div class="admin-btns">
-@if (ViewContext.HttpContext.User.IsInRole("Project Manager") || ViewContext.HttpContext.User.IsInRole("Admin"))
+@if (Model.Archived == false)
 {
-    @Html.ActionLink("Assign Users", "AssignUsers", new { id = Model.Id }, new { @class = "action-btn" })
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "action-btn" })
+    if (ViewContext.HttpContext.User.IsInRole("Project Manager") || ViewContext.HttpContext.User.IsInRole("Admin"))
+    {
+        @Html.ActionLink("Assign Users", "AssignUsers", new { id = Model.Id }, new { @class = "action-btn" })
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "action-btn" })
+    }
 }
     </div>
 </div>
@@ -30,7 +33,7 @@
             <h3>Tickets</h3>
         </div>
         <div class="col-md-3">
-            @if (ViewContext.HttpContext.User.IsInRole("Submitter"))
+            @if (ViewContext.HttpContext.User.IsInRole("Submitter") && Model.Archived == false)
             {
                 @Html.ActionLink("New Ticket", "Create", "Tickets", new { id = Model.Id }, new { @class = "btn btn-default" })
             }
