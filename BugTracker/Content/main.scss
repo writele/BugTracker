@@ -131,7 +131,7 @@ nav {
     h1 {
         display: block;
         font-family: $subheader-font;
-        font-size: 1.9em;
+        font-size: 1.8em;
         padding: 15px 0 0 90px;
         margin: 0;
     }
@@ -156,6 +156,24 @@ nav {
     }
 }
 
+@media screen and (max-width: 765px) {
+    .subnav {
+        h1{
+            font-size: 1.5em;
+        }
+    }
+}
+
+@media screen and (max-width: 480px) { 
+    .subnav {
+        h1{
+            font-size: 1.2em;
+        }
+        .admin-btns a.action-btn {
+            font-size: 1em;
+        }
+    }
+}
 
 /* TEXT */
 
