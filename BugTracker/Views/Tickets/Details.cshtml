@@ -4,20 +4,25 @@
     ViewBag.Title = "Details";
 }
 
-<div class="col-md-8 subnav">
+<div class="col-md-6 subnav">
     <h1>Ticket: @Model.Title</h1>
 </div>
-<div class="col-md-4 subnav">
+<div class="col-md-6 subnav">
     <div class="admin-btns">
     @if (ViewContext.HttpContext.User.IsInRole("Project Manager"))
     {
         @Html.ActionLink("Assign User", "AssignUser", new { id = Model.Id }, new { @class = "action-btn" })
         @Html.ActionLink("Close", "Close", new { id = Model.Id }, new { @class = "action-btn" })
     }
+    @if (ViewContext.HttpContext.User.IsInRole("Developer") && ViewBag.UserId == Model.AssigneeId)
+    {
+        @Html.ActionLink("Resolve", "Resolve", new { id = Model.Id }, new { @class = "action-btn" })
+    }
     @if (ViewContext.HttpContext.User.IsInRole("Project Manager") || ViewBag.UserId == Model.AssigneeId || ViewBag.UserId == Model.OwnerId)
     {
         @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "action-btn" })
     }
+
     </div>
 </div>
 

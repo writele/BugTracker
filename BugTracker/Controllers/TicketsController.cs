@@ -34,9 +34,10 @@ namespace BugTracker
             {
                 //tickets in projects where projects.users includes user
                 var projects = projectHelper.ListProjects(userId);
-                foreach(var project in projects)
+                //tickets = user.Projects.SelectMany(p => p.Tickets);
+                foreach (var project in projects)
                 {
-                    foreach(var ticket in project.Tickets)
+                    foreach (var ticket in project.Tickets)
                     {
                         tickets.Add(ticket);
                     }
@@ -242,6 +243,35 @@ namespace BugTracker
         {
             Ticket ticket = db.Tickets.Find(id);
             ticket.Status = Status.Closed;
+            db.Tickets.Attach(ticket);
+            db.Entry(ticket).Property("Status").IsModified = true;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        // GET: Tickets/Resolve/5
+        public ActionResult Resolve(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Ticket ticket = db.Tickets.Find(id);
+            if (ticket == null)
+            {
+                return HttpNotFound();
+            }
+            return View(ticket);
+        }
+
+        // POST: Tickets/Resolve
+        [Authorize(Roles = "Developer")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Resolve(int id)
+        {
+            Ticket ticket = db.Tickets.Find(id);
+            ticket.Status = Status.Resolved;
             db.Tickets.Attach(ticket);
             db.Entry(ticket).Property("Status").IsModified = true;
             db.SaveChanges();
