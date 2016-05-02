@@ -18,6 +18,7 @@ namespace BugTracker
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Projects
+        [Authorize]
         public ActionResult Index(string UserId)
         {
             var userId = User.Identity.GetUserId();
@@ -45,6 +46,7 @@ namespace BugTracker
         }
 
         // GET: Projects/Details/5
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -82,8 +84,8 @@ namespace BugTracker
             return View(project);
         }
 
-        [Authorize(Roles = "Admin, Project Manager")]
         // GET: Projects/Create
+        [Authorize(Roles = "Admin, Project Manager")]
         public ActionResult Create()
         {
             return View();

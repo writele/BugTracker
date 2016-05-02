@@ -18,6 +18,7 @@ namespace BugTracker
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Tickets
+        [Authorize]
         public ActionResult Index()
         {
             var userId = User.Identity.GetUserId();
@@ -28,6 +29,7 @@ namespace BugTracker
         }
 
         // GET: Tickets/Details/5
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -86,6 +88,7 @@ namespace BugTracker
         }
 
         // GET: Tickets/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -109,6 +112,7 @@ namespace BugTracker
         // POST: Tickets/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Created,Title,Body,Priority,Type")] Ticket ticket)
@@ -185,6 +189,7 @@ namespace BugTracker
         }
 
         // GET: Tickets/Close/5
+        [Authorize(Roles = "Admin, Project Manager")]
         public ActionResult Close(int? id)
         {
             if (id == null)
@@ -207,13 +212,16 @@ namespace BugTracker
         {
             Ticket ticket = db.Tickets.Find(id);
             ticket.Status = Status.Closed;
+            ticket.Modified = System.DateTimeOffset.Now;
             db.Tickets.Attach(ticket);
             db.Entry(ticket).Property("Status").IsModified = true;
+            db.Entry(ticket).Property("Modified").IsModified = true;
             db.SaveChanges();
             return RedirectToAction("Index");
         }
 
         // GET: Tickets/Resolve/5
+        [Authorize(Roles = "Developer")]
         public ActionResult Resolve(int? id)
         {
             if (id == null)
@@ -236,8 +244,10 @@ namespace BugTracker
         {
             Ticket ticket = db.Tickets.Find(id);
             ticket.Status = Status.Resolved;
+            ticket.Modified = System.DateTimeOffset.Now;
             db.Tickets.Attach(ticket);
             db.Entry(ticket).Property("Status").IsModified = true;
+            db.Entry(ticket).Property("Modified").IsModified = true;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

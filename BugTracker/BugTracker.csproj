@@ -260,6 +260,7 @@
     <Content Include="Content\chosen-sprite%402x.png" />
     <Content Include="Content\chosen-sprite.png" />
     <Content Include="Content\chosen.css" />
+    <Content Include="Content\Landing.css" />
     <Content Include="Scripts\chosen.jquery.js" />
     <Content Include="Content\Images\code.jpg" />
     <Content Include="Content\Images\header-code.jpg" />
@@ -455,8 +456,6 @@
     <Content Include="Views\Tickets\Close.cshtml" />
     <Content Include="Views\Tickets\Resolve.cshtml" />
     <Content Include="Views\Home\FAQ.cshtml" />
-    <Content Include="Views\Landing\_ViewStart.cshtml" />
-    <Content Include="Views\Landing\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

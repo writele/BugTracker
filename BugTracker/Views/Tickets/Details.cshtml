@@ -9,21 +9,23 @@
 </div>
 <div class="col-md-4 subnav">
     <div class="admin-btns">
-    @if (ViewContext.HttpContext.User.IsInRole("Project Manager"))
+@if (!Model.Status.ToString().Equals("Closed"))
+{
+    if (ViewContext.HttpContext.User.IsInRole("Project Manager"))
     {
         @Html.ActionLink("Assign User", "AssignUser", new { id = Model.Id }, new { @class = "action-btn" })
         @Html.ActionLink("Close", "Close", new { id = Model.Id }, new { @class = "action-btn" })
     }
-
-    @if (ViewBag.UserId == Model.AssigneeId || ViewBag.UserId == Model.OwnerId || ViewContext.HttpContext.User.IsInRole("Project Manager"))
+    if (ViewBag.UserId == Model.AssigneeId || ViewBag.UserId == Model.OwnerId || ViewContext.HttpContext.User.IsInRole("Project Manager"))
     {
         @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "action-btn" })
     }
 
-    @if (ViewContext.HttpContext.User.IsInRole("Developer") && ViewBag.UserId == Model.AssigneeId)
+    if (ViewContext.HttpContext.User.IsInRole("Developer") && ViewBag.UserId == Model.AssigneeId)
     {
         @Html.ActionLink("Resolve", "Resolve", new { id = Model.Id }, new { @class = "action-btn" })
     }
+}
 
     </div>
 </div>
