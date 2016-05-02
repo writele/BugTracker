@@ -55,6 +55,7 @@ namespace BugTracker.Controllers
 
         //
         // GET: /Account/Login
+        [LayoutInjecter("_Landing")]
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {

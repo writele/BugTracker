@@ -44,6 +44,12 @@ body {
     left: 0;
     top: 0;
  }
+
+.landing-header {
+    font-family: $header-font;
+    padding-bottom: 15px;
+}
+
 /* TOP NAVBAR */
 .navbar-default {
     border: none;
