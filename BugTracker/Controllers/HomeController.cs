@@ -23,12 +23,10 @@ namespace BugTracker.Controllers
                 model.Id = User.Identity.GetUserId();
                 var user = db.Users.Find(model.Id);
                 model.Name = user.FirstName + " " + user.LastName;
-
                 model.Projects = user.Projects.Take(5).ToList();
-                //Select the first 5 projects
-                model.Tickets = user.Projects.SelectMany(p => p.Tickets).Take(5).ToList();
-                //Select the first 5 tickets
 
+                TicketsHelper helper = new TicketsHelper(db);
+                model.Tickets = helper.GetUserTickets(model.Id).Take(5).ToList();
                 return View(model);
             }
         }

@@ -1,0 +1,44 @@
+﻿@model BugTracker.Models.DashboardViewModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="col-md-6 subnav">
+    <h1>Dashboard</h1>
+</div>
+<div class="col-md-6 subnav">
+    <h1>Welcome @Model.Name! </h1>
+</div>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 content">
+
+@if (ViewContext.HttpContext.User.IsInRole("Admin"))
+{
+    <p>@Html.ActionLink("Edit User Roles", "ListUsers", "Admin", new { controller="Admin", action="ListUsers"}, new { @class="btn btn-default"})</p>
+}
+
+        </div>
+        <div class="col-md-6">
+            <h2>Projects</h2>
+            @foreach (var project in Model.Projects)
+            {
+                <p>@Html.ActionLink(project.Title, "Details", "Projects", new { id = project.Id }, null)</p>
+            }
+            
+
+            <p>@Html.ActionLink("View All Projects", "Index", "Projects")</p>
+        </div>
+
+        <div class="col-md-6">
+            <h2>Tickets</h2>
+            @foreach (var ticket in Model.Tickets)
+            {
+                <p>@Html.ActionLink(ticket.Title, "Details", "Tickets", new { id = ticket.Id }, null)</p>
+            }
+            <p>@Html.ActionLink("View All Tickets", "Index", "Tickets")</p>
+        </div>
+    </div>
+</div>

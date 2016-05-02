@@ -1,0 +1,85 @@
+﻿@model BugTracker.Models.AssignProjectUsersViewModel
+@{
+    ViewBag.Title = "AssignUsers";
+}
+
+<div class="col-md-12 subnav">
+    <h1>Assign Users to @Model.ProjectTitle</h1>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Project Users</h3>
+            <ul>
+                @{ var users = Model.UsersList; }
+                @foreach (var user in users)
+                {
+                    <li>@user.FirstName @user.LastName</li>
+                }
+            </ul>
+        </div>
+
+        <div class="col-md-6 content">
+
+            @using (Html.BeginForm("AddUser", "Projects"))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <input type="hidden" name="ProjectId" value="@Model.ProjectId" />
+
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            @Html.DropDownList("AddUserId", Model.AbsentUsers, new { @class = "searchable-select" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            <input type="submit" value="Add User" name="AddUser" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+            }
+            <br />
+            @using (Html.BeginForm("RemoveUser", "Projects"))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <input type="hidden" name="ProjectId" value="@Model.ProjectId" />
+
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            @Html.DropDownList("RemoveUserId", Model.CurrentUsers, new { @class="searchable-select", @data_placeholder = "Choose A User:" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            <input type="submit" value="Remove User" name="RemoveUser" class="btn btn-default" />
+                        </div>
+                    </div>
+
+                    <div>
+                        <p class="text-danger">Warning: Removing a user will unassign the user from any tickets assigned to them in this project.</p>
+                    </div>
+                </div>
+            }
+
+        </div>
+        <p>@Html.ActionLink("Back to Project", "Details", new { id = @Model.ProjectId })</p>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+
+        jQuery('.searchable-select').chosen();
+
+    </script>
+}
+

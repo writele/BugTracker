@@ -1,0 +1,182 @@
+﻿@model BugTracker.Models.Project
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="col-md-8 subnav">
+    <h1>Project: @Model.Title</h1>
+</div>
+<div class="col-md-4 subnav">
+    <div class="admin-btns">
+@if (Model.Archived == false)
+{
+    if (ViewContext.HttpContext.User.IsInRole("Project Manager") || ViewContext.HttpContext.User.IsInRole("Admin"))
+    {
+        @Html.ActionLink("Assign Users", "AssignUsers", new { id = Model.Id }, new { @class = "action-btn" })
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "action-btn" })
+    }
+}
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <h3>Deadline: @Model.Deadline.ToString("MMMM dd, yyyy h:mm t")M</h3>
+            <p>@Model.Description</p>
+        </div>
+        <div class="col-md-4 content">
+                @using (Html.BeginForm("UserProfile", "Home"))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <p><strong>Project Users:</strong>
+                        @{ var ProjectUsers = new SelectList(Model.Users, "Id", "FullName"); }
+                        @Html.DropDownList("UserId", ProjectUsers, new { @class = "searchable-select" })
+                        </p>
+
+                        @*<div class="form-group">
+                            <div class="col-md-10">
+                                <input type="submit" value="User Profile" name="UserProfile" class="btn btn-default" />
+                            </div>
+                        </div>*@
+                    
+                    
+                    </div>
+                            }
+                    
+        </div>
+
+     </div>
+
+    <div class="row content">
+        <div class="col-md-3">
+            
+            <h3>Tickets</h3>
+
+        </div>
+        <div class="col-md-3">
+            @if (ViewContext.HttpContext.User.IsInRole("Submitter") && Model.Archived == false)
+            {
+                @Html.ActionLink("New Ticket", "Create", "Tickets", new { id = Model.Id }, new { @class = "btn btn-default" })
+            }
+        </div>
+    <div class="row">
+        <div class="col-md-12 content">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            Title
+                        </th>
+                        <th>
+                            Created
+                        </th>
+                        <th>
+                           Type
+                        </th>
+                        <th>
+                            Priority
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                        <th>
+                            Owner
+                        </th>
+                        <th class="hidden">
+
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var ticket in ViewBag.TicketList)
+                    {
+                    <tr>
+                        <td>
+                            <a href="/Tickets/Details/@ticket.Id">@ticket.Title</a>
+                        </td>
+                        <td>
+                            @ticket.Created.ToString("M/d/yy")
+                        </td>
+                        <td>
+                            @ticket.Type.Name
+                        </td>
+                        <td>
+                            @ticket.Priority
+                        </td>
+                        <td>
+                            @ticket.Status
+                        </td>
+                        <td>
+                            @if (ticket.Assignee != null)
+                            { @ticket.Assignee.FullName }
+                            else { <span class="text-danger">Unassigned</span> }
+                        </td>
+                        <td class="hidden">
+                            @ticket.Body
+                        </td>
+                    </tr>
+                    }
+
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>
+
+                        </th>
+                        <th>
+
+                        </th>
+                        <th>
+                            Type
+                        </th>
+                        <th>
+                            Priority
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                        <th>
+
+                        </th>
+                        <th class="hidden">
+
+                        </th>
+                    </tr>
+                </tfoot>
+
+            </table>
+
+
+            <p>@Html.ActionLink("Back to Projects", "Index")</p>
+
+        </div>
+    </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.searchable-select').chosen();
+            $('.table').dataTable()
+                      .columnFilter({
+                          aoColumns: [
+                              null,
+                              null,
+                              { type: "select", values: ['Bug', 'Feature Request', 'Documentation'] },
+                              { type: "select", values: ['High', 'Medium', 'Low'] },
+                              { type: "select", values: ['Open', 'Pending', 'Resolved', 'Closed'] },
+                              null
+                          ]
+
+                      });
+        });
+
+    </script>
+}

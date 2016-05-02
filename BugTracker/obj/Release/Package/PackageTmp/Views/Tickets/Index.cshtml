@@ -1,0 +1,121 @@
+﻿@model IEnumerable<BugTracker.Models.Ticket>
+
+@{
+    ViewBag.Title = "Index";
+
+}
+
+<div class="col-md-12 subnav">
+    <h1>Tickets</h1>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 content">
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            Title
+                        </th>
+                        <th>
+                            Project
+                        </th>
+                        <th>
+                            Created
+                        </th>
+                        <th>
+                            Priority
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                        <th>
+                            Type
+                        </th>
+                        <th>
+                            Assigned To
+                        </th>
+                        <th class="hidden">
+
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.ActionLink(item.Title, "Details", new { id = item.Id })
+                            </td>
+                            <td>
+                                @Html.ActionLink(item.Project.Title, "Details", "Projects", new { id = item.ProjectId }, null)
+                            </td>
+                            <td>
+                                @item.Created.ToString("M/d/yy")
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Priority)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Status)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Type.Name)
+                            </td>
+                            <td>
+                                @if (item.Assignee == null)
+                                {
+                                    <span class="text-danger">Unassigned</span>
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(modelItem => item.Assignee.FullName)
+                                }
+                            </td>
+                            <td class="hidden">
+                                @item.Body 
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>
+                            
+                        </th>
+                        <th>
+                            
+                        </th>
+                        <th>
+                            
+                        </th>
+                        <th>
+                            Priority
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                        <th>
+                            Type
+                        </th>
+                        <th>
+                            
+                        </th>
+                        <th class="hidden">
+
+                        </th>
+                    </tr>
+                </tfoot>
+            </table>
+
+        </div>
+
+        </div>
+</div>
+
+@section Scripts {
+<script src="~/Scripts/TicketsFilter.js"></script>
+}

@@ -1,0 +1,43 @@
+﻿@model IEnumerable<BugTracker.Models.Project>
+
+@{
+    ViewBag.Title = "View All Projects";
+}
+
+<div class="col-md-6 subnav">
+    <h1>All Projects</h1>
+</div>
+<div class="col-md-6 subnav">
+    <div class="admin-btns">
+        @Html.ActionLink("Create New", "Create", "Projects", new { controller = "Projects", action = "Create" }, new { @class = "action-btn" })
+        @Html.ActionLink("Your Projects", "Index", "Projects", new { controller = "Projects", action = "Index" }, new { @class = "action-btn" })
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-offset-1 col-md-11 content">
+            @Html.ActionLink("View Archived Projects", "Archive", "Projects", new { controller = "Projects", action = "Index" }, new { @class = "btn btn-default" })
+        </div>
+
+        @foreach (var item in Model)
+        {
+            <div class="col-md-12 content">
+                <div class="col-md-offset-1 col-md-4">
+                    <h3>@Html.ActionLink(item.Title, "Details", new { id = item.Id })</h3>
+                    <p>Deadline: @item.Deadline.ToString("MMMM dd, yyyy h:mm t")M</p>
+                </div>
+                @if (ViewContext.HttpContext.User.IsInRole("Admin") || ViewContext.HttpContext.User.IsInRole("Project Manager"))
+                {
+                    <div class="col-md-6">
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-default" })
+                        @Html.ActionLink("Assign Users", "AssignUsers", new { id = item.Id }, new { @class = "btn btn-default" })
+                        @Html.ActionLink("Archive", "ArchiveProject", new { id = item.Id }, new { @class = "btn btn-default" })
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</div>
+

@@ -223,6 +223,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProjectUsersHelper.cs" />
     <Compile Include="Controllers\StringUtilities.cs" />
+    <Compile Include="Controllers\TicketsHelper.cs" />
     <Compile Include="Controllers\UserRolesHelper.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AdminUserViewModel.cs" />

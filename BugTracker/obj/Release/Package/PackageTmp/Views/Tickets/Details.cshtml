@@ -1,0 +1,77 @@
+﻿@model BugTracker.Models.Ticket
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="col-md-8 subnav">
+    <h1>Ticket: @Model.Title</h1>
+</div>
+<div class="col-md-4 subnav">
+    <div class="admin-btns">
+    @if (ViewContext.HttpContext.User.IsInRole("Project Manager"))
+    {
+        @Html.ActionLink("Assign User", "AssignUser", new { id = Model.Id }, new { @class = "action-btn" })
+        @Html.ActionLink("Close", "Close", new { id = Model.Id }, new { @class = "action-btn" })
+    }
+
+    @if (ViewBag.UserId == Model.AssigneeId || ViewBag.UserId == Model.OwnerId || ViewContext.HttpContext.User.IsInRole("Project Manager"))
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "action-btn" })
+    }
+
+    @if (ViewContext.HttpContext.User.IsInRole("Developer") && ViewBag.UserId == Model.AssigneeId)
+    {
+        @Html.ActionLink("Resolve", "Resolve", new { id = Model.Id }, new { @class = "action-btn" })
+    }
+
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Project: @Html.ActionLink(Model.Project.Title, "Details", "Projects", new { id = Model.ProjectId }, null)</h3>
+            <h3>Created by @Model.Owner.FullName on @Model.Created.ToString("MMMM dd, yyyy h:mm t")M</h3>
+            @if (Model.Modified.HasValue)
+            {
+                <h4 class="text-danger">Updated on @Model.Modified.Value.ToString("MMMM dd, yyyy h:mm t")M</h4>
+            }
+            @if (Model.Assignee != null)
+            {
+            <h3>Assigned to @Model.Assignee.FullName</h3>
+            }
+            else
+            {
+                <h3>Assigned to: <span class="text-danger">Unassigned</span></h3>
+            }
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-10">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Priority</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>@Model.Type.Name</td>
+                            <td>@Model.Priority</td>
+                            <td>@Model.Status</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>@Model.Body</p>
+            </div>
+
+            
+        </div>
+
+    <p class="content">@Html.ActionLink("Back to Tickets", "Index")</p>
+       </div>
+    </div>

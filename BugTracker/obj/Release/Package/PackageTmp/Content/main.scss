@@ -1,0 +1,325 @@
+﻿/*COLOR PALETTE: http://www.colourlovers.com/palette/359978/w_o_r_d_l_e_s_s_. */
+$primary-color: #e5e3e3; /*gray */
+$secondary-color: #CBE86B; /* green */
+$third-color: #fff; /* white */
+$link-color: #0b486b;
+
+$primary-color-hover: #9C9E95; 
+$secondary-color-hover: #6f822a;
+$third-color-hover: #CBE86B;
+$link-color-hover: #818e52;
+
+$primary-color-border: #1F1B1B;
+$primary-color-border-hover: #515838;
+
+/* FONTS */
+$header-font:'Alegreya', serif;
+$subheader-font: 'Roboto Condensed', sans-serif;
+$content-font: 'Roboto', sans-serif;
+
+$nav-height: 80px;
+$header-image: "Images/header-code.jpg";
+
+@mixin button($bg-color, $font-color, $shadow-color) {
+    background: $bg-color;
+    color: $font-color;
+    box-shadow: 0 6px $shadow-color;
+    border-radius: 5px;
+}
+
+@mixin button-hover($shadow-color) {
+    box-shadow: 0 4px $shadow-color;
+    top: 2px;
+}
+
+body {
+    padding-top: $nav-height;
+    box-sizing: border-box;
+    font-size: 16px;
+    font-family: $content-font;
+}
+.navbar-static-top {
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+ }
+/* TOP NAVBAR */
+.navbar-default {
+    border: none;
+}
+
+.navbar-default .navbar-brand {
+    color: $third-color;
+}
+.navbar-default .navbar-brand:hover {
+    color: $third-color-hover;
+}
+
+nav {
+    position: absolute;
+    background: url($header-image);
+    background-color: #000;
+    height: $nav-height;
+    border: 0;
+    a.navbar-brand {
+        margin-top: 8px;
+    }
+    a, form a {
+        color: $third-color;
+        font-size: 2em;
+        font-family: $header-font;
+    }
+
+    a:hover, a:focus {
+        color: $third-color-hover;
+        background: none;
+    }
+    .nav>li {
+       display: inline-block;
+           a:hover, a:focus {
+               background: none;
+           }
+    }
+}
+
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
+    background: none;
+}
+
+.nav .dropdown-menu {
+    padding: 0;
+    margin: 0;
+    > li, form > li {
+        padding: 0;
+        margin: 0;
+    }
+     > li a:hover, form > li:hover {
+        background-color: $secondary-color;
+     }
+ }
+
+.nav-account {
+    float: right;
+    margin-top: 8px;
+    li form  a {
+        text-decoration: none;
+        display: block;
+        padding: 3px 20px;
+        clear: both;
+        font-weight: normal;
+        line-height: 1.42857143;
+        color: #333;
+        white-space: nowrap;
+    }
+    a, form a {
+        font-size: 1.8em;
+    }
+}
+
+.caret {
+    border-top: 5px solid;
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
+    margin-left: 4px;
+
+}
+/* SECONDARY NAVBAR */
+.subnav {
+    background-color: $secondary-color;
+    height: 65px;
+    h1 {
+        display: block;
+        font-family: $subheader-font;
+        font-size: 1.8em;
+        padding: 15px 0 0 90px;
+        margin: 0;
+    }
+    .admin-btns {
+        margin-left: 85px;
+        a.action-btn {
+            @include button($primary-color, #000, $primary-color-border);
+            text-decoration: none;
+            margin: 8px 5px;   
+            padding: 9px;        
+            height: 46px;
+            font-size: 1.1em;
+            letter-spacing: 1px;
+            display: inline-block;     
+            position: relative;    
+            z-index: 1;
+        }
+        a.action-btn:hover {
+            @include button-hover($primary-color-border);
+            text-decoration: none;
+        }
+    }
+}
+
+@media screen and (max-width: 765px) {
+    .subnav {
+        h1{
+            font-size: 1.5em;
+        }
+    }
+}
+
+@media screen and (max-width: 480px) { 
+    .subnav {
+        h1{
+            font-size: 1.2em;
+        }
+        .admin-btns a.action-btn {
+            font-size: 1em;
+        }
+    }
+}
+
+/* TEXT */
+
+a, a.admin-btns, form a {
+    font-family: $content-font;
+    font-size: inherit;
+}
+
+a {
+    color: $link-color;
+}
+
+a:hover {
+    color: $link-color-hover;
+    text-decoration: none;
+}
+
+h2 {
+    font-family: $content-font;
+    font-size: 1.7em;
+}
+
+h3 {
+    font-family: $content-font;
+    font-size: 1.4em;
+}
+
+p, form, ul li {
+    font-family: $content-font;
+    font-size: 1.1em;
+}
+
+.content, .content-other {
+    margin-top: 20px;
+}
+
+/* Buttons */
+.btn-default {
+    @include button($secondary-color,#000, #000);
+    border: none;
+    position: relative;
+    font-family: $content-font;
+    font-size: 1.1em;
+    letter-spacing: 1px;
+}
+
+.btn-default:hover {
+    @include button($secondary-color,#000, #000);
+    @include button-hover(#000);
+    border: none;
+}
+
+/* Forms (from Skeleton Grid framework) */
+
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="text"],
+input[type="tel"],
+input[type="url"],
+input[type="password"],
+textarea,
+select,
+.form-control,
+input.datepicker {
+  padding: 6px 10px; /* The 6px vertically centers text on FF, ignored by Webkit */
+  background-color: #fff;
+  border: 1px solid #D1D1D1;
+  border-radius: 4px;
+  box-shadow: none;
+  box-sizing: border-box; 
+  font-family: $content-font;
+  font-weight: normal;
+  font-size: 1em;
+}
+.form-control {
+    height: 38px;
+}
+/* Removes awkward default styles on some inputs for iOS */
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="text"],
+input[type="tel"],
+input[type="url"],
+input[type="password"],
+textarea {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none; }
+textarea {
+  min-height: 150px;
+  padding-top: 6px;
+  padding-bottom: 6px; 
+  width: 100%;
+}
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="search"]:focus,
+input[type="text"]:focus,
+input[type="tel"]:focus,
+input[type="url"]:focus,
+input[type="password"]:focus,
+textarea:focus,
+select:focus {
+  border: 1px solid #33C3F0;
+  outline: 0; }
+label,
+legend {
+  display: block;
+  margin-bottom: .5rem;
+  font-family: $subheader-font;
+  letter-spacing: .9px;
+}
+fieldset {
+  padding: 0;
+  border-width: 0; }
+input[type="checkbox"],
+input[type="radio"] {
+  display: inline; }
+label > .label-body {
+  display: inline-block;
+  margin-left: .5rem;
+  font-weight: normal; }
+
+form a {
+    font-size: 1.1em;
+}
+
+.chosen-single span {
+    font-size: 1.2em;
+}
+
+tfoot input[type="text"] {
+    max-width: 150px;
+}
+/* Tables */
+
+thead {
+    font-family: $subheader-font;
+    font-size: 1.2em;
+    font-weight: normal;
+}
+
+tbody td, tfooter {
+    font-family: $content-font;
+    font-size: 1em;
+}
+

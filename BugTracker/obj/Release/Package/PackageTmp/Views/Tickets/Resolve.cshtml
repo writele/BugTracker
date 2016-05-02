@@ -1,0 +1,69 @@
+﻿@model BugTracker.Models.Ticket
+@{
+    ViewBag.Title = "Resolve Ticket";
+}
+
+<div class="col-md-12 subnav">
+    <h1>Resolve Ticket: @Model.Title</h1>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 content">
+            <p>Resolving a ticket will change its status to Resolved. Your project manager will be alerted and can close the ticket after determining that the issue has been fully addressed.</p>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Project Title</th>
+                        <th>Assigned To</th>
+                        <th>Created</th>
+                        <th>Updated</th>
+                        <th>Type</th>
+                        <th>Priority</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>@Model.Project.Title</td>
+                        @if (@Model.Assignee == null)
+                        {
+                            <td>Unassigned</td>
+                        }
+                        else
+                        {
+                            <td>@Model.Assignee.FullName</td>
+                        }
+                        <td>@Model.Created.ToString("M/d/yy")</td>
+                        @if (@Model.Modified == null)
+                        {
+                            <td>Never</td>
+                        }
+                        else
+                        {
+                            <td>@Model.Modified.Value.ToString("M/d/yy")</td>
+                        }
+                        <td>@Model.Type.Name</td>
+                        <td>@Model.Priority</td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.Id)
+                <div class="form-actions no-color content">
+                    <input type="submit" value="Resolve" class="btn btn-default" />
+                </div>
+                <p class="content">@Html.ActionLink("Back to Tickets", "Index")</p>
+            }
+
+
+        </div>
+    </div>
+</div>
+
+
+

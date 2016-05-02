@@ -1,0 +1,32 @@
+﻿@model IEnumerable<BugTracker.Models.Project>
+
+@{
+    ViewBag.Title = "View Archived Projects";
+}
+
+<div class="col-md-6 subnav">
+    <h1>Archived Projects</h1>
+</div>
+<div class="col-md-6 subnav">
+    <div class="admin-btns">
+        @Html.ActionLink("Your Projects", "Index", new { controller = "Projects", action = "Index" }, new { @class = "action-btn" })
+        @Html.ActionLink("All Projects", "ViewAll", new { controller = "Projects", action = "ViewAll" }, new { @class = "action-btn" })
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+
+        @foreach (var item in Model)
+        {
+            <div class="col-md-12 content">
+                <div class="col-md-offset-1 col-md-4">
+                    <h3>@Html.ActionLink(item.Title, "Details", new { id = item.Id })</h3>
+                    <p>Deadline: @item.Deadline.ToString("MMMM dd, yyyy h:mm t")M</p>
+                </div>
+            </div>
+        }
+
+
+    </div>
+</div>
