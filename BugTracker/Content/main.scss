@@ -124,6 +124,12 @@ nav {
     margin-left: 4px;
 
 }
+
+.faq {
+    float: right;
+    padding-top: 20px;
+}
+
 /* SECONDARY NAVBAR */
 .subnav {
     background-color: $secondary-color;
@@ -165,6 +171,11 @@ nav {
 }
 
 @media screen and (max-width: 480px) { 
+    .nav {
+        a {
+            font-size: 1.3em;
+        }
+    }
     .subnav {
         h1{
             font-size: 1.2em;
@@ -172,6 +183,10 @@ nav {
         .admin-btns a.action-btn {
             font-size: 1em;
         }
+    }
+
+    .faq {
+        float: none;
     }
 }
 

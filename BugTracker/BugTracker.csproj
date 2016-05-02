@@ -453,6 +453,7 @@
     <Content Include="Views\Projects\ArchiveProject.cshtml" />
     <Content Include="Views\Tickets\Close.cshtml" />
     <Content Include="Views\Tickets\Resolve.cshtml" />
+    <Content Include="Views\Home\FAQ.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
