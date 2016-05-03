@@ -325,6 +325,17 @@ namespace BugTracker
             return View();
         }
 
+        // POST: Delete Attachment
+        [Authorize(Roles = "Admin")]
+        [HttpPost, ActionName("DeleteAttachment")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteAttachment(int id)
+        {
+            Attachment attachment = db.Attachments.Find(id);
+            db.Attachments.Remove(attachment);
+            db.SaveChanges();
+            return RedirectToAction("Details", new { id = attachment.TicketId });
+        }
 
         protected override void Dispose(bool disposing)
         {

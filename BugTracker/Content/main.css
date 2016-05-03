@@ -384,3 +384,10 @@ tbody td, tfooter {
   font-family: "Roboto", sans-serif;
   font-size: 1em;
 }
+
+/* line 347, main.scss */
+.img-responsive {
+  display: block;
+  height: auto;
+  max-width: 100%;
+}

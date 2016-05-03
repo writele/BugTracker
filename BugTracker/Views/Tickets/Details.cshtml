@@ -102,11 +102,27 @@
                 </div>
             </div>
             @{ var attachments = Model.Attachments; }
-            @foreach (var attachment in attachments) {
-            <p><img class="img-responsive" src="@attachment.MediaURL"></p>
-            <p>@attachment.Description</p>
+            @foreach (var attachment in attachments)
+            {
+                <div class="col-md-6">
+                    <p><a href="@attachment.MediaURL"><img class="img-responsive" src="@attachment.MediaURL"></a></p>
+                </div>
+                <div class="col-md-6">
+                    <p>@attachment.Description</p>
+                </div>
+                <div class="col-md-12">
+                    @using (Html.BeginForm("DeleteAttachment", "Tickets", FormMethod.Post, new { onsubmit = "return confirm('Are you sure you want to delete this attachment?')" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="Id" value="@attachment.Id" />
+                        <input type="hidden" name="TicketId" value="@attachment.TicketId" />
+                        <div class="form-group comment-btn-delete">
+                            <input type="submit" value="Delete" />
+                        </div>
+                    }
+                </div>
             }
-
+                
         </div>
     </div>
 </div>
