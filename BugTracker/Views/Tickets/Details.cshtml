@@ -83,8 +83,14 @@
                     @Html.ActionLink("New Comment", "AddComment", new { id = Model.Id }, new { @class = "btn btn-default" })
                 </div>
             </div>
-            <h4>Posted by User on 5/3/16 4:30pm</h4>
-            <p>Lorem ipsum dolor sit amet, augue id adipiscing elit dis consectetuer est. Vitae viverra diam, amet arcu platea magna donec suspendisse, nulla aptent tellus eu nulla. Phasellus arcu libero interdum, vel tortor id egestas lorem nulla mauris, mauris tortor laborum elit amet aliquet, nulla ridiculus platea odio in eget justo, rutrum id et vel interdum quis interdum</p>
+            @{ var comments = Model.Comments; }
+            @foreach (var comment in comments)
+            {
+                <div class="comment">
+                    <h4>Posted by @comment.Author.FullName on @comment.Date.ToString("M/d/yy h:mm t")M</h4>
+                    <p>@comment.Content</p>
+                </div>
+            }
         </div>
         <div class="col-md-6">
             <div class="row">
@@ -100,7 +106,4 @@
                     
         </div>
     </div>
-
-    <p class="content">@Html.ActionLink("Back to Tickets", "Index")</p>
-       </div>
-    </div>
+</div>

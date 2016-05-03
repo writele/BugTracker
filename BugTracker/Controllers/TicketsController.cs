@@ -273,9 +273,17 @@ namespace BugTracker
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddComment([Bind(Include = "Id,ProjectId,Content")] Comment comment)
+        public ActionResult AddComment([Bind(Include = "Id,TicketId,Content")] Comment comment)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                comment.AuthorId = User.Identity.GetUserId();
+                comment.Date = System.DateTimeOffset.Now;
+                db.Comments.Add(comment);
+                db.SaveChanges();
+                return RedirectToAction("Details", new { id = comment.TicketId});
+            }
+                return View();
         }
 
 
