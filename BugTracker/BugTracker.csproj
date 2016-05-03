@@ -247,6 +247,7 @@
     <Compile Include="Models\ImageUploadValidator.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
+    <Compile Include="Models\RestrictTicketAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Controllers\TicketsController.cs" />

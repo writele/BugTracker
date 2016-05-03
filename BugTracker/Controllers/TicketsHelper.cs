@@ -49,5 +49,44 @@ namespace BugTracker.Controllers
             }
             return tickets;
         }
+
+        public bool HasTicketPermission(string userId, int ticketId)
+        {
+            var user = db.Users.Find(userId);
+            var ticket = db.Tickets.Find(ticketId);
+            UserRolesHelper helper = new UserRolesHelper(db);
+            var userRoles = helper.ListUserRoles(userId);
+            if (userRoles.Contains("Admin"))
+            {
+                return true;
+            }
+            else if (userRoles.Contains("Project Manager") && user.Projects.SelectMany(p => p.Tickets).ToList().Contains(ticket))
+            {
+                return true;
+            }
+            else if (userRoles.Contains("Submitter") && userRoles.Contains("Developer"))
+            {
+                if (ticket.AssigneeId == userId || ticket.OwnerId == userId)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else if (userRoles.Contains("Developer") && ticket.AssigneeId == userId)
+            {
+                return true;
+            }
+            else if (userRoles.Contains("Submitter") && ticket.OwnerId == userId)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

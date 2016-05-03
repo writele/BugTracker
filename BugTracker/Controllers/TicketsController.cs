@@ -42,8 +42,15 @@ namespace BugTracker
             {
                 return HttpNotFound();
             }
-            ViewBag.UserId = User.Identity.GetUserId(); 
-            return View(ticket);
+            TicketsHelper ticketHelper = new TicketsHelper(db);
+            var userId = User.Identity.GetUserId();
+            if (ticketHelper.HasTicketPermission(userId, ticket.Id))
+            {
+                ViewBag.UserId = User.Identity.GetUserId();
+                return View(ticket);
+            }
+            TempData["Error"] = "Sorry, you do not have permission to view that ticket.";
+            return RedirectToAction("Index");
         }
 
         [Authorize(Roles="Submitter")]
