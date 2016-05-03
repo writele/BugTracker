@@ -287,6 +287,18 @@ namespace BugTracker
                 return View();
         }
 
+        // POST: Delete Comment
+        [Authorize(Roles = "Admin")]
+        [HttpPost, ActionName("DeleteComment")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteComment(int id)
+        {
+            Comment comment = db.Comments.Find(id);
+            db.Comments.Remove(comment);
+            db.SaveChanges();
+            return RedirectToAction("Details", new { id = comment.TicketId });
+        }
+
         //GET: Tickets/AddAttachment
         [Authorize]
         public ActionResult AddAttachment(int? id)
