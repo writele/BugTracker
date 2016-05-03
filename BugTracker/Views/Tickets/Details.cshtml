@@ -38,6 +38,7 @@
             @if (Model.Modified.HasValue)
             {
                 <h4 class="text-danger">Updated on @Model.Modified.Value.ToString("MMMM dd, yyyy h:mm t")M</h4>
+                @Html.ActionLink("View History", "History", new { id = Model.Id})
             }
             @if (Model.Assignee != null)
             {

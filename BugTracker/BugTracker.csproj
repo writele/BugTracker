@@ -460,6 +460,7 @@
     <Content Include="Views\Home\FAQ.cshtml" />
     <Content Include="Views\Tickets\AddComment.cshtml" />
     <Content Include="Views\Tickets\AddAttachment.cshtml" />
+    <Content Include="Views\Tickets\History.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,22 @@
+﻿@model BugTracker.Models.Ticket
+
+@{
+    ViewBag.Title = "Ticket History";
+}
+
+<div class="col-md-12 subnav">
+    <h1>Ticket History: @Html.ActionLink(Model.Title, "Details", new { id = Model.Id })</h1>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            @{ var ticketHistory = Model.History; }
+            @foreach (var history in ticketHistory)
+            {
+                <h3>@history.Date.ToString("M/d/yy h:mm t")M</h3>
+                <p>@Html.Raw(history.Body)</p>
+            }
+        </div>
+    </div>
+</div>

@@ -10,6 +10,7 @@ using BugTracker.Models;
 using Microsoft.AspNet.Identity;
 using BugTracker.Controllers;
 using System.IO;
+using System.Text;
 
 namespace BugTracker
 {
@@ -32,6 +33,30 @@ namespace BugTracker
         // GET: Tickets/Details/5
         [Authorize]
         public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Ticket ticket = db.Tickets.Find(id);
+            if (ticket == null)
+            {
+                return HttpNotFound();
+            }
+            TicketsHelper ticketHelper = new TicketsHelper(db);
+            var userId = User.Identity.GetUserId();
+            if (ticketHelper.HasTicketPermission(userId, ticket.Id))
+            {
+                ViewBag.UserId = User.Identity.GetUserId();
+                return View(ticket);
+            }
+            TempData["Error"] = "Sorry, you do not have permission to view that ticket.";
+            return RedirectToAction("Index");
+        }
+
+        // GET: Tickets/History/5
+        [Authorize]
+        public ActionResult History(int? id)
         {
             if (id == null)
             {
@@ -87,7 +112,13 @@ namespace BugTracker
                 ticket.Created = System.DateTimeOffset.Now;
                 ticket.OwnerId = User.Identity.GetUserId();
                 ticket.Status = 0;
+                History history = new History();
+                history.Date = ticket.Created;
+                var historyBody = "Ticket created. <br> Title: " + ticket.Title + "<br> Body: " + ticket.Body + "<br>" + "Priority: " + ticket.Priority + ", Type: , " + ticket.Type.Name + ", Status: , " + ticket.Status;
+                history.Body = historyBody;
+                history.TicketId = ticket.Id;
                 db.Tickets.Add(ticket);
+                db.History.Add(history);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -107,6 +138,13 @@ namespace BugTracker
             if (ticket == null)
             {
                 return HttpNotFound();
+            }
+            TicketsHelper ticketHelper = new TicketsHelper(db);
+            var userId = User.Identity.GetUserId();
+            if (!ticketHelper.HasTicketPermission(userId, ticket.Id))
+            {
+                TempData["Error"] = "Sorry, you do not have permission to access that ticket.";
+                return RedirectToAction("Index");
             }
             var project = db.Projects.FirstOrDefault(p => p.Id == ticket.ProjectId);
             var ProjectTitle = project.Title;
@@ -132,6 +170,12 @@ namespace BugTracker
                     ticket.Title = StringUtilities.Shorten(ticket.Body, 50);
                 }
                 ticket.Modified = System.DateTimeOffset.Now;
+                History history = new History();
+                history.Date = System.DateTimeOffset.Now;
+                var historyBody = "Ticket edited. <br> Title: " + ticket.Title + "<br> Body: " + ticket.Body + "<br>" + "Priority: " + ticket.Priority + ", Type: , " + ticket.Type.Name + ", Status: , " + ticket.Status;
+                history.Body = historyBody;
+                history.TicketId = ticket.Id;
+                db.History.Add(history);
                 db.Tickets.Attach(ticket);
                 //db.Entry(ticket).State = EntityState.Modified;
                 db.Entry(ticket).Property("Modified").IsModified = true;
@@ -273,6 +317,13 @@ namespace BugTracker
             {
                 return HttpNotFound();
             }
+            TicketsHelper ticketHelper = new TicketsHelper(db);
+            var userId = User.Identity.GetUserId();
+            if (!ticketHelper.HasTicketPermission(userId, ticket.Id))
+            {
+                TempData["Error"] = "Sorry, you do not have permission to access that ticket.";
+                return RedirectToAction("Index");
+            }
             ViewBag.TicketId = id;
             ViewBag.TicketTitle = ticket.Title;
             return View();
@@ -318,6 +369,13 @@ namespace BugTracker
             if (ticket == null)
             {
                 return HttpNotFound();
+            }
+            TicketsHelper ticketHelper = new TicketsHelper(db);
+            var userId = User.Identity.GetUserId();
+            if (!ticketHelper.HasTicketPermission(userId, ticket.Id))
+            {
+                TempData["Error"] = "Sorry, you do not have permission to access that ticket.";
+                return RedirectToAction("Index");
             }
             ViewBag.TicketId = id;
             ViewBag.TicketTitle = ticket.Title;
