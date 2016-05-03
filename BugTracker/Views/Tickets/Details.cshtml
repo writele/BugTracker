@@ -101,9 +101,12 @@
                     @Html.ActionLink("New Attachment", "AddAttachment", new { id = Model.Id }, new { @class = "btn btn-default" })
                 </div>
             </div>
-            <p><img src="http://placehold.it/350x150"></p>
-            <p>Lorem ipsum dolor sit amet, arcu amet felis. Vulputate dolor odio vulputate erat lacus, magna facilisis nibh.</p>
-                    
+            @{ var attachments = Model.Attachments; }
+            @foreach (var attachment in attachments) {
+            <p><img class="img-responsive" src="@attachment.MediaURL"></p>
+            <p>@attachment.Description</p>
+            }
+
         </div>
     </div>
 </div>

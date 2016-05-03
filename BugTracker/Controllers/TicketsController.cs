@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using BugTracker.Models;
 using Microsoft.AspNet.Identity;
 using BugTracker.Controllers;
+using System.IO;
 
 namespace BugTracker
 {
@@ -301,6 +302,26 @@ namespace BugTracker
             }
             ViewBag.TicketId = id;
             ViewBag.TicketTitle = ticket.Title;
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddAttachment([Bind(Include = "Id,TicketId,Description,MediaURL")] Attachment attachment, HttpPostedFileBase image)
+        {
+            if (ModelState.IsValid)
+            {
+                if (ImageUploadValidator.IsWebFriendlyImage(image))
+                {
+                    var fileName = Path.GetFileName(image.FileName);
+                    image.SaveAs(Path.Combine(Server.MapPath("~/Uploads/"), fileName));
+                    attachment.MediaURL = "/Uploads/" + fileName;
+                }
+                db.Attachments.Add(attachment);
+                db.SaveChanges();
+                return RedirectToAction("Details", new { id = attachment.TicketId });
+            }
             return View();
         }
 

@@ -15,7 +15,7 @@
         <div class="col-md-12 content">
             <h3>Ticket: <a href="/Details/@ticketId">@ticketTitle</a></h3>
 
-            @using (Html.BeginForm()){
+            @using (Html.BeginForm("AddAttachment", "Tickets", FormMethod.Post, new { enctype = "Multipart/form-data"})){
                 @Html.AntiForgeryToken()
 
                 <div class="form-horizontal">
