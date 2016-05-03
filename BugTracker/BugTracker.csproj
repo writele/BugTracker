@@ -457,6 +457,7 @@
     <Content Include="Views\Tickets\Resolve.cshtml" />
     <Content Include="Views\Home\FAQ.cshtml" />
     <Content Include="Views\Tickets\AddComment.cshtml" />
+    <Content Include="Views\Tickets\AddAttachment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
