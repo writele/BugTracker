@@ -252,6 +252,33 @@ namespace BugTracker
             return RedirectToAction("Index");
         }
 
+        [Authorize]
+        //GET: Tickets/AddComment
+        public ActionResult AddComment(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Ticket ticket = db.Tickets.Find(id);
+            if (ticket == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.TicketId = id;
+            ViewBag.TicketTitle = ticket.Title;
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddComment([Bind(Include = "Id,ProjectId,Content")] Comment comment)
+        {
+            return View();
+        }
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -456,6 +456,7 @@
     <Content Include="Views\Tickets\Close.cshtml" />
     <Content Include="Views\Tickets\Resolve.cshtml" />
     <Content Include="Views\Home\FAQ.cshtml" />
+    <Content Include="Views\Tickets\AddComment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

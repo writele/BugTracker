@@ -50,7 +50,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-10">
+            <div class="col-md-12">
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -70,9 +70,36 @@
 
                 <p>@Model.Body</p>
             </div>
-
-            
+    
         </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>Comments</h3>
+                </div>
+                <div class="col-md-6">
+                    @Html.ActionLink("New Comment", "AddComment", new { id = Model.Id }, new { @class = "btn btn-default" })
+                </div>
+            </div>
+            <h4>Posted by User on 5/3/16 4:30pm</h4>
+            <p>Lorem ipsum dolor sit amet, augue id adipiscing elit dis consectetuer est. Vitae viverra diam, amet arcu platea magna donec suspendisse, nulla aptent tellus eu nulla. Phasellus arcu libero interdum, vel tortor id egestas lorem nulla mauris, mauris tortor laborum elit amet aliquet, nulla ridiculus platea odio in eget justo, rutrum id et vel interdum quis interdum</p>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>Attachments</h3>
+                </div>
+                <div class="col-md-6">
+                    @Html.ActionLink("New Attachment", "AddAttachment", new { id = Model.Id }, new { @class = "btn btn-default" })
+                </div>
+            </div>
+            <p><img src="http://placehold.it/350x150"></p>
+            <p>Lorem ipsum dolor sit amet, arcu amet felis. Vulputate dolor odio vulputate erat lacus, magna facilisis nibh.</p>
+                    
+        </div>
+    </div>
 
     <p class="content">@Html.ActionLink("Back to Tickets", "Index")</p>
        </div>
