@@ -10,7 +10,11 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12 content">
+            <h3>Email: <a href="mailto:@Model.Email">@Model.Email</a></h3>
 
+            <h3>Phone Number: @Model.PhoneNumber</h3>
+            <br /><br />
+            <h4>@Html.ActionLink("Back to Project", "Details", "Projects", new { id = ViewBag.ProjectId }, null)</h4>
         </div>
     </div>
 </div>

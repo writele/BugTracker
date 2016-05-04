@@ -39,14 +39,16 @@ namespace BugTracker.Controllers
             {
                 return View("Index");
             }
+            ViewBag.ProjectId = TempData["ProjectId"];
             return View(user);
         }
 
         [HttpPost]
-        public ActionResult UserProfile(string userId)
+        public ActionResult UserProfile(string userId, int? ProjectId)
         {
             var user = db.Users.Find(userId);
             TempData["UserId"] = userId;
+            TempData["ProjectId"] = ProjectId;
             return RedirectToAction("UserProfile");
         }
 
