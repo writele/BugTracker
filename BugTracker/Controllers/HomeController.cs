@@ -26,7 +26,7 @@ namespace BugTracker.Controllers
                 model.Projects = user.Projects.Take(5).ToList();
 
                 TicketsHelper helper = new TicketsHelper(db);
-                model.Tickets = helper.GetUserTickets(model.Id).Take(5).ToList();
+                model.Tickets = helper.GetUserTickets(model.Id).OrderByDescending(t => t.Created).Take(5).ToList();
                 return View(model);
             }
         }

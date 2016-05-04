@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity;
 using BugTracker.Controllers;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace BugTracker
 {
@@ -307,24 +308,40 @@ namespace BugTracker
         [Authorize(Roles = "Developer")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Resolve(int id)
+        public async Task<ActionResult> Resolve(int id)
         {
+            //Ticket Information
             Ticket ticket = db.Tickets.Find(id);
             ticket.Status = Status.Resolved;
             ticket.Modified = System.DateTimeOffset.Now;
             var userId = User.Identity.GetUserId();
             var user = db.Users.Find(userId);
+            //Add to ticket history
             History history = new History();
             history.Date = System.DateTimeOffset.Now;
             var historyBody = "Ticket marked as Resolved by " + user.FullName;
             history.Body = historyBody;
             history.TicketId = ticket.Id;
             db.History.Add(history);
+            //Save ticket changes to database
             db.Tickets.Attach(ticket);
             db.Entry(ticket).Property("Status").IsModified = true;
             db.Entry(ticket).Property("Modified").IsModified = true;
             db.SaveChanges();
-            return RedirectToAction("Index");
+            //Send email to project managers
+            ProjectUsersHelper helper = new ProjectUsersHelper(db);
+            var projectManagers = helper.ListProjectManagers(ticket.ProjectId);
+            foreach (var pm in projectManagers)
+            {
+                var svc = new EmailService();
+                var msg = new IdentityMessage();
+                msg.Destination = pm;
+                msg.Subject = "Ticket Resolved";
+                msg.Body = user.FullName + " has marked the ticket '" + ticket.Title + "' as Resolved. To close this ticket, please visit https://epalmer-bugtracker.azurewebsites.net/Tickets/Details/" + ticket.Id + " If there are still issues left to resolve on the ticket, the ticket's developer can be reached at " + ticket.Assignee.Email;
+                await svc.SendAsync(msg);
+            }
+
+            return RedirectToAction("Details", new { id = ticket.Id });
         }
 
         //GET: Tickets/AddComment
@@ -436,6 +453,8 @@ namespace BugTracker
             db.SaveChanges();
             return RedirectToAction("Details", new { id = attachment.TicketId });
         }
+
+        //Alert Developer to New Ticket
 
         protected override void Dispose(bool disposing)
         {

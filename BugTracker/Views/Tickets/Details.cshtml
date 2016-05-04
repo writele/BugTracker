@@ -37,8 +37,7 @@
             <h3>Created by @Model.Owner.FullName on @Model.Created.ToString("MMMM dd, yyyy h:mm t")M</h3>
             @if (Model.Modified.HasValue)
             {
-                <h4 class="text-danger">Updated on @Model.Modified.Value.ToString("MMMM dd, yyyy h:mm t")M</h4>
-                @Html.ActionLink("View History", "History", new { id = Model.Id})
+                <h4 class="text-danger">Updated on @Model.Modified.Value.ToString("MMMM dd, yyyy h:mm t")M - @Html.ActionLink("View History", "History", new { id = Model.Id })</h4>
             }
             @if (Model.Assignee != null)
             {
@@ -99,7 +98,7 @@
                             <input type="hidden" name="Id" value="@comment.Id" />
                             <input type="hidden" name="TicketId" value="@comment.TicketId" />
                             <div class="form-group comment-btn-delete">
-                                <input type="submit" value="Delete" />
+                                <input type="submit" value="Delete" class="delete" />
                             </div>
                         }
                 </div>
@@ -133,7 +132,7 @@
                         <input type="hidden" name="Id" value="@attachment.Id" />
                         <input type="hidden" name="TicketId" value="@attachment.TicketId" />
                         <div class="form-group comment-btn-delete">
-                            <input type="submit" value="Delete" />
+                            <input type="submit" value="Delete" class="delete" />
                         </div>
                     }
                 </div>

@@ -76,5 +76,21 @@ namespace BugTracker.Controllers
             return absentUsers;
         }
 
+        public List<string> ListProjectManagers(int projectId)
+        {
+            var projectManagers = new List<string>();
+            var project = db.Projects.Find(projectId);
+            var projectUsers = project.Users.ToList();
+            UserRolesHelper helper = new UserRolesHelper(db);
+            foreach (var user in projectUsers)
+            {
+                if (helper.IsUserInRole(user.Id, "Project Manager"))
+                {
+                    projectManagers.Add(user.Email);
+                }
+            }
+            return projectManagers;
+        }
+
     }
 }
