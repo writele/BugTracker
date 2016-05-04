@@ -312,7 +312,14 @@ namespace BugTracker
             {
                 return HttpNotFound();
             }
-            return View(ticket);
+            var userId = User.Identity.GetUserId();
+            if (ticket.AssigneeId == userId)
+            {
+                ViewBag.UserId = User.Identity.GetUserId();
+                return View(ticket);
+            }
+            TempData["Error"] = "Sorry, you do not have permission to view that ticket.";
+            return RedirectToAction("Index");
         }
 
         // POST: Tickets/Resolve
