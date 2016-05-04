@@ -227,25 +227,36 @@ namespace BugTracker
         [Authorize(Roles = "Admin, Project Manager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AssignUser(string UserId, int TicketId)
+        public async Task<ActionResult> AssignUser(string UserId, int TicketId)
         {
-                var ticket = db.Tickets.Find(TicketId);
-                ticket.AssigneeId = UserId;
-                ticket.Status = Status.Pending;
-                ticket.Modified = System.DateTimeOffset.Now;
-                History history = new History();
-                history.Date = System.DateTimeOffset.Now;
-                var user = db.Users.Find(UserId);
-                var historyBody = "Ticket assigned to " + user.FullName + ". Ticket now Pending.";
-                history.Body = historyBody;
-                history.TicketId = ticket.Id;
-                db.History.Add(history);
-                db.Tickets.Attach(ticket);
-                db.Entry(ticket).Property("AssigneeId").IsModified = true;
-                db.Entry(ticket).Property("Status").IsModified = true;
-                db.Entry(ticket).Property("Modified").IsModified = true;
-                db.SaveChanges();
-                return RedirectToAction("Details", new { id = TicketId });
+            //Ticket details
+            var ticket = db.Tickets.Find(TicketId);
+            ticket.AssigneeId = UserId;
+            ticket.Status = Status.Pending;
+            ticket.Modified = System.DateTimeOffset.Now;
+            //Add to ticket history
+            History history = new History();
+            history.Date = System.DateTimeOffset.Now;
+            var user = db.Users.Find(UserId);
+            var historyBody = "Ticket assigned to " + user.FullName + ". Ticket now Pending.";
+            history.Body = historyBody;
+            history.TicketId = ticket.Id;
+            db.History.Add(history);
+            //Save to database
+            db.Tickets.Attach(ticket);
+            db.Entry(ticket).Property("AssigneeId").IsModified = true;
+            db.Entry(ticket).Property("Status").IsModified = true;
+            db.Entry(ticket).Property("Modified").IsModified = true;
+            db.SaveChanges();
+            //Send email to developer assigned
+            var svc = new EmailService();
+            var msg = new IdentityMessage();
+            msg.Destination = user.Email;
+            msg.Subject = "Bug Tracker: New Ticket Assigned";
+            msg.Body = ticket.Owner.FullName + " has assigned you the ticket '" + ticket.Title + "'. To view this ticket, please visit https://epalmer-bugtracker.azurewebsites.net/Tickets/Details/" + ticket.Id + " If you have any questions regarding this ticket, " + ticket.Owner.FullName + " can be contacted at " + ticket.Owner.Email;
+            await svc.SendAsync(msg);
+
+            return RedirectToAction("Details", new { id = TicketId });
         }
 
         // GET: Tickets/Close/5
@@ -336,7 +347,7 @@ namespace BugTracker
                 var svc = new EmailService();
                 var msg = new IdentityMessage();
                 msg.Destination = pm;
-                msg.Subject = "Ticket Resolved";
+                msg.Subject = "Bug Tracker: Ticket Resolved";
                 msg.Body = user.FullName + " has marked the ticket '" + ticket.Title + "' as Resolved. To close this ticket, please visit https://epalmer-bugtracker.azurewebsites.net/Tickets/Details/" + ticket.Id + " If there are still issues left to resolve on the ticket, the ticket's developer can be reached at " + ticket.Assignee.Email;
                 await svc.SendAsync(msg);
             }
