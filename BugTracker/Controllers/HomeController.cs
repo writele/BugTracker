@@ -32,26 +32,22 @@ namespace BugTracker.Controllers
         }
 
         // GET: User Profile
-        public ActionResult UserProfile(string slug)
+        public ActionResult UserProfile()
         {
-            if (String.IsNullOrWhiteSpace(slug))
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ApplicationUser user = db.Users.FirstOrDefault(u => u.Email == slug);
+            ApplicationUser user = db.Users.Find(TempData["UserId"]);
             if (user == null)
             {
-                return HttpNotFound();
+                return View("Index");
             }
             return View(user);
         }
 
         [HttpPost]
-        public ActionResult UserProfile(int userId)
+        public ActionResult UserProfile(string userId)
         {
             var user = db.Users.Find(userId);
-            var userSlug = user.UserName;
-            return RedirectToAction("UserProfile", new { slug = userSlug });
+            TempData["UserId"] = userId;
+            return RedirectToAction("UserProfile");
         }
 
 

@@ -461,7 +461,7 @@
     <Content Include="Views\Tickets\AddComment.cshtml" />
     <Content Include="Views\Tickets\AddAttachment.cshtml" />
     <Content Include="Views\Tickets\History.cshtml" />
-    <Content Include="Views\Home\View.cshtml" />
+    <Content Include="Views\Home\UserProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
