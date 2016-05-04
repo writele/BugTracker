@@ -453,9 +453,14 @@ namespace BugTracker
                     if (ImageUploadValidator.IsImage(image) || image.FileName.Contains(".pdf") || image.FileName.Contains(".doc"))
                     {
                         var fileName = Path.GetFileName(image.FileName);
+                        var uniqueId = DateTime.Now.Ticks;
                         fileName = Regex.Replace(fileName, @"[!@#$%_\s]", "");
-                        image.SaveAs(Path.Combine(Server.MapPath("~/Uploads/"), fileName));
-                        attachment.MediaURL = "/Uploads/" + fileName;
+                        image.SaveAs(Path.Combine(Server.MapPath("~/Uploads/"), uniqueId  + fileName));
+                        attachment.MediaURL = "/Uploads/" + uniqueId + fileName;
+                    }
+                    else
+                    {
+                        return View();
                     }
                 }
                 db.Attachments.Add(attachment);

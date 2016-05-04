@@ -13,8 +13,8 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12 content">
-            <h3>Ticket: <a href="/Details/@ticketId">@ticketTitle</a></h3>
-
+            <h3>Ticket: <a href="/Tickets/Details/@ticketId">@ticketTitle</a></h3>
+            <p>Attachments can be images (.jpeg, .png., .gif), PDF (.pdf) or Word (.doc) documents.</p>
             @using (Html.BeginForm("AddAttachment", "Tickets", FormMethod.Post, new { enctype = "Multipart/form-data"})){
                 @Html.AntiForgeryToken()
 

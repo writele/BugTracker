@@ -262,6 +262,7 @@
     <Content Include="Content\chosen-sprite%402x.png" />
     <Content Include="Content\chosen-sprite.png" />
     <Content Include="Content\chosen.css" />
+    <Content Include="Content\Images\document.png" />
     <Content Include="Content\Landing.css" />
     <Content Include="Scripts\chosen.jquery.js" />
     <Content Include="Content\Images\code.jpg" />
