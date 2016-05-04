@@ -12,6 +12,7 @@ using BugTracker.Controllers;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace BugTracker
 {
@@ -447,11 +448,15 @@ namespace BugTracker
         {
             if (ModelState.IsValid)
             {
-                if (ImageUploadValidator.IsWebFriendlyImage(image))
+                if (ImageUploadValidator.IsWebFriendly(image))
                 {
-                    var fileName = Path.GetFileName(image.FileName);
-                    image.SaveAs(Path.Combine(Server.MapPath("~/Uploads/"), fileName));
-                    attachment.MediaURL = "/Uploads/" + fileName;
+                    if (ImageUploadValidator.IsImage(image) || image.FileName.Contains(".pdf") || image.FileName.Contains(".doc"))
+                    {
+                        var fileName = Path.GetFileName(image.FileName);
+                        fileName = Regex.Replace(fileName, @"[!@#$%_\s]", "");
+                        image.SaveAs(Path.Combine(Server.MapPath("~/Uploads/"), fileName));
+                        attachment.MediaURL = "/Uploads/" + fileName;
+                    }
                 }
                 db.Attachments.Add(attachment);
                 db.SaveChanges();

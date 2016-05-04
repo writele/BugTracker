@@ -120,7 +120,14 @@
             @foreach (var attachment in attachments)
             {
                 <div class="col-md-6">
+                    @if (attachment.MediaURL.Contains(".pdf") || attachment.MediaURL.Contains(".doc"))
+                    {
+                        <p><a href="@attachment.MediaURL"><img src="~/Content/Images/document.png" class="img-responsive"></a>
+                        </p>
+                    }
+                    else {
                     <p><a href="@attachment.MediaURL"><img class="img-responsive" src="@attachment.MediaURL"></a></p>
+                    }
                 </div>
                 <div class="col-md-6">
                     <p>@attachment.Description</p>

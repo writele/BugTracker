@@ -37,7 +37,7 @@ namespace BugTracker.Controllers
             ApplicationUser user = db.Users.Find(TempData["UserId"]);
             if (user == null)
             {
-                return View("Index");
+                return RedirectToAction("Index");
             }
             ViewBag.ProjectId = TempData["ProjectId"];
             return View(user);
@@ -58,11 +58,5 @@ namespace BugTracker.Controllers
             return View();
         }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
     }
 }

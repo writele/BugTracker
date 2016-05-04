@@ -9,14 +9,27 @@ namespace BugTracker.Models
 {
     public static class ImageUploadValidator
     {
-        public static bool IsWebFriendlyImage(HttpPostedFileBase file)
+        public static bool IsWebFriendly(HttpPostedFileBase file)
         {
             //check for actual object
             if (file == null)
+            {
                 return false;
+            }
 
             if (file.ContentLength > 2 * 1024 * 1024 || file.ContentLength < 1024)
+            {
                 return false;
+            }
+            else
+            {
+                return true;
+            }
+
+        }
+
+        public static bool IsImage(HttpPostedFileBase file)
+        {
 
             try
             {
