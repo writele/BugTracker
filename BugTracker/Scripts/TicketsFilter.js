@@ -1,5 +1,8 @@
 ﻿$(document).ready(function () {
-    $('.table').dataTable()
+    $('.table').dataTable(
+        {
+            "order": [2, 'desc']
+        })
               .columnFilter({
                   aoColumns: [
                       null,

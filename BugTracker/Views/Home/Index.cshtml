@@ -1,6 +1,6 @@
 ﻿@model BugTracker.Models.DashboardViewModel
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Dashboard";
 }
 
 <div class="col-md-6 subnav">
@@ -22,7 +22,7 @@
 
         </div>
         <div class="col-md-6">
-            <h2>Projects</h2>
+            <h2>Assigned Projects</h2>
             <table class="table table-striped">
                     @foreach (var project in Model.Projects)
             {
@@ -36,7 +36,7 @@
         </div>
 
         <div class="col-md-6">
-            <h2>Tickets</h2>
+            <h2>Recent Tickets</h2>
             <table class="table table-striped">
                     @foreach (var ticket in Model.Tickets)
                     {
