@@ -39,8 +39,20 @@ namespace BugTracker.Controllers
             {
                 return RedirectToAction("Index");
             }
-            ViewBag.ProjectId = TempData["ProjectId"];
-            return View(user);
+            UserProfileView model = new UserProfileView();
+            Project project = db.Projects.Find(TempData["ProjectId"]);
+            model.ProjectId = project.Id;
+            UserRolesHelper helper = new UserRolesHelper(db);
+            model.Name = user.FullName;
+            model.Email = user.Email;
+            model.PhoneNumber = user.PhoneNumber;
+            model.ProjectCount = user.Projects.Count();
+            model.Roles = helper.ListUserRoles(user.Id);
+            var tickets = user.Projects.SelectMany(p => p.Tickets).ToList();
+            model.TicketsAssigned = tickets.Where(t => t.AssigneeId == user.Id).Count();
+            model.TicketsSubmitted = tickets.Where(t => t.OwnerId == user.Id).Count();
+            model.TicketsResolved = tickets.Where(t => t.AssigneeId == user.Id).Where(t => t.Status == Status.Resolved || t.Status == Status.Closed).Count();
+            return View(model);
         }
 
         [HttpPost]
