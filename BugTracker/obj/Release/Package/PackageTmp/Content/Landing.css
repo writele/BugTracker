@@ -1,0 +1,21 @@
+﻿body {
+    background-image: url("/Content/Images/code.jpg");
+    background-size: cover;
+    box-sizing: border-box;
+}
+
+.content {
+    background-color: #fff;
+    padding: 10px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.intro {
+    padding: 20px;
+    text-align: center;
+}
+
+.checkbox label {
+    float: left;
+}

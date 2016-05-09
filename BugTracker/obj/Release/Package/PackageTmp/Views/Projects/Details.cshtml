@@ -32,16 +32,17 @@
                     @Html.AntiForgeryToken()
                     <div class="form-horizontal">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <input type="hidden" name="ProjectId" value="@Model.Id" />
                         <p><strong>Project Users:</strong>
                         @{ var ProjectUsers = new SelectList(Model.Users, "Id", "FullName"); }
                         @Html.DropDownList("UserId", ProjectUsers, new { @class = "searchable-select" })
                         </p>
 
-                        @*<div class="form-group">
+                        <div class="form-group">
                             <div class="col-md-10">
                                 <input type="submit" value="User Profile" name="UserProfile" class="btn btn-default" />
                             </div>
-                        </div>*@
+                        </div>
                     
                     
                     </div>

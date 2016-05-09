@@ -103,7 +103,7 @@ namespace BugTracker
         [Authorize(Roles = "Submitter")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ProjectId,Title,Body,Priority,Type")] Ticket ticket)
+        public async Task<ActionResult> Create([Bind(Include = "Id,ProjectId,Title,Body,Priority,Type")] Ticket ticket)
         {
             if (ModelState.IsValid)
             {
@@ -122,10 +122,41 @@ namespace BugTracker
                 db.Tickets.Add(ticket);
                 db.History.Add(history);
                 db.SaveChanges();
+
+                var user = db.Users.Find(ticket.OwnerId);
+                //Send email to project managers
+                ProjectUsersHelper helper = new ProjectUsersHelper(db);
+                var projectManagers = helper.ListProjectManagers(ticket.ProjectId);
+                foreach (var pm in projectManagers)
+                {
+                    var svc = new EmailService();
+                    var msg = new IdentityMessage();
+                    msg.Destination = pm;
+                    msg.Subject = "Bug Tracker: Ticket Created";
+                    msg.Body = user.FullName + " has created the ticket '" + ticket.Title + "'. To assign this ticket to a user, please visit https://epalmer-bugtracker.azurewebsites.net/Tickets/Details/" + ticket.Id;
+                    await svc.SendAsync(msg);
+                }
+
                 return RedirectToAction("Index");
             }
 
             return View(ticket);
+        }
+
+        //Send Email to Ticket's Assigned Developer
+        public async Task<bool> NotifyDeveloper(int ticketId, string editorId, string assigneeId)
+        {
+            var user = db.Users.Find(editorId);
+            var ticket = db.Tickets.Find(ticketId);
+            var developer = db.Users.Find(assigneeId);
+            var svc = new EmailService();
+            var msg = new IdentityMessage();
+            msg.Destination = developer.Email;
+            msg.Subject = "Bug Tracker: Ticket Modified";
+            msg.Body = user.FullName + " has modified the ticket '" + ticket.Title + "'. To view this ticket, please visit https://epalmer-bugtracker.azurewebsites.net/Tickets/Details/" + ticket.Id + " If you have any questions, " + user.FullName + " can be contacted at " + user.Email;
+            await svc.SendAsync(msg);
+
+            return true;
         }
 
         // GET: Tickets/Edit/5
@@ -163,7 +194,7 @@ namespace BugTracker
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Created,Title,Body,Priority,Type")] Ticket ticket)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,Created,Title,Body,Priority,Type, AssigneeId")] Ticket ticket)
         {
             if (ModelState.IsValid)
             {
@@ -174,7 +205,9 @@ namespace BugTracker
                 ticket.Modified = System.DateTimeOffset.Now;
                 History history = new History();
                 history.Date = System.DateTimeOffset.Now;
-                var historyBody = "Ticket edited. <br> Title: " + ticket.Title + "<br> Body: " + ticket.Body + "<br>" + "Priority: " + ticket.Priority + ", Type: " + ticket.Type.Name + ", Status: " + ticket.Status;
+                var userId = User.Identity.GetUserId();
+                var user = db.Users.Find(userId);
+                var historyBody = "Ticket edited by " + user.FullName + ". <br> Title: " + ticket.Title + "<br> Body: " + ticket.Body + "<br>" + "Priority: " + ticket.Priority + ", Type: " + ticket.Type.Name + ", Status: " + ticket.Status;
                 history.Body = historyBody;
                 history.TicketId = ticket.Id;
                 db.History.Add(history);
@@ -185,6 +218,8 @@ namespace BugTracker
                 db.Entry(ticket).Property("Body").IsModified = true;
                 db.Entry(ticket).Property("Priority").IsModified = true;
                 db.SaveChanges();
+
+                await NotifyDeveloper(ticket.Id, userId, ticket.AssigneeId);
                 return RedirectToAction("Index");
             }
             return View(ticket);
@@ -481,8 +516,6 @@ namespace BugTracker
             db.SaveChanges();
             return RedirectToAction("Details", new { id = attachment.TicketId });
         }
-
-        //Alert Developer to New Ticket
 
         protected override void Dispose(bool disposing)
         {
