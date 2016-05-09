@@ -149,12 +149,14 @@ namespace BugTracker
             var user = db.Users.Find(editorId);
             var ticket = db.Tickets.Find(ticketId);
             var developer = db.Users.Find(assigneeId);
-            var svc = new EmailService();
-            var msg = new IdentityMessage();
-            msg.Destination = developer.Email;
-            msg.Subject = "Bug Tracker: Ticket Modified";
-            msg.Body = user.FullName + " has modified the ticket '" + ticket.Title + "'. To view this ticket, please visit https://epalmer-bugtracker.azurewebsites.net/Tickets/Details/" + ticket.Id + " If you have any questions, " + user.FullName + " can be contacted at " + user.Email;
-            await svc.SendAsync(msg);
+            if(user != null && ticket != null && developer != null) { 
+                var svc = new EmailService();
+                var msg = new IdentityMessage();
+                msg.Destination = developer.Email;
+                msg.Subject = "Bug Tracker: Ticket Modified";
+                msg.Body = user.FullName + " has modified the ticket '" + ticket.Title + "'. To view this ticket, please visit https://epalmer-bugtracker.azurewebsites.net/Tickets/Details/" + ticket.Id + " If you have any questions, " + user.FullName + " can be contacted at " + user.Email;
+                await svc.SendAsync(msg);
+            }
 
             return true;
         }
@@ -426,7 +428,7 @@ namespace BugTracker
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddComment([Bind(Include = "Id,TicketId,Content")] Comment comment)
+        public async Task<ActionResult> AddComment([Bind(Include = "Id,TicketId,Content")] Comment comment)
         {
             if (ModelState.IsValid)
             {
@@ -434,6 +436,11 @@ namespace BugTracker
                 comment.Date = System.DateTimeOffset.Now;
                 db.Comments.Add(comment);
                 db.SaveChanges();
+
+                var ticket = db.Tickets.Find(comment.TicketId);
+                var assigneeId = ticket.AssigneeId;           
+                await NotifyDeveloper(comment.TicketId, comment.AuthorId, assigneeId);
+
                 return RedirectToAction("Details", new { id = comment.TicketId});
             }
                 return View();
@@ -479,7 +486,7 @@ namespace BugTracker
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddAttachment([Bind(Include = "Id,TicketId,Description,MediaURL")] Attachment attachment, HttpPostedFileBase image)
+        public async Task<ActionResult> AddAttachment([Bind(Include = "Id,TicketId,Description,MediaURL")] Attachment attachment, HttpPostedFileBase image)
         {
             if (ModelState.IsValid)
             {
@@ -500,6 +507,11 @@ namespace BugTracker
                 }
                 db.Attachments.Add(attachment);
                 db.SaveChanges();
+
+                var userId = User.Identity.GetUserId();
+                var ticket = db.Tickets.Find(attachment.TicketId);
+                await NotifyDeveloper(attachment.TicketId, userId, ticket.AssigneeId);
+
                 return RedirectToAction("Details", new { id = attachment.TicketId });
             }
             return View();
