@@ -208,14 +208,14 @@ namespace BugTracker
                 var userId = User.Identity.GetUserId();
                 var user = db.Users.Find(userId);
                 var oldTicket = db.Tickets.AsNoTracking().FirstOrDefault(t => t.Id == ticket.Id);
-                if (oldTicket.Title != ticket.Title || oldTicket.Body != ticket.Body || oldTicket.Type != ticket.Type || oldTicket.Priority != ticket.Priority)
+                if (oldTicket.Title != ticket.Title || oldTicket.Body != ticket.Body || oldTicket.Type.Name != ticket.Type.Name || oldTicket.Priority != ticket.Priority)
                 {
                     History history = new History();
                     history.Date = System.DateTimeOffset.Now;
                     StringBuilder historyBody = new StringBuilder();
                     historyBody.Append("Ticket edited by ");
                     historyBody.Append(user.FullName);
-                    if(oldTicket.Title != ticket.Title)
+                    if (oldTicket.Title != ticket.Title)
                     {
                         historyBody.AppendFormat("<br>Old Title: {0} <br> New Title: {1}", oldTicket.Title, ticket.Title);
                     }
@@ -235,7 +235,11 @@ namespace BugTracker
                     history.TicketId = ticket.Id;
                     db.History.Add(history);
                 }
-          
+                else
+                {
+                    ModelState.AddModelError("", "Error: No changes have been made.");
+                    return View(ticket);
+                }
                 db.Tickets.Attach(ticket);
                 //db.Entry(ticket).State = EntityState.Modified;
                 db.Entry(ticket).Property("Modified").IsModified = true;
