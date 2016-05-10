@@ -205,14 +205,37 @@ namespace BugTracker
                     ticket.Title = StringUtilities.Shorten(ticket.Body, 50);
                 }
                 ticket.Modified = System.DateTimeOffset.Now;
-                History history = new History();
-                history.Date = System.DateTimeOffset.Now;
                 var userId = User.Identity.GetUserId();
                 var user = db.Users.Find(userId);
-                var historyBody = "Ticket edited by " + user.FullName + ". <br> Title: " + ticket.Title + "<br> Body: " + ticket.Body + "<br>" + "Priority: " + ticket.Priority + ", Type: " + ticket.Type.Name + ", Status: " + ticket.Status;
-                history.Body = historyBody;
-                history.TicketId = ticket.Id;
-                db.History.Add(history);
+                var oldTicket = db.Tickets.AsNoTracking().FirstOrDefault(t => t.Id == ticket.Id);
+                if (oldTicket.Title != ticket.Title || oldTicket.Body != ticket.Body || oldTicket.Type != ticket.Type || oldTicket.Priority != ticket.Priority)
+                {
+                    History history = new History();
+                    history.Date = System.DateTimeOffset.Now;
+                    StringBuilder historyBody = new StringBuilder();
+                    historyBody.Append("Ticket edited by ");
+                    historyBody.Append(user.FullName);
+                    if(oldTicket.Title != ticket.Title)
+                    {
+                        historyBody.AppendFormat("<br>Old Title: {0} <br> New Title: {1}", oldTicket.Title, ticket.Title);
+                    }
+                    if (oldTicket.Body != ticket.Body)
+                    {
+                        historyBody.AppendFormat("<br>Old Body Content: {0} <br> New Body Content: {1}", oldTicket.Body, ticket.Body);
+                    }
+                    if (oldTicket.Type.Name != ticket.Type.Name)
+                    {
+                        historyBody.AppendFormat("<br>Old Type: {0} <br> New Type: {1}", oldTicket.Type.Name, ticket.Type.Name);
+                    }
+                    if (oldTicket.Priority != ticket.Priority)
+                    {
+                        historyBody.AppendFormat("<br>Old Priority: {0} <br> New Priority: {1}", oldTicket.Priority, ticket.Priority);
+                    }
+                    history.Body = historyBody.ToString();
+                    history.TicketId = ticket.Id;
+                    db.History.Add(history);
+                }
+          
                 db.Tickets.Attach(ticket);
                 //db.Entry(ticket).State = EntityState.Modified;
                 db.Entry(ticket).Property("Modified").IsModified = true;
@@ -222,7 +245,7 @@ namespace BugTracker
                 db.SaveChanges();
 
                 await NotifyDeveloper(ticket.Id, userId, ticket.AssigneeId);
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new { id = ticket.Id });
             }
             return View(ticket);
         }
@@ -317,7 +340,7 @@ namespace BugTracker
         [Authorize(Roles = "Admin, Project Manager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Close(int id)
+        public async Task<ActionResult> Close(int id)
         {
             Ticket ticket = db.Tickets.Find(id);
             ticket.Status = Status.Closed;
@@ -334,6 +357,8 @@ namespace BugTracker
             db.Entry(ticket).Property("Status").IsModified = true;
             db.Entry(ticket).Property("Modified").IsModified = true;
             db.SaveChanges();
+
+            await NotifyDeveloper(id, userId, ticket.AssigneeId);
             return RedirectToAction("Index");
         }
 
