@@ -295,6 +295,7 @@ namespace BugTracker
         public async Task<ActionResult> AssignUser(string UserId, int TicketId)
         {
             //Ticket details
+            var oldTicket = db.Tickets.AsNoTracking().FirstOrDefault(t => t.Id == TicketId);
             var ticket = db.Tickets.Find(TicketId);
             ticket.AssigneeId = UserId;
             ticket.Status = Status.Pending;
@@ -307,6 +308,21 @@ namespace BugTracker
             history.Body = historyBody;
             history.TicketId = ticket.Id;
             db.History.Add(history);
+            //send email to previous developer
+            if(oldTicket.AssigneeId != ticket.AssigneeId && oldTicket.AssigneeId != null)
+            {
+                var svc2 = new EmailService();
+                var msg2 = new IdentityMessage();
+                msg2.Destination = user.Email;
+                msg2.Subject = "Bug Tracker: Ticket Reassigned";
+                msg2.Body = ticket.Owner.FullName + " has reassigned the ticket '" + ticket.Title + "' to another developer. You are no longer responsible for this ticket. If you have any questions regarding this ticket, " + ticket.Owner.FullName + " can be contacted at " + ticket.Owner.Email;
+                await svc2.SendAsync(msg2);
+            }
+            else
+            {
+                ModelState.AddModelError("", "Error: No changes have been made.");
+                return RedirectToAction("AssignUser", new { id = TicketId });
+            }
             //Save to database
             db.Tickets.Attach(ticket);
             db.Entry(ticket).Property("AssigneeId").IsModified = true;
