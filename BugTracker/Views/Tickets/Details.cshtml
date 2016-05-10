@@ -92,18 +92,18 @@
                 <div class="comment">
                     <h4>Posted by @comment.Author.FullName on @comment.Date.ToString("M/d/yy h:mm t")M</h4>
                     <p>@comment.Content</p>
-                        @using (Html.BeginForm("DeleteComment", "Tickets", FormMethod.Post, new { onsubmit = "return confirm('Are you sure you want to delete this comment?')" }))
+                    @if (ViewBag.UserId == @comment.AuthorId || ViewContext.HttpContext.User.IsInRole("Project Manager") || ViewContext.HttpContext.User.IsInRole("Admin"))
+                    {
+                        using (Html.BeginForm("DeleteComment", "Tickets", FormMethod.Post, new { onsubmit = "return confirm('Are you sure you want to delete this comment?')" }))
                         {
                             @Html.AntiForgeryToken()
                             <input type="hidden" name="Id" value="@comment.Id" />
                             <input type="hidden" name="TicketId" value="@comment.TicketId" />
                             <div class="form-group comment-btn-delete">
-                            @if (ViewBag.UserId == @comment.AuthorId)
-                            {
                                 <input type="submit" value="Delete" class="delete" />
-                            }
                             </div>
                         }
+                    }
                 </div>
             }
         </div>
@@ -115,7 +115,7 @@
                 <div class="col-md-6">
                     @if (!Model.Status.ToString().Equals("Closed"))
                     {
-                    @Html.ActionLink("New Attachment", "AddAttachment", new { id = Model.Id }, new { @class = "btn btn-default" })
+                        @Html.ActionLink("New Attachment", "AddAttachment", new { id = Model.Id }, new { @class = "btn btn-default" })
                     }
                 </div>
             </div>
@@ -125,11 +125,12 @@
                 <div class="col-md-6">
                     @if (attachment.MediaURL.Contains(".pdf") || attachment.MediaURL.Contains(".doc"))
                     {
-                        <p><a href="@attachment.MediaURL"><img src="~/Content/Images/document.png" class="img-responsive"></a>
+                        <p>
+                            <a href="@attachment.MediaURL"><img src="~/Content/Images/document.png" class="img-responsive"></a>
                         </p>
                     }
                     else {
-                    <p><a href="@attachment.MediaURL"><img class="img-responsive" src="@attachment.MediaURL"></a></p>
+                        <p><a href="@attachment.MediaURL"><img class="img-responsive" src="@attachment.MediaURL"></a></p>
                     }
                 </div>
                 <div class="col-md-6">
@@ -137,21 +138,22 @@
                     <p>Posted by @attachment.Author.FullName</p>
                 </div>
                 <div class="col-md-12">
-                    @using (Html.BeginForm("DeleteAttachment", "Tickets", FormMethod.Post, new { onsubmit = "return confirm('Are you sure you want to delete this attachment?')" }))
+                    @if (ViewBag.UserId == @attachment.AuthorId || ViewContext.HttpContext.User.IsInRole("Project Manager") || ViewContext.HttpContext.User.IsInRole("Admin"))
+                    {
+
+                    using (Html.BeginForm("DeleteAttachment", "Tickets", FormMethod.Post, new { onsubmit = "return confirm('Are you sure you want to delete this attachment?')" }))
                     {
                         @Html.AntiForgeryToken()
                         <input type="hidden" name="Id" value="@attachment.Id" />
-                        <input type="hidden" name="TicketId" value="@attachment.TicketId" />
-                        <div class="form-group comment-btn-delete">
-                        @if (ViewBag.UserId == @attachment.AuthorId)
-                        {
-                            <input type="submit" value="Delete" class="delete" />
-                        }
-                        </div>
+                            <input type="hidden" name="TicketId" value="@attachment.TicketId" />
+                            <div class="form-group comment-btn-delete">
+                                <input type="submit" value="Delete" class="delete" />
+                            </div>
                     }
-                </div>
             }
-                
+             </div>
+            }
         </div>
+
     </div>
 </div>
