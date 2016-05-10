@@ -534,12 +534,12 @@ namespace BugTracker
                         return View();
                     }
                 }
+                attachment.AuthorId = User.Identity.GetUserId();
                 db.Attachments.Add(attachment);
                 db.SaveChanges();
 
-                var userId = User.Identity.GetUserId();
                 var ticket = db.Tickets.Find(attachment.TicketId);
-                await NotifyDeveloper(attachment.TicketId, userId, ticket.AssigneeId);
+                await NotifyDeveloper(attachment.TicketId, attachment.AuthorId, ticket.AssigneeId);
 
                 return RedirectToAction("Details", new { id = attachment.TicketId });
             }

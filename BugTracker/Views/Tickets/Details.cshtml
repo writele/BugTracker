@@ -98,7 +98,10 @@
                             <input type="hidden" name="Id" value="@comment.Id" />
                             <input type="hidden" name="TicketId" value="@comment.TicketId" />
                             <div class="form-group comment-btn-delete">
+                            @if (ViewBag.UserId == @comment.AuthorId)
+                            {
                                 <input type="submit" value="Delete" class="delete" />
+                            }
                             </div>
                         }
                 </div>
@@ -131,6 +134,7 @@
                 </div>
                 <div class="col-md-6">
                     <p>@attachment.Description</p>
+                    <p>Posted by @attachment.Author.FullName</p>
                 </div>
                 <div class="col-md-12">
                     @using (Html.BeginForm("DeleteAttachment", "Tickets", FormMethod.Post, new { onsubmit = "return confirm('Are you sure you want to delete this attachment?')" }))
@@ -139,7 +143,10 @@
                         <input type="hidden" name="Id" value="@attachment.Id" />
                         <input type="hidden" name="TicketId" value="@attachment.TicketId" />
                         <div class="form-group comment-btn-delete">
+                        @if (ViewBag.UserId == @attachment.AuthorId)
+                        {
                             <input type="submit" value="Delete" class="delete" />
+                        }
                         </div>
                     }
                 </div>
