@@ -135,7 +135,7 @@
                 </div>
                 <div class="col-md-6">
                     <p>@attachment.Description</p>
-                    <p>Posted by @attachment.Author.FullName</p>
+                    @if(@attachment.AuthorId != null) {<p>Posted by @attachment.Author.FullName</p>}
                 </div>
                 <div class="col-md-12">
                     @if (ViewBag.UserId == @attachment.AuthorId || ViewContext.HttpContext.User.IsInRole("Project Manager") || ViewContext.HttpContext.User.IsInRole("Admin"))
