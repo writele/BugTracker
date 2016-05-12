@@ -12,7 +12,7 @@
         <div class="col-md-12 content">
             <h3>Email: <a href="mailto:@Model.Email">@Model.Email</a></h3>
 
-            <h3>Phone Number: @Model.PhoneNumber</h3>
+            <h3>Phone Number: @(Model.PhoneNumber ?? "N/A")</h3>
 
             <h3>Roles: </h3>
             <ul>

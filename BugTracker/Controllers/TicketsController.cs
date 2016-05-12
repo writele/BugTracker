@@ -309,7 +309,7 @@ namespace BugTracker
             history.TicketId = ticket.Id;
             db.History.Add(history);
             //send email to previous developer
-            if(oldTicket.AssigneeId != ticket.AssigneeId && oldTicket.AssigneeId != null)
+            if(oldTicket.AssigneeId != ticket.AssigneeId && oldTicket.AssigneeId == null)
             {
                 var svc2 = new EmailService();
                 var msg2 = new IdentityMessage();

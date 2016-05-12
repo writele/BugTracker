@@ -12,7 +12,7 @@
     <div class="row">
         <div class="col-md-12">
             @{ var ticketHistory = Model.History; }
-            @foreach (var history in ticketHistory)
+            @foreach (var history in ticketHistory.Reverse())
             {
                 <h3>@history.Date.ToString("M/d/yy h:mm t")M</h3>
                 <p>@Html.Raw(history.Body)</p>

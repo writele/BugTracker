@@ -21,7 +21,7 @@
         @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "action-btn" })
     }
 
-    if (ViewContext.HttpContext.User.IsInRole("Developer") && ViewBag.UserId == Model.AssigneeId)
+    if (ViewContext.HttpContext.User.IsInRole("Developer") && ViewBag.UserId == Model.AssigneeId && !Model.Status.ToString().Equals("Resolved"))
     {
         @Html.ActionLink("Resolve", "Resolve", new { id = Model.Id }, new { @class = "action-btn" })
     }
@@ -77,7 +77,7 @@
         <div class="col-md-6">
             <div class="row">
                 <div class="col-md-6">
-                    <h3>Comments</h3>
+                    <h3 class="attachment">Comments</h3>
                 </div>
                 <div class="col-md-6">
                     @if (!Model.Status.ToString().Equals("Closed"))
@@ -110,7 +110,7 @@
         <div class="col-md-6">
             <div class="row">
                 <div class="col-md-6">
-                    <h3>Attachments</h3>
+                    <h3 class="attachment">Attachments</h3>
                 </div>
                 <div class="col-md-6">
                     @if (!Model.Status.ToString().Equals("Closed"))
@@ -135,7 +135,7 @@
                 </div>
                 <div class="col-md-6">
                     <p>@attachment.Description</p>
-                    @if(@attachment.AuthorId != null) {<p>Posted by @attachment.Author.FullName</p>}
+                    @if(@attachment.AuthorId != null) {<p class="author">Posted by @attachment.Author.FullName</p>}
                 </div>
                 <div class="col-md-12">
                     @if (ViewBag.UserId == @attachment.AuthorId || ViewContext.HttpContext.User.IsInRole("Project Manager") || ViewContext.HttpContext.User.IsInRole("Admin"))

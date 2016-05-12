@@ -1,7 +1,7 @@
 ﻿@model BugTracker.Models.Project
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Project";
 }
 
 <div class="col-md-8 subnav">
@@ -165,7 +165,9 @@
     <script>
         $(document).ready(function () {
             $('.searchable-select').chosen();
-            $('.table').dataTable()
+            $('.table').dataTable({
+                "order": [1, 'desc']
+            })
                       .columnFilter({
                           aoColumns: [
                               null,
