@@ -318,7 +318,7 @@ namespace BugTracker
                 msg2.Body = ticket.Owner.FullName + " has reassigned the ticket '" + ticket.Title + "' to another developer. You are no longer responsible for this ticket. If you have any questions regarding this ticket, " + ticket.Owner.FullName + " can be contacted at " + ticket.Owner.Email;
                 await svc2.SendAsync(msg2);
             }
-            else
+            if(oldTicket.AssigneeId == ticket.AssigneeId)
             {
                 ModelState.AddModelError("", "Error: No changes have been made.");
                 return RedirectToAction("AssignUser", new { id = TicketId });
@@ -492,7 +492,7 @@ namespace BugTracker
         }
 
         // POST: Delete Comment
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         [HttpPost, ActionName("DeleteComment")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteComment(int id)
@@ -563,7 +563,7 @@ namespace BugTracker
         }
 
         // POST: Delete Attachment
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         [HttpPost, ActionName("DeleteAttachment")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteAttachment(int id)
