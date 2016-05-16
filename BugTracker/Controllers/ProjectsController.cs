@@ -19,7 +19,7 @@ namespace BugTracker
 
         // GET: Projects
         [Authorize]
-        public ActionResult Index(string UserId)
+        public ActionResult Index()
         {
             var userId = User.Identity.GetUserId();
             var projects = new List<Project>();

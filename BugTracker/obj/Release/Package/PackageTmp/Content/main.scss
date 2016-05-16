@@ -349,3 +349,34 @@ tbody td, tfooter {
     height: auto;
     max-width: 100%;
 }
+
+input.delete {
+    border: none;
+    background: none;
+    color: #a94442;
+    font-size: .9em;
+}
+
+input.delete:hover {
+    border: none;
+    background: none;
+    color: $secondary-color-hover;
+}
+
+.comment {
+    width: 90%;
+    h4 {
+        font-family: $subheader-font;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 3px;
+
+        }
+}
+
+p.author {
+    font-family: $subheader-font;
+}
+
+h3.attachment {
+   margin-bottom: 20px;
+}

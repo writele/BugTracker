@@ -391,3 +391,39 @@ tbody td, tfooter {
   height: auto;
   max-width: 100%;
 }
+
+/* line 353, main.scss */
+input.delete {
+  border: none;
+  background: none;
+  color: #a94442;
+  font-size: .9em;
+}
+
+/* line 360, main.scss */
+input.delete:hover {
+  border: none;
+  background: none;
+  color: #6f822a;
+}
+
+/* line 366, main.scss */
+.comment {
+  width: 90%;
+}
+/* line 368, main.scss */
+.comment h4 {
+  font-family: "Roboto Condensed", sans-serif;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 3px;
+}
+
+/* line 376, main.scss */
+p.author {
+  font-family: "Roboto Condensed", sans-serif;
+}
+
+/* line 380, main.scss */
+h3.attachment {
+  margin-bottom: 20px;
+}
