@@ -56,8 +56,7 @@ namespace BugTracker.Controllers
             var absentRoles = helper.ListAbsentUserRoles(id);
             AdminModel.AbsentRoles = new MultiSelectList(absentRoles);
             AdminModel.Roles = new MultiSelectList(currentRoles);
-            AdminModel.Id = user.Id;
-            AdminModel.Name = user.FirstName + " " + user.LastName;
+            AdminModel.User = user;
 
             return View(AdminModel);
         }
@@ -66,15 +65,15 @@ namespace BugTracker.Controllers
         // POST: Add User Role
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public ActionResult AddRole(string Id, List<string> SelectedAbsentRoles)
+        public ActionResult AddRole(string AddId, List<string> SelectedAbsentRoles)
         {
             if (ModelState.IsValid)
             {  
                 UserRolesHelper helper = new UserRolesHelper(db);
-                var user = db.Users.Find(Id);
+                var user = db.Users.Find(AddId);
                 foreach (var role in SelectedAbsentRoles)
                 {
-                    helper.AddUserToRole(Id, role);
+                    helper.AddUserToRole(AddId, role);
                 }
 
                 db.Entry(user).State = EntityState.Modified;
@@ -82,22 +81,22 @@ namespace BugTracker.Controllers
                 db.SaveChanges();
                 return RedirectToAction("ListUsers");
             }
-            return View(Id);
+            return View(AddId);
         }
 
         //
         // POST: Remove User Role
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public ActionResult RemoveRole(string Id, List<string> SelectedCurrentRoles)
+        public ActionResult RemoveRole(string RemoveId, List<string> SelectedCurrentRoles)
         {
             if (ModelState.IsValid)
             {
                 UserRolesHelper helper = new UserRolesHelper(db);
-                var user = db.Users.Find(Id);
+                var user = db.Users.Find(RemoveId);
                 foreach (var role in SelectedCurrentRoles)
                 {
-                    helper.RemoveUserFromRole(Id, role);
+                    helper.RemoveUserFromRole(RemoveId, role);
                 }
 
                 db.Entry(user).State = EntityState.Modified;
@@ -105,7 +104,7 @@ namespace BugTracker.Controllers
                 db.SaveChanges();
                 return RedirectToAction("ListUsers");
             }
-            return View(Id);
+            return View(RemoveId);
         }
     }
 }

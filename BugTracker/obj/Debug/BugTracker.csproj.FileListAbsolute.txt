@@ -77,7 +77,6 @@
 \\Mac\Home\Web Development\Coder Foundry\BugTracker\BugTracker\bin\Microsoft.Owin.Security.Google.xml
 \\Mac\Home\Web Development\Coder Foundry\BugTracker\BugTracker\bin\Microsoft.Owin.Security.Twitter.xml
 \\Mac\Home\Web Development\Coder Foundry\BugTracker\BugTracker\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-\\Mac\Home\Web Development\Coder Foundry\BugTracker\BugTracker\obj\Debug\BugTracker.csprojResolveAssemblyReference.cache
 \\Mac\Home\Web Development\Coder Foundry\BugTracker\BugTracker\obj\Debug\BugTracker.dll
 \\Mac\Home\Web Development\Coder Foundry\BugTracker\BugTracker\obj\Debug\BugTracker.pdb
 \\Mac\Home\Web Development\Coder Foundry\BugTracker\BugTracker\bin\SendGrid.dll
@@ -86,3 +85,4 @@
 \\Mac\Home\Web Development\Coder Foundry\BugTracker\BugTracker\bin\System.Net.Http.Formatting.dll
 \\Mac\Home\Web Development\Coder Foundry\BugTracker\BugTracker\bin\System.Net.Http.Formatting.xml
 \\Mac\Home\Web Development\Coder Foundry\BugTracker\BugTracker\bin\Owin.Security.Providers.dll
+\\Mac\Home\Web Development\Coder Foundry\BugTracker\BugTracker\obj\Debug\BugTracker.csprojResolveAssemblyReference.cache

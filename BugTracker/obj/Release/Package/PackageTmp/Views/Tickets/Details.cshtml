@@ -32,47 +32,35 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
-            <h3>Project: @Html.ActionLink(Model.Project.Title, "Details", "Projects", new { id = Model.ProjectId }, null)</h3>
-            <h3>Created by @Model.Owner.FullName on @Model.Created.ToString("MMMM dd, yyyy h:mm t")M</h3>
+        <div class="col-md-6">
+            <h3><strong>Project</strong>: @Html.ActionLink(Model.Project.Title, "Details", "Projects", new { id = Model.ProjectId }, null)</h3>
+            <h3><strong>Created By</strong>: @Model.Owner.FullName on @Model.Created.ToString("MMMM dd, yyyy h:mm t")M</h3>
             @if (Model.Modified.HasValue)
             {
                 <h4 class="text-danger">Updated on @Model.Modified.Value.ToString("MMMM dd, yyyy h:mm t")M - @Html.ActionLink("View History", "History", new { id = Model.Id })</h4>
             }
             @if (Model.Assignee != null)
             {
-            <h3>Assigned to @Model.Assignee.FullName</h3>
+            <h3><strong>Assigned To</strong>: @Model.Assignee.FullName</h3>
             }
             else
             {
-                <h3>Assigned to: <span class="text-danger">Unassigned</span></h3>
+                <h3><strong>Assigned To</strong>: <span class="text-danger">Unassigned</span></h3>
             }
             </div>
+        <div class="col-md-offset-1 col-md-5">
+                        <h3><strong>Type</strong>: @Model.Type.Name</h3>
+                        <h3><strong>Priority</strong>: @Model.Priority</h3>
+                        <h3><strong>Status</strong>: @Model.Status</h3>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Type</th>
-                            <th>Priority</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>@Model.Type.Name</td>
-                            <td>@Model.Priority</td>
-                            <td>@Model.Status</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <p>@Model.Body</p>
-            </div>
-    
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h4>DESCRIPTION</h4>
+            <p>@Model.Body</p>
         </div>
-
+    </div>
+    <hr />
     <div class="row">
         <div class="col-md-6">
             <div class="row">
@@ -122,21 +110,20 @@
             @{ var attachments = Model.Attachments; }
             @foreach (var attachment in attachments)
             {
-                <div class="col-md-6">
+                <div class="col-md-12">
+                    <p>
                     @if (attachment.MediaURL.Contains(".pdf") || attachment.MediaURL.Contains(".doc"))
                     {
-                        <p>
-                            <a href="@attachment.MediaURL"><img src="~/Content/Images/document.png" class="img-responsive"></a>
-                        </p>
+                            <a href="@attachment.MediaURL">@*<img src="~/Content/Images/document.png" class="img-responsive">*@Document</a>
+                        
                     }
-                    else {
-                        <p><a href="@attachment.MediaURL"><img class="img-responsive" src="@attachment.MediaURL"></a></p>
-                    }
-                </div>
-                <div class="col-md-6">
+                    else{
+                        <a href="@attachment.MediaURL">@*<img class="img-responsive" src="@attachment.MediaURL">*@Image</a>
+                        } - @if (@attachment.AuthorId != null) {<span class="author">Posted by @attachment.Author.FullName</span>}
+                    </p>
                     <p>@attachment.Description</p>
-                    @if(@attachment.AuthorId != null) {<p class="author">Posted by @attachment.Author.FullName</p>}
-                </div>
+                    
+                 </div>
                 <div class="col-md-12">
                     @if (ViewBag.UserId == @attachment.AuthorId || ViewContext.HttpContext.User.IsInRole("Project Manager") || ViewContext.HttpContext.User.IsInRole("Admin"))
                     {

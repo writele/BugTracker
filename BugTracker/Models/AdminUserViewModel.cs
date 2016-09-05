@@ -8,13 +8,11 @@ namespace BugTracker.Models
 {
     public class AdminUserViewModel
     {
-        public string Name { get; set; }
-        public string Id { get; set; }
+        public ApplicationUser User { get; set; }
         public MultiSelectList Roles { get; set; }
         public MultiSelectList AbsentRoles { get; set; }
         public string[] SelectedCurrentRoles { get; set; }
         public string[] SelectedAbsentRoles { get; set; }
-
     }
 
     public class UsersListViewModel

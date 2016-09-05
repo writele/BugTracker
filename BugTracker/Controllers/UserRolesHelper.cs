@@ -41,7 +41,7 @@ namespace BugTracker.Controllers
         
         public IList<string> ListAbsentUserRoles(string userId)
         {
-            var roles = ListAllRoles();
+            var roles = db.Roles.Select(r => r.Name).ToList();
             var AbsentUserRoles = new List<string>();
             foreach (var role in roles)
             {

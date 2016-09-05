@@ -53,6 +53,33 @@ namespace BugTracker.Controllers
             }
         }
 
+
+        //Demo Login Emails
+        public string DemoEmail(string role)
+        {
+            switch (role)
+            {
+                case "Project Manager":
+                    return "bugtracker-pm@mailinator.com";
+                case "Developer":
+                    return "bugtracker-dev@mailinator.com";
+            }
+            return "Invalid";
+        }
+
+        //Demo Login Passwords
+        public string DemoPassword(string role)
+        {
+            switch (role)
+            {
+                case "Project Manager":
+                    return "stopAJ422!";
+                case "Developer":
+                    return "aNts88$";
+            }
+            return "Invalid";
+        }
+
         //
         // GET: /Account/Login
         [LayoutInjecter("_Landing")]
@@ -75,6 +102,16 @@ namespace BugTracker.Controllers
                 return View(model);
             }
 
+            if(model.Email.Equals("pm@mail.com"))
+            {
+                model.Email = DemoEmail("Project Manager");
+                model.Password = DemoPassword("Project Manager");
+            }
+            else if (model.Email.Equals("dev@mail.com"))
+            {
+                model.Email = DemoEmail("Developer");
+                model.Password = DemoPassword("Developer");
+            }
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
