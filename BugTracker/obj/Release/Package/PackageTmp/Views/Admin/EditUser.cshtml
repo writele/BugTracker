@@ -4,7 +4,7 @@
 }
 
 <div class="col-md-12 subnav">
-    <h1>Edit User Roles - @Model.Name</h1>
+    <h1>Edit User Roles - @Model.User.FirstName @Model.User.LastName</h1>
 </div>
 
 <div class="container">
@@ -17,18 +17,18 @@
                 <div class="form-horizontal">
                     <hr />
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    @Html.HiddenFor(model => model.Id)
+                    <input type="hidden" value="@Model.User.Id" name="AddId" />
 
                     <div class="form-group">
                         <div class = "control-label col-md-2">Add Roles</div>
                         <div class="col-md-10">
-                            @Html.ListBox("SelectedAbsentRoles", Model.AbsentRoles)
+                        >    @Html.ListBox("SelectedAbsentRoles", Model.AbsentRoles)
                         </div>
                     </div>
 
                     <div class="form-group">
                         <div class="col-md-10">
-                            <input type="submit" value="Save" name="AddRole" class="btn btn-default" />
+                         >   <input type="submit" value="Save" class="btn btn-default" />
                         </div>
                     </div>
                 </div>
@@ -43,7 +43,7 @@
                 <div class="form-horizontal">
                     <hr />
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    @Html.HiddenFor(model => model.Id)
+                    <input type="hidden" value="@Model.User.Id" name="RemoveId" />
 
                     <div class="form-group">
                         <div class="control-label col-md-2">Remove Roles</div>
